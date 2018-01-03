@@ -3,24 +3,11 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FormsModule} from "@angular/forms";
 import { EventListComponent } from './event-list/event-list.component';
+import {AppRoutingModule} from "./app-routing.module";
 
-const appRoutes: Routes = [
-  {path: 'events', component: EventListComponent, data: {title: "Events"}},
-  {
-    path: '',
-    redirectTo: '/events',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: '/events',
-    pathMatch: 'full'
-  }
-];
 
 @NgModule({
   declarations: [
@@ -31,7 +18,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
