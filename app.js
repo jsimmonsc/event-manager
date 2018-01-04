@@ -18,6 +18,7 @@ mongoose.connection.on('error', console.error.bind(console, 'connection error:')
 mongoose.connection.once('open', function() {
   console.log("Connected to mongodb.");
   if(dbConfig.restURL) {
+    console.log("PowerSchool api url must be supplied to update student collection.");
     runPowerSchoolUpdate();
   }
 });
