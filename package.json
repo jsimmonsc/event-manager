@@ -12,7 +12,8 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "mongoose": "^5.0.0-rc1",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "node-rest-client": "^3.1.0"
   },
   "devDependencies": {
     "dredd": "^4.9.2",
