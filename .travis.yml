@@ -4,5 +4,3 @@ services: mongodb
 cache:
   directories:
     - node_modules
-before_install:
-  - npm install -g dredd@4.9.2
