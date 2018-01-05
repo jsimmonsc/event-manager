@@ -23,6 +23,8 @@ mongoose.connection.once('open', function() {
   }
 });
 
+require('./routes/student.routes')(app);
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,6 +50,7 @@ app.use(function(err, req, res, next) {
     error: err
   })
 });
+
 
 
 function runPowerSchoolUpdate() {
