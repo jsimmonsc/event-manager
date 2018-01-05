@@ -1,3 +1,22 @@
 FORMAT: 1A
 
-# event-manager
+# Event Manager
+
+Event Manager stores school events and students from powerschool to check event validity and to manage event attendees.
+
+## Student Collection [/students/{id}]
++ Parameters
+    + id: 45677 (number) - ID of the student in the form of an integer
+
+### Find Student By ID [GET]
+
++ Response 200 (application/json; charset=utf-8)
+        
+            {
+                "schoolid": 51,
+                "first_name": "Gregory",
+                "last_name": "Bahr",
+                "student_number": 45677,
+                "grade_level": 12,
+                "fines": false
+            }

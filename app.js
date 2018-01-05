@@ -3,8 +3,27 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongoose = require('mongoose');
+var dbConfig = require('./config/db.config');
+var RestClient = require('node-rest-client').Client;
 var app = express();
+var Student = require('./models/student.model');
+
+var restClient = new RestClient();
+
+mongoose.connect(dbConfig.uri, () => {
+  useMongoClient: true
+});
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connection.once('open', function() {
+  console.log("Connected to mongodb.");
+  if(dbConfig.restURL) {
+    console.log("PowerSchool api url must be supplied to update student collection.");
+    runPowerSchoolUpdate();
+  }
+});
+
+require('./routes/student.routes')(app);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -31,5 +50,29 @@ app.use(function(err, req, res, next) {
     error: err
   })
 });
+
+
+
+function runPowerSchoolUpdate() {
+  restClient.get(dbConfig.restURL, function (data, response) {
+    console.log('Updating powerschool student info.');
+    data.items.forEach(function (element) {
+      var student = {
+        schoolid: element.schoolid,
+        first_name: element.first_name,
+        last_name: element.last_name,
+        student_number: element.student_number,
+        grade_level: element.grade_level,
+        fines: !!element.fines
+      };
+      Student.update({ student_number: element.student_number }, student, { upsert: true }, function (err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+  });
+  setTimeout(runPowerSchoolUpdate, 60*1000*10)
+}
 
 module.exports = app;
