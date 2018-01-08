@@ -10,6 +10,10 @@ exports.create = async (req, res) => {
     }
 }
 
-// exports.findAll = async (req, res) => {
-
-// }
+exports.findAll = async (req, res) => {
+    try {
+        res.send(await Event.find().select("-attendees"));
+    } catch(err) {
+        res.status(500).send(err);
+    }
+}
