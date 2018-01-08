@@ -10,4 +10,4 @@ var attendeeSchema = new mongoose.Schema({
   timestamp: String
 });
 
-module.exports = mongoose.model('Attendee', attendeeSchema);
+module.exports = attendeeSchema;

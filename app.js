@@ -23,12 +23,14 @@ mongoose.connection.once('open', function() {
   }
 });
 
-require('./routes/student.routes')(app);
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
+require('./routes/student.routes')(app);
+require('./routes/event.routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

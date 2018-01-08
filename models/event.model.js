@@ -6,7 +6,7 @@ var eventSchema = new mongoose.Schema({
   description: String,
   date: Date,
   attending: { type: Number, default: 0 },
-  attendees: Attendee[]
+  attendees: [Attendee]
 });
 
 module.exports = mongoose.model('Event', eventSchema);
