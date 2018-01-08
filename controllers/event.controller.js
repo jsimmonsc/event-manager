@@ -17,3 +17,11 @@ exports.findAll = async (req, res) => {
         res.status(500).send(err);
     }
 }
+
+exports.fineOne = async (req, res) => {
+    try {
+        res.send(await Event.findById(req.params.id));
+    } catch(err) {
+        res.status(500).send(err);
+    }
+}
