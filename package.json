@@ -16,7 +16,6 @@
     "node-rest-client": "^3.1.0"
   },
   "devDependencies": {
-    "dredd": "^4.9.2",
     "nodemon": "^1.14.7"
   }
 }
