@@ -18,7 +18,7 @@ exports.findAll = async (req, res) => {
     }
 }
 
-exports.fineOne = async (req, res) => {
+exports.findOne = async (req, res) => {
     try {
         res.send(await Event.findById(req.params.id));
     } catch(err) {
@@ -60,12 +60,12 @@ exports.createAttendee = async (req, res) => {
 }
 
 async function addAttendee(attendee, event) {
-    attendee._id = (await Event.findById(event)).attending;
+    attendee._id = (await Event.findById(event)).sales;
 
     return await Event.findByIdAndUpdate(event, 
         { 
             $push: {attendees: attendee},
-            $inc: {attending: 1}
+            $inc: {sales: 1}
         }, {new: true});
 }
 
