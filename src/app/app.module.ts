@@ -12,17 +12,21 @@ import {
   MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatInputModule, MatNativeDateModule,
   MatStepperModule, MatTableModule, MatTooltipModule
 } from "@angular/material";
+import { HttpClientModule } from '@angular/common/http';
+import { EventDetailsComponent } from './event-details/event-details.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EventListComponent,
-    CreateEventComponent
+    CreateEventComponent,
+    EventDetailsComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     MatInputModule,

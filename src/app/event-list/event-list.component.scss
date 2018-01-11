@@ -1,0 +1,43 @@
+@import "../../styles";
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+h3 {
+  color: #504f4f;
+  margin-top: 25px;
+}
+
+.body-container {
+  background-color: $green;
+  margin: 0;
+  height: 100%;
+}
+
+.event-container {
+
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 30px;
+  box-shadow: 6px 8px 8px $dark-green;
+  border-radius: 4px;
+  
+  div {
+    width: 100%;
+    text-align: center;
+
+    button {
+      margin-left: 50%;
+      height: 100%;
+      width: 50%;
+      font-size: 20px;
+    }
+
+  }
+
+}

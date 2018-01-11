@@ -1,0 +1,64 @@
+@import "../../styles";
+
+textarea {
+  resize: none;
+}
+
+input {
+  height: 30px;
+}
+
+input, textarea {
+  width: 20%;
+  background-color: #ededed;
+  border: none;
+  color: black;
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.step1 input, textarea {
+  width: 50%;
+}
+
+.step {
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  font-size: 14px;
+}
+
+button {
+  border: 1px solid $background-gray;
+}
+
+.step6 {
+
+  text-align: center;
+  width: 100%;
+
+  .create-event-button {
+    width: 20%;
+    height: 75px;
+    background-color: $green;
+    color: white;
+    font-size: 20px;
+
+    &:hover {
+      background-color: $light-green;
+    }
+
+  }
+
+}
+
+mat-checkbox {
+  font-size: 16px;
+}
+
+
+
