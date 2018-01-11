@@ -76,3 +76,11 @@ exports.deleteAttendee = async (req, res) => {
         res.status(500).send(error);
     }
 }
+
+exports.deleteEvent = async (req, res) => {
+    try {
+        res.send(await Event.findByIdAndRemove(req.params.id));
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
