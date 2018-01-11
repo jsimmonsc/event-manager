@@ -5,7 +5,7 @@ var eventSchema = new mongoose.Schema({
   name: String,
   description: String,
   date: Date,
-  attending: { type: Number, default: 0 },
+  sales: { type: Number, default: 0 },
   attendees: [Attendee]
 });
 
