@@ -1,47 +1,17 @@
 <div class="body-container">
 
-<h1>Events</h1>
+  <h1>Events</h1>
 
-<div class="event-container" *ngFor="">
+  <div class="event-container" *ngFor="let event of this.events">
 
-  <div class="event-title">
-    <h2></h2>
+    <div class="event-title">
+      <h2>{{ event.name }}</h2>
+    </div>
+    <div class="event-date">
+      <h3>{{ event.description }}</h3>
+    </div>
+    <div class="event-button">
+      <button mat-button>INFO</button>
+    </div>
   </div>
-  <div class="event-date">
-    <h3></h3>
-  </div>
-  <div class="event-button">
-    <button mat-button>INFO</button>
-  </div>
-
-</div>
-
-<div class="event-container">
-
-  <div class="event-title">
-    <h2>Prom 2018</h2>
-  </div>
-  <div class="event-date">
-    <h3>4/20/18</h3>
-  </div>
-  <div class="event-button">
-    <button mat-button>INFO</button>
-  </div>
-
-</div>
-
-<div class="event-container">
-
-  <div class="event-title">
-    <h2>Homecoming 2018</h2>
-  </div>
-  <div class="event-date">
-    <h3>11/11/18</h3>
-  </div>
-  <div class="event-button">
-    <button mat-button>INFO</button>
-  </div>
-
-</div>
-
 </div>

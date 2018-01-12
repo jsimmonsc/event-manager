@@ -27,6 +27,7 @@
     "auth0-js": "^8.12.1",
     "auth0-lock": "^10.24.2",
     "core-js": "^2.5.2",
+    "normalize.css": "^7.0.0",
     "rxjs": "^5.5.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
