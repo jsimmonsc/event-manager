@@ -1,3 +1,7 @@
-<p>
-  event-list works!
-</p>
+<h2>Events</h2>
+
+<ul>
+  <app-event-details *ngFor="let event of events" [event]="event"></app-event-details>
+</ul>
+
+
