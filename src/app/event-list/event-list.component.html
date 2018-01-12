@@ -1,20 +1,17 @@
 <div class="body-container">
 
-<h1>Events</h1>
+  <h1>Events</h1>
 
-<div class="event-container" *ngFor="let event of this.events">
+  <div class="event-container" *ngFor="let event of this.events">
 
-  <div class="event-title">
-    <h2>{{ event.name }}</h2>
+    <div class="event-title">
+      <h2>{{ event.name }}</h2>
+    </div>
+    <div class="event-date">
+      <h3>{{ event.description }}</h3>
+    </div>
+    <div class="event-button">
+      <button mat-button>INFO</button>
+    </div>
   </div>
-  <div class="event-date">
-    <h3>{{ event.description }}</h3>
-  </div>
-  <div class="event-button">
-    <button mat-button>INFO</button>
-  </div>
-
-</div>
-
-
 </div>
