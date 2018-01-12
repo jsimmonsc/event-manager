@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+}
+
+header {
+
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  background-color: black;
+  font-size: 16px;
+
+  nav {
+    width: 100%;
+    list-style-type: none;
+    display: inline-flex;
+
+    a {
+      text-align: center;
+      color: white;
+    }
+
+  }
+
+}
