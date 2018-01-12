@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Event } from './../shared/models/event.model';
 
 @Component({
   selector: 'app-event-list',
@@ -8,15 +9,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EventListComponent implements OnInit {
 
-  events: Object;
+  events: Event[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
 
-    // this.http.get('').subscribe(data => {
-    //   this.events = data;
-    // });
+    this.http.get('http://localhost:3000/events').subscribe((data: Event[]) => {
+      this.events = data;
+      console.log(this.events);
+    });
 
   }
 
