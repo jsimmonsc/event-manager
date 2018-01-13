@@ -9,4 +9,5 @@ module.exports = (app) => {
     app.post('/events/id/:id', controller.createAttendee);
     app.delete('/events/id/:id/:ticketnum', controller.deleteAttendee);
     app.delete('/events/id/:id', controller.deleteEvent);
+    app.get('/events/id/:id/:studentid', controller.findOneAttendee);
 }
