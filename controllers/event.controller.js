@@ -5,7 +5,7 @@ exports.create = async (req, res) => {
         res.send(await Event.create(req.body));
         console.log("Created event: " + JSON.stringify(req.body));
     } catch(err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(err);
     }
 }
@@ -14,7 +14,7 @@ exports.findAll = async (req, res) => {
     try {
         res.send(await Event.find().select("-attendees"));
     } catch(err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(err);
     }
 }
@@ -23,7 +23,7 @@ exports.findOne = async (req, res) => {
     try {
         res.send(await Event.findById(req.params.id));
     } catch(err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(err);
     }
 }
@@ -32,7 +32,7 @@ exports.updateOne = async (req, res) => {
     try {
         res.send(await Event.findByIdAndUpdate(req.params.id, { $set: req.body }));
     } catch(err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(err);
     }
 }
@@ -50,7 +50,7 @@ exports.updateAttendee = async (req, res) => {
                 }
             }, {new: true}));
     } catch(err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(err);
     }
 }
@@ -59,7 +59,7 @@ exports.createAttendee = async (req, res) => {
     try {
         res.send(await addAttendee(req.body, req.params.id));
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).send(err);
     }
 }
@@ -78,7 +78,7 @@ exports.deleteAttendee = async (req, res) => {
     try {
         res.send(await Event.findByIdAndUpdate(req.params.id, {$pull: { attendees: { _id: req.params.ticketnum }}}));
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send(error);
     }
 }
@@ -87,7 +87,7 @@ exports.deleteEvent = async (req, res) => {
     try {
         res.send(await Event.findByIdAndRemove(req.params.id));
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send(error);
     }
 }
@@ -97,7 +97,7 @@ exports.findOneAttendee = async (req, res) => {
         var doc = await Event.findById(req.params.id, { attendees: { $elemMatch: { student_number: req.params.studentid }}});
         res.send(doc["attendees"][0]);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send(error);
     }
 }
