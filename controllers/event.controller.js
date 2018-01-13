@@ -3,7 +3,7 @@ var Event = require('../models/event.model');
 exports.create = async (req, res) => {
     try {
         res.send(await Event.create(req.body));
-        console.log("Created event: " + req.body);
+        console.log("Created event: " + JSON.stringify(req.body));
     } catch(err) {
         console.log(err);
         res.status(500).send(err);
@@ -36,16 +36,16 @@ exports.updateOne = async (req, res) => {
 
 exports.updateAttendee = async (req, res) => {
     try {
-        if(Object.keys(await Event.find({'attendees._id': req.params.ticketnum})).length === 0) {
+        if(Object.keys(await Event.find({_id: req.params.id, 'attendees._id': req.params.ticketnum})).length === 0) {
             res.status(404).send({message: "Attendee does not exist!"})
             return;
         }
         req.body._id = req.params.ticketnum;
-        res.send(await Event.findOneAndUpdate({'attendees._id': req.params.ticketnum }, 
+        res.send(await Event.findOneAndUpdate({_id: req.params.id, 'attendees._id': req.params.ticketnum }, 
             { $set: {
                 'attendees.$': req.body
                 }
-            }));
+            }, {new: true}));
     } catch(err) {
         res.status(500).send(err);
     }
@@ -80,6 +80,15 @@ exports.deleteAttendee = async (req, res) => {
 exports.deleteEvent = async (req, res) => {
     try {
         res.send(await Event.findByIdAndRemove(req.params.id));
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+exports.findOneAttendee = async (req, res) => {
+    try {
+        var doc = await Event.findById(req.params.id, { attendees: { $elemMatch: { student_number: req.params.studentid }}});
+        res.send(doc["attendees"][0]);
     } catch (error) {
         res.status(500).send(error);
     }
