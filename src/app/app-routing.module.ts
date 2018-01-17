@@ -8,7 +8,7 @@ import {EventListComponent} from "./event-list/event-list.component";
 const appRoutes: Routes = [
   {path: 'create-event', component: CreateEventComponent, data: {title: "Create Event"}},
   {path: 'events', component: EventListComponent, data: {title: "Events"}},
-  {path: 'event/:id', component: EventDetailsComponent, data: {title: "Event Details"}},
+  // {path: 'event/:id', component: EventDetailsComponent, data: {title: "Event Details"}},
   {path: 'checkin/:id'},
   {path: 'sell/:id'},
   {
