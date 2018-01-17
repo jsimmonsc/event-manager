@@ -1,0 +1,31 @@
+<h2>Purchase</h2>
+
+<div class="input-wrapper">
+  <app-fancy-input placeholder="Enter ID Number" maxlength="5"></app-fancy-input>
+  <button (click)="show()" mat-button id="enter-button">Enter</button>
+</div>
+<mat-progress-spinner
+  color="primary"
+  mode="indeterminate"
+  *ngIf="showSpinner">
+</mat-progress-spinner>
+<app-student-info [(student)]="attendee" *ngIf="student"></app-student-info>
+<app-requirements *ngIf="student"></app-requirements>
+
+<div class="guest-div" *ngIf="student">
+
+  <h2 id="guest-header">Guest</h2>
+  <div class="checkbox">
+    <mat-checkbox #hasGuest>Has Guest</mat-checkbox>
+    <br>
+    <mat-checkbox [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
+  </div>
+  <br>
+
+  <app-fancy-input *ngIf="hasGuest.checked" placeholder="Enter Guest Name" maxlength="9999"></app-fancy-input>
+</div>
+
+<div class="button-wrapper" *ngIf="student">
+  <button mat-button id="submit-button" (click)="openDialog()">Submit</button>
+  <button mat-button id="cancel-button">Cancel</button>
+</div>
