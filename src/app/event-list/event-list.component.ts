@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Event } from './../shared/models/event.model';
@@ -12,7 +13,7 @@ export class EventListComponent implements OnInit {
 
   events: Event[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -21,5 +22,9 @@ export class EventListComponent implements OnInit {
       console.log(this.events);
     });
 
+  }
+
+  openEventInfo(event: Event) {
+    this.router.navigateByUrl('/event/' + event._id);
   }
 }
