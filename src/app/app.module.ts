@@ -18,6 +18,7 @@ import { WarningDialogComponent } from './purchase/warning-dialog/warning-dialog
 import { FancyInputComponent } from './shared/fancy-input/fancy-input.component';
 import { StudentInfoComponent } from './shared/student-info/student-info.component';
 import { EventInfoComponent } from './event-info/event-info.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { EventInfoComponent } from './event-info/event-info.component';
     WarningDialogComponent,
     FancyInputComponent,
     StudentInfoComponent,
-    EventInfoComponent
+    EventInfoComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
