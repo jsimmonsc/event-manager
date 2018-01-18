@@ -28,8 +28,7 @@ import { StudentInfoComponent } from './shared/student-info/student-info.compone
     RequirementsComponent,
     WarningDialogComponent,
     FancyInputComponent,
-    StudentInfoComponent,
-    EventDetailsComponent
+    StudentInfoComponent
   ],
   imports: [
     BrowserModule,

@@ -16,20 +16,7 @@ export class PurchaseComponent {
   attendee: Attendee;
 
   constructor(private dialog: MatDialog) {
-    this.attendee = {
-      student_number: 12345,
-      first_name: "Test",
-      last_name: "Person",
-      full_name: "Test Person",
-      grade_level: 12,
-      guest: null,
-      ticket_number: null,
-      guestId: null,
-      numTickets: null,
-      timestamp: null
 
-
-    };
   }
 
   show(): void {
