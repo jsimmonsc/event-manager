@@ -1,0 +1,82 @@
+<h1>Create Event</h1>
+
+<mat-horizontal-stepper>
+
+  <mat-step>
+
+    <ng-template matStepLabel>Event Name</ng-template>
+    <div class="step step1">
+      <input placeholder="Event Name" maxlength="100">
+      <textarea placeholder="Event Description" maxlength="1000" rows="5" cols="80"></textarea>
+    </div>
+    <div>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Event Date</ng-template>
+    <div class="step2 step">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Previous</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Guests</ng-template>
+    <div class="step3 step">
+      <mat-checkbox>Guest Name</mat-checkbox><br>
+      <mat-checkbox>Guest's School</mat-checkbox><br>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Previous</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <div class="step4 step">
+      <ng-template matStepLabel>Requirements</ng-template>
+      <mat-checkbox>Attendance</mat-checkbox><br>
+      <mat-checkbox>Discipline</mat-checkbox><br>
+      <mat-checkbox>Fines</mat-checkbox><br>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Previous</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Cost</ng-template>
+    <div class="step5 step">
+      <label>$<input placeholder="Ticket Cost"></label>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Previous</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Finish</ng-template>
+    <div class="step6 step">
+      <!-- <button
+        class="create-event-button"
+        matTooltip="You can always come back and make changes later."
+        matTooltipPosition="above"
+        mat-button>
+        Create Event</button> -->
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Previous</button>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>

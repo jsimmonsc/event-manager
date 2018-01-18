@@ -1,0 +1,8 @@
+<h2>{{event.name}}</h2>
+<p><b>Description:</b> {{event.description}}</p>
+<p><b>Date:</b> {{event.date.toDateString()}}</p>
+
+<div class="button-container">
+  <button mat-raised-button color="primary" (click)="goToSellTickets()">Sell</button>
+  <button mat-raised-button color="primary" (click)="goToCheckIn()">Check In</button>
+</div>

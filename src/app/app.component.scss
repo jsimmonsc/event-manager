@@ -1,0 +1,38 @@
+@import '../styles';
+
+body {
+  margin: 0;
+}
+
+.event-container {
+
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 30px;
+  box-shadow: 6px 8px 8px $dark-green;
+  border-radius: 4px;
+
+  div {
+    width: 100%;
+    text-align: center;
+
+    button {
+      margin-left: 50%;
+      height: 100%;
+      width: 50%;
+      font-size: 20px;
+      color: white;
+      background-color: rgb(112, 219, 117);
+
+      &:hover {
+        background-color: rgb(109, 255, 116);
+      }
+
+    }
+
+  }
+
+}

@@ -1,0 +1,13 @@
+<h2>Check In</h2>
+
+<div class="input-wrapper">
+  <app-fancy-input autoFocus="true" placeholder="Enter ID Number" maxlength="5"></app-fancy-input>
+  <button mat-button id="enter-button">Enter</button>
+</div>
+<mat-progress-spinner
+  color="primary"
+  mode="indeterminate"
+  *ngIf="showSpinner">
+</mat-progress-spinner>
+<app-student-info [(student)]="attendee" *ngIf="student"></app-student-info>
+<h2 *ngIf="student">Student successfully checked in!</h2>
