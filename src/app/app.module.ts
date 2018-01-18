@@ -17,6 +17,7 @@ import { RequirementsComponent } from './purchase/requirements/requirements.comp
 import { WarningDialogComponent } from './purchase/warning-dialog/warning-dialog.component';
 import { FancyInputComponent } from './shared/fancy-input/fancy-input.component';
 import { StudentInfoComponent } from './shared/student-info/student-info.component';
+import { EventInfoComponent } from './event-info/event-info.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { StudentInfoComponent } from './shared/student-info/student-info.compone
     RequirementsComponent,
     WarningDialogComponent,
     FancyInputComponent,
-    StudentInfoComponent
+    StudentInfoComponent,
+    EventInfoComponent
   ],
   imports: [
     BrowserModule,
