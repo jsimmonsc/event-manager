@@ -20,7 +20,7 @@ export class EventService {
   }
 
   public getEvent(id: string): Observable<Event> {
-    return this.http.get(API_URL + "/events/" + id)
+    return this.http.get(API_URL + "/events/id/" + id)
       .map(response => new Event(response));
   }
 }

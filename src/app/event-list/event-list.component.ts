@@ -7,8 +7,7 @@ import {EventService} from "../shared/services/event.service";
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss'],
-  providers: [EventService]
+  styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
 

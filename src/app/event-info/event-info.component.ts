@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EventService} from "../shared/services/event.service";
+import {Event} from "../shared/models/event.model";
 
 @Component({
   selector: 'app-event-info',
@@ -8,16 +10,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EventInfoComponent implements OnInit {
 
-  id: String;
+  id: string;
   event: Event;
   private sub: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private eventService: EventService) {
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
+    this.eventService.getEvent(this.id).subscribe(event => this.event = event);
   }
 
   goToCheckIn() {
