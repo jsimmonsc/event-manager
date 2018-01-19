@@ -44,7 +44,7 @@ exports.updateAttendee = async (req, res) => {
             return;
         }
         req.body._id = req.params.ticketnum;
-        res.send(await Event.findOneAndUpdate({_id: req.params.id, 'attendees._id': req.params.ticketnum }, 
+        res.send(await Event.findOneAndUpdate({_id: req.params.id, 'attendees._id': req.params.ticketnum },
             { $set: {
                 'attendees.$': req.body
                 }
@@ -67,8 +67,8 @@ exports.createAttendee = async (req, res) => {
 async function addAttendee(attendee, event) {
     attendee._id = (await Event.findById(event)).sales;
 
-    return await Event.findByIdAndUpdate(event, 
-        { 
+    return await Event.findByIdAndUpdate(event,
+        {
             $push: {attendees: attendee},
             $inc: {sales: 1}
         }, {new: true});
@@ -94,8 +94,12 @@ exports.deleteEvent = async (req, res) => {
 
 exports.findOneAttendee = async (req, res) => {
     try {
-        var doc = await Event.findById(req.params.id, { attendees: { $elemMatch: { student_number: req.params.studentid }}});
-        res.send(doc["attendees"][0]);
+        var doc = await Event.findById(req.params.id, { attendees: { $elemMatch: { student_number: req.params.studentid } } });
+        if (doc["attendees"][0]) {
+            res.send(doc["attendees"][0]);
+        } else {
+            res.status(404).send("Error: Attendee not found in event!")
+        }
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
