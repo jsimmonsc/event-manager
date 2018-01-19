@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Event} from "../models/event.model";
+import {Attendee} from "../models/attendee.model";
 
 const API_URL = environment.apiUrl;
 
@@ -22,5 +23,9 @@ export class EventService {
   public getEvent(id: string): Observable<Event> {
     return this.http.get(API_URL + "/events/id/" + id)
       .map(response => new Event(response));
+  }
+
+  public getAttendeeFromEvent(id: string, studentNumber: number): Observable<Attendee> {
+    return this.http.get<Attendee>(API_URL + "/events/id/" + id + "/" + studentNumber);
   }
 }
