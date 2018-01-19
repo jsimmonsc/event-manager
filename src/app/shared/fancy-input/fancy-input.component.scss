@@ -4,3 +4,8 @@ input {
   border: none;
   text-align: center;
 }
+
+input:focus {
+  box-shadow: 0 0 5px #44B78B;
+  border: none;
+}
