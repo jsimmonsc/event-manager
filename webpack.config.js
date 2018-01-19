@@ -487,11 +487,11 @@ module.exports = {
     "setImmediate": false
   },
   "devServer": {
-    "historyApiFallback": true
-  headers: {
-    "Access-Control-Allow-Origin": "http://capstone.psdr3.org:3000",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-    "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-  }
+    "historyApiFallback": true,
+    headers: {
+      "Access-Control-Allow-Origin": "http://capstone.psdr3.org:3000",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    }
   }
 };
