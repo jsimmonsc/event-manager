@@ -37,10 +37,10 @@ exports.updateOne = async (req, res) => {
     try {
         if (!(await Event.findById(req.params.id))) {
             res.status(404).send("Error: Event does not exist!");
-            break;
+            return;
         }
 
-        res.send(await Event.findByIdAndUpdate(req.params.id, { $set: req.body }));
+        res.send(await Event.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true}));
     } catch(err) {
         console.error(err);
         res.status(500).send(err);
@@ -67,7 +67,7 @@ exports.updateAttendee = async (req, res) => {
 
 exports.createAttendee = async (req, res) => {
     try {
-        if(Object.keys(await Event.find({_id: req.params.id, 'attendees.student_number': req.body.student_number})).length === 0) {
+        if(Object.keys(await Event.find({_id: req.params.id, 'attendees.student_number': req.body.student_number})).length > 0) {
             res.status(400).send("Error: Attendee already exists!");
             return;
         }
