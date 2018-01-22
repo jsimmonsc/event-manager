@@ -1,6 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
 import {Attendee} from "../shared/models/attendee.model";
-import {FancyInputComponent} from "../shared/fancy-input/fancy-input.component";
 import {EventService} from "../shared/services/event.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -13,7 +12,6 @@ export class CheckInComponent {
 
   id: string;
   attendee: Attendee;
-  @ViewChild('idInput') idInputRef: FancyInputComponent;
 
   constructor(private route: ActivatedRoute, private eventService: EventService) {
     this.route.params.subscribe(params => {
