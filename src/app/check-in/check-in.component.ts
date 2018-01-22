@@ -19,11 +19,13 @@ export class CheckInComponent {
     });
   }
 
-  searchForAttendee(studentNumber: number): void {
-    this.eventService.getAttendeeFromEvent(this.id, studentNumber).subscribe(att => {
-      this.attendee = att;
-    }, err => {
-      console.log("There was an error: " + JSON.stringify(err));
-    });
+  searchForAttendee(studentNumber: string): void {
+    if (studentNumber && studentNumber.length === 5) {
+      this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe(att => {
+        this.attendee = att;
+      }, err => {
+        console.log("There was an error: " + JSON.stringify(err));
+      });
+    }
   }
 }

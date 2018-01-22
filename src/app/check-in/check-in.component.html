@@ -2,7 +2,7 @@
 
 <div class="input-wrapper">
   <input #idInput placeholder="Enter ID Number" maxlength="5"/>
-  <button mat-button (click)="searchForAttendee(12345)" id="enter-button">Enter</button>
+  <button mat-button (click)="searchForAttendee(idInput.value)" id="enter-button">Enter</button>
 </div>
 
 <app-student-info [(student)]="attendee" *ngIf="attendee"></app-student-info>
