@@ -1,7 +1,7 @@
 <h2>Purchase</h2>
 
 <div class="input-wrapper">
-  <app-fancy-input placeholder="Enter ID Number" maxlength="5"></app-fancy-input>
+  <input placeholder="Enter ID Number" maxlength="5"/>
   <button (click)="show()" mat-button id="enter-button">Enter</button>
 </div>
 <mat-progress-spinner
@@ -22,7 +22,7 @@
   </div>
   <br>
 
-  <app-fancy-input *ngIf="hasGuest.checked" placeholder="Enter Guest Name" maxlength="9999"></app-fancy-input>
+  <input *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
 </div>
 
 <div class="button-wrapper" *ngIf="student">
