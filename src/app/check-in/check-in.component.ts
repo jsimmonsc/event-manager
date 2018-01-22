@@ -20,6 +20,7 @@ export class CheckInComponent {
   }
 
   searchForAttendee(studentNumber: string): void {
+    this.attendee = null;
     if (studentNumber && studentNumber.length === 5) {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe(att => {
         this.attendee = att;
