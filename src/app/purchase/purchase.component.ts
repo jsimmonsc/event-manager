@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {Attendee} from "../shared/models/attendee.model";
 import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component";
 import {MatDialog, MatDialogRef} from "@angular/material";
+import {Student} from "../shared/models/student.model";
+import {ActivatedRoute} from "@angular/router";
+import {EventService} from "../shared/services/event.service";
 
 @Component({
   selector: 'app-purchase',
@@ -10,25 +13,19 @@ import {MatDialog, MatDialogRef} from "@angular/material";
 })
 export class PurchaseComponent {
 
-  dialogRef: MatDialogRef<WarningDialogComponent>;
-  student: boolean;
-  showSpinner: boolean;
-  attendee: Attendee;
+  private id: string;
+  student: Student;
 
-  constructor(private dialog: MatDialog) {
-
+  constructor(private route: ActivatedRoute, private eventService: EventService) {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
   }
 
-  show(): void {
-    this.showSpinner = true;
-    setTimeout(() => {
-      this.student = true;
-      this.showSpinner = false;
-    }, 500);
-  }
+  searchForStudent(studentNumber: string) {
+    this.student = null;
 
-  openDialog() {
-    this.dialogRef = this.dialog.open(WarningDialogComponent, { disableClose: true});
+
   }
 
 }
