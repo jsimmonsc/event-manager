@@ -15,7 +15,7 @@ export class PurchaseComponent {
 
   private id: string;
   student: Student;
-  @ViewChild('idInput') idInput: ElementRef;
+  @ViewChild('idInput') private idInput: ElementRef;
 
   constructor(private route: ActivatedRoute, private eventService: EventService) {
     this.route.params.subscribe(params => {

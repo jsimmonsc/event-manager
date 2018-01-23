@@ -6,7 +6,7 @@
 </div>
 
 <app-student-info [(student)]="student" *ngIf="student"></app-student-info>
-<app-requirements *ngIf="student"></app-requirements>
+<app-requirements [(student)]="student" *ngIf="student"></app-requirements>
 
 <div class="guest-div" *ngIf="student">
 
