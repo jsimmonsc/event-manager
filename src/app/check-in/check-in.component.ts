@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {Attendee} from "../shared/models/attendee.model";
 import {EventService} from "../shared/services/event.service";
 import {ActivatedRoute} from "@angular/router";
@@ -13,7 +13,7 @@ export class CheckInComponent {
   id: string;
   attendee: Attendee;
 
-  constructor(private route: ActivatedRoute, private eventService: EventService) {
+  constructor(private route: ActivatedRoute, private eventService: EventService, @Inject('moment') private moment) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -24,6 +24,13 @@ export class CheckInComponent {
     if (+studentNumber && studentNumber.length === 5) {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe(att => {
         this.attendee = att;
+
+        if(!this.attendee.timestamp) {
+          this.attendee.timestamp = this.moment(new Date()).tz("America/Chicago").format();
+          console.log(this.attendee.timestamp);
+        } else {
+          // already checked in error
+        }
       }, err => {
         console.log("There was an error: " + JSON.stringify(err));
       });

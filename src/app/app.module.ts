@@ -26,6 +26,7 @@ import {WarningDialogComponent} from './purchase/warning-dialog/warning-dialog.c
 import {StudentInfoComponent} from './shared/student-info/student-info.component';
 import {EventInfoComponent} from './event-info/event-info.component';
 import {EventService} from "./shared/services/event.service";
+import * as moment from 'moment-timezone';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import {EventService} from "./shared/services/event.service";
     MatTableModule
 
   ],
-  providers: [EventService],
+  providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
