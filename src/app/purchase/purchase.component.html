@@ -1,15 +1,11 @@
 <h2>Purchase</h2>
 
 <div class="input-wrapper">
-  <input #idInput placeholder="Enter ID Number" maxlength="5"/>
-  <button (click)="show()" mat-button id="enter-button">Enter</button>
+  <input #idInput (keyup.enter)="searchForStudent(idInput.value)" placeholder="Enter ID Number" maxlength="5"/>
+  <button (click)="searchForStudent(idInput.value)" mat-button id="enter-button">Enter</button>
 </div>
-<mat-progress-spinner
-  color="primary"
-  mode="indeterminate"
-  *ngIf="showSpinner">
-</mat-progress-spinner>
-<app-student-info [(student)]="attendee" *ngIf="student"></app-student-info>
+
+<app-student-info [(student)]="student" *ngIf="student"></app-student-info>
 <app-requirements *ngIf="student"></app-requirements>
 
 <div class="guest-div" *ngIf="student">
@@ -22,10 +18,10 @@
   </div>
   <br>
 
-  <input *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
+  <input #guestInput *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
 </div>
 
 <div class="button-wrapper" *ngIf="student">
-  <button mat-button id="submit-button" (click)="openDialog()">Submit</button>
-  <button mat-button id="cancel-button">Cancel</button>
+  <button mat-button id="submit-button">Submit</button>
+  <button mat-button (click)="student = null" id="cancel-button">Cancel</button>
 </div>

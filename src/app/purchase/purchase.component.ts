@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {Attendee} from "../shared/models/attendee.model";
 import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component";
 import {MatDialog, MatDialogRef} from "@angular/material";
@@ -15,6 +15,7 @@ export class PurchaseComponent {
 
   private id: string;
   student: Student;
+  @ViewChild('idInput') idInput: ElementRef;
 
   constructor(private route: ActivatedRoute, private eventService: EventService) {
     this.route.params.subscribe(params => {
@@ -22,10 +23,14 @@ export class PurchaseComponent {
     });
   }
 
-  searchForStudent(studentNumber: string) {
+  private searchForStudent(studentNumber: string): void {
     this.student = null;
+    this.idInput.nativeElement.value = null;
 
-
+    if (+studentNumber && studentNumber.length === 5) {
+      this.eventService.getStudent(+studentNumber).subscribe(student => {
+        this.student = student;
+      });
+    }
   }
-
 }
