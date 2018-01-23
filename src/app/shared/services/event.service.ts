@@ -29,24 +29,45 @@ export class EventService {
     return this.http.get<Attendee>(API_URL + "/events/id/" + eventID + "/" + studentNumber);
   }
 
-  public updateAttendee(eventID: string, attendee: Attendee) {
+  public updateAttendee(eventID: string, attendee: Attendee): Observable<Event> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.put(API_URL + '/events/id/' + eventID + '/' + attendee._id, attendee, {headers: headers});
+    return this.http.put(API_URL + '/events/id/' + eventID + '/' + attendee._id, attendee, {headers: headers})
+      .map(response => new Event(response));
   }
 
-  public createAttendee(eventID: string, attendee: Attendee) {
+  public createAttendee(eventID: string, attendee: Attendee): Observable<Event> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post(API_URL + '/events/id/' + eventID, attendee, {headers: headers});
+    return this.http.post(API_URL + '/events/id/' + eventID, attendee, {headers: headers})
+      .map(response => new Event(response));
   }
 
-  public createEvent(event: Event) {
+  public createEvent(event: Event): Observable<Event> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post(API_URL + '/events', event, {headers: headers});
+    return this.http.post(API_URL + '/events', event, {headers: headers})
+      .map(response => new Event(response));
+  }
+
+  public updateEvent(event: Event): Observable<Event> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(API_URL + '/events/id/' + event._id, event, {headers: headers})
+      .map(response => new Event(response));
+  }
+
+  public deleteEvent(eventID: string): Observable<Event> {
+    return this.http.delete(API_URL + '/events/id/' + eventID)
+      .map(response => new Event(response));
+  }
+
+  public deleteAttendee(eventID: string, attendee: Attendee): Observable<Event> {
+    return this.http.delete(API_URL + '/events/id/' + eventID + '/' + attendee._id)
+      .map(response => new Event(response));
   }
 }
