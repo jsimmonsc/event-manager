@@ -12,6 +12,7 @@ export class CheckInComponent {
 
   id: string;
   attendee: Attendee;
+  checkedIn: boolean;
 
   constructor(private route: ActivatedRoute, private eventService: EventService, @Inject('moment') private moment) {
     this.route.params.subscribe(params => {
@@ -20,6 +21,7 @@ export class CheckInComponent {
   }
 
   searchForAttendee(studentNumber: string): void {
+    this.checkedIn = false;
     this.attendee = null;
     if (+studentNumber && studentNumber.length === 5) {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe(att => {
@@ -30,9 +32,10 @@ export class CheckInComponent {
           console.log(this.attendee.timestamp);
           this.eventService.updateAttendee(this.id, this.attendee).subscribe(newAtt => {
             console.log("Checked in: " + JSON.stringify(newAtt));
+            this.checkedIn = true;
           });
         } else {
-          // already checked in error
+          console.log("Attendee already checked in!");
         }
       }, err => {
         console.log("There was an error: " + JSON.stringify(err));
