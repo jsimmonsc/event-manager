@@ -1,11 +1,10 @@
-import { Title } from '@angular/platform-browser';
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {CreateEventComponent} from "./create-event/create-event.component";
 import {EventListComponent} from "./event-list/event-list.component";
 import {CheckInComponent} from './check-in/check-in.component';
 import {PurchaseComponent} from "./purchase/purchase.component";
-import { EventInfoComponent } from './event-info/event-info.component';
+import {EventInfoComponent} from './event-info/event-info.component';
+import {CreateEventComponent} from "./create-event/create-event.component";
 import { ErrorPageComponent } from './error-page/error-page.component';
 
 const appRoutes: Routes = [
