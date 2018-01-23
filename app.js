@@ -8,6 +8,7 @@ var dbConfig = require('./config/db.config');
 var RestClient = require('node-rest-client').Client;
 var app = express();
 var Student = require('./models/student.model');
+var cors = require('cors');
 
 var restClient = new RestClient();
 
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(cors());
 
 require('./routes/student.routes')(app);
 require('./routes/event.routes')(app);
