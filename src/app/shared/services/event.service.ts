@@ -35,4 +35,18 @@ export class EventService {
 
     return this.http.put(API_URL + '/events/id/' + eventID + '/' + attendee._id, attendee, {headers: headers});
   }
+
+  public createAttendee(eventID: string, attendee: Attendee) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(API_URL + '/events/id/' + eventID, attendee, {headers: headers});
+  }
+
+  public createEvent(event: Event) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(API_URL + '/events', event, {headers: headers});
+  }
 }
