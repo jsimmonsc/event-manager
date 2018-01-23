@@ -25,9 +25,12 @@ export class CheckInComponent {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe(att => {
         this.attendee = att;
 
-        if(!this.attendee.timestamp) {
+        if (!this.attendee.timestamp) {
           this.attendee.timestamp = this.moment(new Date()).tz("America/Chicago").format();
           console.log(this.attendee.timestamp);
+          this.eventService.updateAttendee(this.id, this.attendee).subscribe(newAtt => {
+            console.log("Checked in: " + JSON.stringify(newAtt));
+          });
         } else {
           // already checked in error
         }
