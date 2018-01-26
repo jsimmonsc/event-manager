@@ -22,18 +22,29 @@ export class PurchaseComponent {
 
     this.purchaseForm = this.fb.group({
       idInput: ['', Validators.maxLength(5)],
-      student: [null]
+      student: [null],
+      guestForm: this.fb.group({
+        // hasGuest: [false],
+        // guestName: [''],
+        // guestId: [-1],
+        // guestSchool: ['']
+
+      })
     });
   }
 
   private searchForStudent(studentNumber: string): void {
-    this.purchaseForm.patchValue({});
-    this.idInput.nativeElement.value = null;
+    this.reset();
 
     if (+studentNumber && studentNumber.length === 5) {
       this.eventService.getStudent(+studentNumber).subscribe(student => {
         this.purchaseForm.patchValue({student: student});
       });
     }
+  }
+
+  reset() {
+    this.purchaseForm.patchValue({student: null});
+    this.idInput.nativeElement.value = null;
   }
 }

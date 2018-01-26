@@ -1,5 +1,3 @@
-
-
 <div class="container">
   <h2>Purchase</h2>
   <form [formGroup]="purchaseForm" novalidate>
@@ -18,7 +16,7 @@
 
     <app-student-info formControlName="student"></app-student-info>
 
-    <div class="guest-div">
+    <div class="guest-div" *ngIf="purchaseForm.value.student" formGroupName="guestForm">
 
       <h2 id="guest-header">Guest</h2>
       <div class="checkbox">
@@ -31,9 +29,9 @@
       <input #guestInput *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
     </div>
 
-    <div class="button-wrapper">
-      <button mat-button id="submit-button">Submit</button>
-      <button mat-button (click)="searchForStudent()" id="cancel-button">Cancel</button>
+    <div class="button-wrapper" *ngIf="purchaseForm.value.student">
+      <button type="button" mat-button id="submit-button">Submit</button>
+      <button type="button" mat-button (click)="reset()" id="cancel-button">Cancel</button>
     </div>
 
   </form>
