@@ -1,10 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {Attendee} from "../shared/models/attendee.model";
-import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component";
-import {MatDialog, MatDialogRef} from "@angular/material";
 import {Student} from "../shared/models/student.model";
 import {ActivatedRoute} from "@angular/router";
 import {EventService} from "../shared/services/event.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-purchase',
@@ -14,22 +12,27 @@ import {EventService} from "../shared/services/event.service";
 export class PurchaseComponent {
 
   private id: string;
-  student: Student;
+  purchaseForm: FormGroup;
   @ViewChild('idInput') private idInput: ElementRef;
 
-  constructor(private route: ActivatedRoute, private eventService: EventService) {
+  constructor(private route: ActivatedRoute, private eventService: EventService, private fb: FormBuilder) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+    });
+
+    this.purchaseForm = this.fb.group({
+      idInput: ['', Validators.maxLength(5)],
+      student: [null]
     });
   }
 
   private searchForStudent(studentNumber: string): void {
-    this.student = null;
+    this.purchaseForm.patchValue({});
     this.idInput.nativeElement.value = null;
 
     if (+studentNumber && studentNumber.length === 5) {
       this.eventService.getStudent(+studentNumber).subscribe(student => {
-        this.student = student;
+        this.purchaseForm.patchValue({student: student});
       });
     }
   }

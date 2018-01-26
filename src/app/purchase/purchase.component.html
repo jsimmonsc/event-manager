@@ -1,27 +1,46 @@
-<h2>Purchase</h2>
 
-<div class="input-wrapper">
-  <input #idInput (keyup.enter)="searchForStudent(idInput.value)" placeholder="Enter ID Number" maxlength="5"/>
-  <button (click)="searchForStudent(idInput.value)" mat-button id="enter-button">Enter</button>
+
+<div class="container">
+  <h2>Purchase</h2>
+  <form [formGroup]="purchaseForm" novalidate>
+    <div class="input-wrapper">
+      <input type="text"
+             (keyup.enter)="searchForStudent(idInput.value)"
+             #idInput
+             formControlName="idInput"
+             placeholder="Enter ID Number"
+             maxlength="5"/>
+
+      <button type="button"
+              (click)="searchForStudent(idInput.value)"
+              mat-button id="enter-button">Enter</button>
+    </div>
+
+    <app-student-info formControlName="student"></app-student-info>
+
+    <div class="guest-div">
+
+      <h2 id="guest-header">Guest</h2>
+      <div class="checkbox">
+        <mat-checkbox #hasGuest>Has Guest</mat-checkbox>
+        <br>
+        <mat-checkbox [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
+      </div>
+      <br>
+
+      <input #guestInput *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
+    </div>
+
+    <div class="button-wrapper">
+      <button mat-button id="submit-button">Submit</button>
+      <button mat-button (click)="searchForStudent()" id="cancel-button">Cancel</button>
+    </div>
+
+  </form>
 </div>
 
-<app-student-info [(student)]="student" *ngIf="student"></app-student-info>
-<app-requirements [(student)]="student" *ngIf="student"></app-requirements>
 
-<div class="guest-div" *ngIf="student">
 
-  <h2 id="guest-header">Guest</h2>
-  <div class="checkbox">
-    <mat-checkbox #hasGuest>Has Guest</mat-checkbox>
-    <br>
-    <mat-checkbox [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
-  </div>
-  <br>
 
-  <input #guestInput *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
-</div>
 
-<div class="button-wrapper" *ngIf="student">
-  <button mat-button id="submit-button">Submit</button>
-  <button mat-button (click)="student = null" id="cancel-button">Cancel</button>
-</div>
+

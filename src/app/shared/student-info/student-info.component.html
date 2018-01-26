@@ -15,15 +15,9 @@
       <td class="keyColumn">Grade Level:</td>
       <td class="valueColumn">{{ student.grade_level }}</td>
     </tr>
-    <tr *ngIf="student.guest">
-      <td class="keyColumn">Guest:</td>
-      <td class="valueColumn">{{ student.guest }}</td>
-    </tr>
-    <tr *ngIf="student.guest">
-      <td class="keyColumn">Guest Attends Pattonville:</td>
-      <td class="valueColumn">{{ student.guestId ? "Yes" : "No" }}</td>
-    </tr>
     </tbody>
   </table>
 
 </div>
+
+<app-requirements *ngIf="student" [(student)]="student"></app-requirements>
