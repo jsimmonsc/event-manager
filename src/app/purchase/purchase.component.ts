@@ -50,17 +50,30 @@ export class PurchaseComponent {
       this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
 
       if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
-        // TODO: Display error about guest not being able to be
+        // TODO: Display error about guest not being able to be the student
         return;
       }
     }
 
+
+
     if (+studentNumber) {
-      this.eventService.getStudent(+studentNumber).subscribe(student => {
-        if (type === 'student') {
-          this.purchaseForm.patchValue({student: student});
-        } else if (type === 'guest') {
-          this.purchaseForm.patchValue({ guestForm: { pattonvilleGuest: { guest: student }}});
+      this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
+        console.log("Error, student already registered.");
+        // TODO: Error dialog
+      }, (err) => {
+        if (err.status === 404) {
+
+          this.eventService.getStudent(+studentNumber).subscribe(student => {
+            if (type === 'student') {
+              this.purchaseForm.patchValue({student: student});
+            } else if (type === 'guest') {
+              this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
+            }
+          });
+        } else {
+          console.log(err);
+          // TODO: Connection error dialog
         }
       });
     }
@@ -114,7 +127,7 @@ export class PurchaseComponent {
       console.log(err);
     });
 
-    if(saveAttendee.guestId > 0) {
+    if (saveAttendee.guestId > 0) {
       const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
       const guestAttendee: Attendee = {
         _id: null,
