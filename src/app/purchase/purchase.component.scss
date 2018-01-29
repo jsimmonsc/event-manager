@@ -24,6 +24,18 @@
 
 }
 
+.outside-guest-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin: auto;
+
+  input {
+    margin: .5rem;
+  }
+}
+
 .button-wrapper {
 
   display: flex;
@@ -85,47 +97,8 @@
   margin-bottom: 2rem;
 }
 
-#guest-checkbox {
-
-  font-size: 1.5vw;
-
-  input[type="checkbox"] {
-
-    visibility: hidden;
-
-  }
-
-  input {
-
-    width: 10px;
-    height: 10px;
-
-  }
-
-}
-
 #guest-ticket-num-input {
   margin-bottom: 1.5rem;
-}
-
-#input-guest-name {
-
-  height: 50px;
-  margin-bottom: 1rem;
-  margin-top: -1rem;
-
-  font-size: 1.5rem;
-  border: none;
-  text-align: center;
-
-  &:focus {
-    box-shadow: 0 0 5px #44B78B;
-    border: none;
-  }
-}
-
-mat-progress-spinner {
-  margin: 1rem auto 1rem auto;
 }
 
 .guest-div {
@@ -137,4 +110,8 @@ mat-progress-spinner {
   margin-left: 45%;
   margin-right: auto;
   text-align: left;
+}
+
+.container {
+  margin: 3rem;
 }

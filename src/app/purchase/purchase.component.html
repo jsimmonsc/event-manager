@@ -20,9 +20,9 @@
 
       <h2 id="guest-header">Guest</h2>
       <div class="checkbox">
-        <mat-checkbox #hasGuest formControlName="hasGuest">Has Guest</mat-checkbox>
+        <mat-checkbox (change)="checkboxChanged()" #hasGuest formControlName="hasGuest">Has Guest</mat-checkbox>
         <br>
-        <mat-checkbox #hasPattonvilleGuest [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
+        <mat-checkbox (change)="checkboxChanged()" #hasPattonvilleGuest [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
       </div>
       <br>
       <div *ngIf="hasGuest.checked">
@@ -41,6 +41,22 @@
           </div>
 
           <app-student-info formControlName="guest"></app-student-info>
+        </div>
+
+        <div class="outside-guest-form" *ngIf="!hasPattonvilleGuest.checked" formGroupName="outsideGuest">
+          <input type="text"
+                 placeholder="Enter Guest Name"
+                 formControlName="guestName">
+          <input type="text"
+                 placeholder="Enter Guest School"
+                 formControlName="guestSchoolName">
+          <input type="text"
+                 placeholder="Enter Guest Phone"
+                 formControlName="guestHomePhone">
+          <input type="text"
+                 placeholder="Enter Guest Age"
+                 formControlName="guestAge">
+
         </div>
       </div>
 

@@ -33,8 +33,8 @@ export class PurchaseComponent {
         outsideGuest: this.fb.group({
           guestName: [''],
           guestSchoolName: [''],
-          guestHomePhone: [''],
-          guestAge: ['']
+          guestHomePhone: ['', Validators.maxLength(10)],
+          guestAge: ['', Validators.maxLength(2)]
         })
       })
     });
@@ -63,5 +63,10 @@ export class PurchaseComponent {
       });
     }
 
+  }
+
+  checkboxChanged(): void {
+    this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
+    this.purchaseForm.get('guestForm.outsideGuest').reset();
   }
 }
