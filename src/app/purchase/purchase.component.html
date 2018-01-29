@@ -25,22 +25,23 @@
         <mat-checkbox #hasPattonvilleGuest [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
       </div>
       <br>
+      <div *ngIf="hasGuest.checked">
+        <div *ngIf="hasPattonvilleGuest.checked" formGroupName="pattonvilleGuest">
+          <div class="input-wrapper">
+            <input type="text"
+                   (keyup.enter)="searchForStudent(guestIDInput.value, 'guest')"
+                   #guestIDInput
+                   formControlName="guestIDInput"
+                   placeholder="Enter ID Number"
+                   maxlength="5"/>
 
-      <div *ngIf="hasPattonvilleGuest.checked" formGroupName="pattonvilleGuest">
-        <div class="input-wrapper">
-          <input type="text"
-                 (keyup.enter)="searchForStudent(guestIDInput.value, 'guest')"
-                 #guestIDInput
-                 formControlName="guestIDInput"
-                 placeholder="Enter ID Number"
-                 maxlength="5"/>
+            <button type="button"
+                    (click)="searchForStudent(guestIDInput.value, 'guest')"
+                    mat-button class="enter-button">Enter</button>
+          </div>
 
-          <button type="button"
-                  (click)="searchForStudent(guestIDInput.value, 'guest')"
-                  mat-button class="enter-button">Enter</button>
+          <app-student-info formControlName="guest"></app-student-info>
         </div>
-
-        <app-student-info formControlName="guest"></app-student-info>
       </div>
 
     </div>
