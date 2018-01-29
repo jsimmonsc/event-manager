@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Event} from "../models/event.model";
 import {Attendee} from "../models/attendee.model";
+import {Student} from "../models/student.model";
 
 const API_URL = environment.apiUrl;
 
@@ -69,5 +70,9 @@ export class EventService {
   public deleteAttendee(eventID: string, attendee: Attendee): Observable<Event> {
     return this.http.delete(API_URL + '/events/id/' + eventID + '/' + attendee._id)
       .map(response => new Event(response));
+  }
+
+  public getStudent(studentNumber: number): Observable<Student> {
+    return this.http.get<Student>(API_URL + "/students/" + studentNumber);
   }
 }
