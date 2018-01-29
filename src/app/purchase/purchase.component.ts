@@ -1,8 +1,8 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, ViewChild} from '@angular/core';
 import {Student} from "../shared/models/student.model";
 import {ActivatedRoute} from "@angular/router";
 import {EventService} from "../shared/services/event.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-purchase',
@@ -14,6 +14,7 @@ export class PurchaseComponent {
   private id: string;
   purchaseForm: FormGroup;
   @ViewChild('idInput') private idInput: ElementRef;
+  @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
   constructor(private route: ActivatedRoute, private eventService: EventService, private fb: FormBuilder) {
     this.route.params.subscribe(params => {
@@ -24,27 +25,43 @@ export class PurchaseComponent {
       idInput: ['', Validators.maxLength(5)],
       student: [null],
       guestForm: this.fb.group({
-        // hasGuest: [false],
-        // guestName: [''],
-        // guestId: [-1],
-        // guestSchool: ['']
-
+        hasGuest: [false],
+        pattonvilleGuest: this.fb.group({
+          guestIDInput: ['', Validators.maxLength(5)],
+          guest: [null]
+        }),
+        outsideGuest: this.fb.group({
+          guestName: [''],
+          guestSchoolName: [''],
+          guestHomePhone: [''],
+          guestAge: ['']
+        })
       })
     });
+
   }
 
-  private searchForStudent(studentNumber: string): void {
-    this.reset();
+  private searchForStudent(studentNumber: string, type: string): void {
+    if (type === 'student') {
+      this.purchaseForm.reset();
+    } else if (type === 'guest') {
+      this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
 
-    if (+studentNumber && studentNumber.length === 5) {
+      if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
+        // TODO: Display error about guest not being able to be
+        return;
+      }
+    }
+
+    if (+studentNumber) {
       this.eventService.getStudent(+studentNumber).subscribe(student => {
-        this.purchaseForm.patchValue({student: student});
+        if (type === 'student') {
+          this.purchaseForm.patchValue({student: student});
+        } else if (type === 'guest') {
+          this.purchaseForm.patchValue({ guestForm: { pattonvilleGuest: { guest: student }}});
+        }
       });
     }
-  }
 
-  reset() {
-    this.purchaseForm.patchValue({student: null});
-    this.idInput.nativeElement.value = null;
   }
 }

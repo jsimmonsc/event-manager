@@ -1,4 +1,4 @@
-export class Student {
+export interface Student {
   schoolid: number;
   first_name: string;
   last_name: string;

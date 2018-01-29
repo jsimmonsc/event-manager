@@ -3,15 +3,15 @@
   <form [formGroup]="purchaseForm" novalidate>
     <div class="input-wrapper">
       <input type="text"
-             (keyup.enter)="searchForStudent(idInput.value)"
+             (keyup.enter)="searchForStudent(idInput.value, 'student')"
              #idInput
              formControlName="idInput"
              placeholder="Enter ID Number"
              maxlength="5"/>
 
       <button type="button"
-              (click)="searchForStudent(idInput.value)"
-              mat-button id="enter-button">Enter</button>
+              (click)="searchForStudent(idInput.value, 'student')"
+              mat-button class="enter-button">Enter</button>
     </div>
 
     <app-student-info formControlName="student"></app-student-info>
@@ -20,19 +20,37 @@
 
       <h2 id="guest-header">Guest</h2>
       <div class="checkbox">
-        <mat-checkbox #hasGuest>Has Guest</mat-checkbox>
+        <mat-checkbox #hasGuest formControlName="hasGuest">Has Guest</mat-checkbox>
         <br>
-        <mat-checkbox [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
+        <mat-checkbox #hasPattonvilleGuest [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
       </div>
       <br>
 
-      <input #guestInput *ngIf="hasGuest.checked" placeholder="Enter Guest Name"/>
+      <div *ngIf="hasPattonvilleGuest.checked" formGroupName="pattonvilleGuest">
+        <div class="input-wrapper">
+          <input type="text"
+                 (keyup.enter)="searchForStudent(guestIDInput.value, 'guest')"
+                 #guestIDInput
+                 formControlName="guestIDInput"
+                 placeholder="Enter ID Number"
+                 maxlength="5"/>
+
+          <button type="button"
+                  (click)="searchForStudent(guestIDInput.value, 'guest')"
+                  mat-button class="enter-button">Enter</button>
+        </div>
+
+        <app-student-info formControlName="guest"></app-student-info>
+      </div>
+
     </div>
 
     <div class="button-wrapper" *ngIf="purchaseForm.value.student">
       <button type="button" mat-button id="submit-button">Submit</button>
-      <button type="button" mat-button (click)="reset()" id="cancel-button">Cancel</button>
+      <button type="button" mat-button (click)="purchaseForm.reset()" id="cancel-button">Cancel</button>
     </div>
+
+    <p>{{ purchaseForm.value | json }}</p>
 
   </form>
 </div>
