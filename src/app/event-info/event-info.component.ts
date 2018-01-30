@@ -15,12 +15,10 @@ export class EventInfoComponent implements OnInit {
   id: string;
   event: Event;
   private sub: any;
-  displayedColumns = ['ticket', 'name', 'student_number', 'grade_level', 'guest', 'timestamp', 'comment'];
+  displayedColumns = ['ticket', 'name', 'student_number', 'grade_level', 'guest', 'timestamp', 'comment', 'edit'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<Attendee>;
-
-
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -34,8 +32,6 @@ export class EventInfoComponent implements OnInit {
     });
     this.eventService.getEvent(this.id).subscribe(event => {
       this.event = event;
-
-      console.log(this.event.attendees);
 
       this.dataSource = new MatTableDataSource<Attendee>(this.event.attendees);
       this.dataSource.paginator = this.paginator;

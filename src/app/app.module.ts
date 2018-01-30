@@ -10,7 +10,7 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatDatepickerModule,
-  MatDialogModule,
+  MatDialogModule, MatIconModule,
   MatInputModule,
   MatNativeDateModule, MatPaginatorModule,
   MatProgressSpinnerModule, MatSortModule,
@@ -63,7 +63,8 @@ import * as moment from 'moment-timezone';
     MatTableModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatIconModule
 
   ],
   providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],
