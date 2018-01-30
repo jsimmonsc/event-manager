@@ -40,7 +40,7 @@
 
       <ng-container matColumnDef="timestamp">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Timestamp </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.timestamp}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{ element.timestamp | amDateFormat:'LTS l' }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="comment">

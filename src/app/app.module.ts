@@ -28,6 +28,7 @@ import { EventInfoComponent } from './event-info/event-info.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {EventService} from "./shared/services/event.service";
 import * as moment from 'moment-timezone';
+import {MomentModule} from "angular2-moment";
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import * as moment from 'moment-timezone';
     ReactiveFormsModule,
     MatPaginatorModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
+    MomentModule
 
   ],
   providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],

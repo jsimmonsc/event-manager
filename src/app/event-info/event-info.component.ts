@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
@@ -23,7 +23,6 @@ export class EventInfoComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private eventService: EventService) {
-
   }
 
   ngOnInit() {
