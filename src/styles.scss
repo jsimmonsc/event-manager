@@ -28,3 +28,10 @@ h1 {
   color: white !important;
 }
 
+snack-bar-container.snackbar-custom-class {
+  background: yellow !important;
+}
+
+.snackbar-custom-class .mat-simple-snackbar {
+  color: green !important;
+}

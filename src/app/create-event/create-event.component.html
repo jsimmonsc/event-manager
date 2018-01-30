@@ -2,30 +2,42 @@
 
 <mat-horizontal-stepper [linear]="true">
 
-  <mat-step>
+  <mat-step  class="step step1" [stepControl]="firstFormGroup">
 
     <ng-template matStepLabel>Event Name</ng-template>
-    <div class="step step1">
-      <input placeholder="Event Name" maxlength="100" required>
-      <textarea placeholder="Event Description" maxlength="1000" rows="5" cols="80"></textarea>
-    </div>
+
+    <form [formGroup]="firstFormGroup">
+        <mat-form-field>
+          <input placeholder="Event Name" maxlength="100" formControlName="firstControl" required>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea placeholder="Event Description" maxlength="1000" rows="5" cols="80"></textarea>
+        </mat-form-field>
+    </form>
+
     <div>
       <button mat-button matStepperNext>Next</button>
     </div>
 
   </mat-step>
 
-  <mat-step>
+
+  <mat-step class="step step2" [stepControl]="secondFormGroup">
+
     <ng-template matStepLabel>Event Date</ng-template>
-    <div class="step2 step">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </div>
+
+    <form>
+
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </form>
+
     <div>
       <button mat-button matStepperPrevious>Previous</button>
       <button mat-button matStepperNext>Next</button>
     </div>
+
   </mat-step>
 
   <mat-step>
@@ -71,7 +83,8 @@
         class="create-event-button"
         matTooltip="You can always come back and make changes later."
         matTooltipPosition="above"
-        mat-button>
+        mat-button
+        (click)="createEvent()">
         Create Event</button>
     </div>
     <div>

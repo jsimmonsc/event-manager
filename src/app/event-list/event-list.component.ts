@@ -17,7 +17,7 @@ export class EventListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get('http://localhost:3000/events').subscribe((data: Event[]) => {
+    this.http.get('http://capstone.psdr3.org:3000/events').subscribe((data: Event[]) => {
       this.events = data;
       console.log(this.events);
     });

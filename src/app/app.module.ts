@@ -8,7 +8,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import { CreateEventComponent } from './create-event/create-event.component';
 import {
   MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatInputModule, MatNativeDateModule,
-  MatStepperModule, MatTableModule, MatTooltipModule, MatProgressSpinnerModule, MatDialogModule
+  MatStepperModule, MatTableModule, MatTooltipModule, MatProgressSpinnerModule,
+  MatDialogModule, MatIconModule, MatIconRegistry, MatFormFieldModule, MatFormFieldControl, MatSnackBarModule
 } from "@angular/material";
 import { HttpClientModule } from '@angular/common/http';
 import { CheckInComponent } from './check-in/check-in.component';
@@ -19,6 +20,10 @@ import { FancyInputComponent } from './shared/fancy-input/fancy-input.component'
 import { StudentInfoComponent } from './shared/student-info/student-info.component';
 import { EventInfoComponent } from './event-info/event-info.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { FormBuilder } from '@angular/forms';
+import { NgControl } from '@angular/forms/src/directives/ng_control';
+import { ControlContainer } from '@angular/forms/src/directives/control_container';
+import { SlidingDialogComponent } from './shared/sliding-dialog/sliding-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     FancyInputComponent,
     StudentInfoComponent,
     EventInfoComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    SlidingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,10 +57,14 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
-    MatTableModule
-
+    MatTableModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    FormBuilder,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
