@@ -12,8 +12,8 @@ import {
   MatDatepickerModule,
   MatDialogModule,
   MatInputModule,
-  MatNativeDateModule,
-  MatProgressSpinnerModule,
+  MatNativeDateModule, MatPaginatorModule,
+  MatProgressSpinnerModule, MatSortModule,
   MatStepperModule,
   MatTableModule,
   MatTooltipModule
@@ -61,7 +61,9 @@ import * as moment from 'moment-timezone';
     MatNativeDateModule,
     MatTooltipModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatSortModule
 
   ],
   providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],

@@ -1,10 +1,60 @@
-<div *ngIf="event">
-  <h2>{{event.name}}</h2>
-  <p><b>Description:</b> {{event.description}}</p>
-  <p><b>Date:</b> {{ event.date.toDateString() }}</p>
-</div>
+<div class="container">
 
-<div class="button-container">
-  <button mat-raised-button color="primary" (click)="goToSellTickets()">Sell</button>
-  <button mat-raised-button color="primary" (click)="goToCheckIn()">Check In</button>
+  <div *ngIf="event">
+    <h2>{{event.name}}</h2>
+    <p><b>Description:</b> {{event.description}}</p>
+    <p><b>Date:</b> {{ event.date.toDateString() }}</p>
+  </div>
+
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="goToSellTickets()">Sell</button>
+    <button mat-raised-button color="primary" (click)="goToCheckIn()">Check In</button>
+  </div>
+
+  <div class="attendee-container">
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="ticket">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ticket # </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.first_name + " " + element.last_name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="student_number">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> SID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.student_number}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="grade_level">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Grade Level </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.grade_level}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="guest">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Guest </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.guest ? element.guest.name : ''}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="timestamp">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Timestamp </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.timestampOffset}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Comment </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ '' }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <mat-paginator #paginator
+                     [pageSize]="10"
+                     [pageSizeOptions]="[5, 10, 20]">
+      </mat-paginator>
+    </mat-table>
+  </div>
 </div>
