@@ -9,4 +9,5 @@ export interface Attendee {
   guest: Guest;
   guestId: number;
   timestamp: string;
+  comment: string;
 }
