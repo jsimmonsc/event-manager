@@ -96,7 +96,8 @@ export class PurchaseComponent {
       grade_level: studentModel.grade_level,
       guest: null,
       guestId: -1,
-      timestamp: null
+      timestamp: null,
+      comment: null
     };
 
     if (this.purchaseForm.get('guestForm.hasGuest').value) {
@@ -140,7 +141,8 @@ export class PurchaseComponent {
                 phone: null,
                 school: "Pattonville HS"},
         guestId: -1,
-        timestamp: null
+        timestamp: null,
+        comment: null
       };
 
       this.eventService.createAttendee(this.id, guestAttendee).subscribe((event: Event) => {
