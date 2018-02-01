@@ -9,6 +9,10 @@ import {Attendee} from "../../shared/models/attendee.model";
 })
 export class EditAttendeeDialogComponent {
 
+  changedAttendee: Attendee;
+
   constructor(public dialogRef: MatDialogRef<EditAttendeeDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Attendee) { }
+              @Inject(MAT_DIALOG_DATA) public data: Attendee) {
+    this.changedAttendee = Object.assign({}, data);
+  }
 }

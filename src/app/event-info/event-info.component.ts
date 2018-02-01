@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
@@ -24,8 +24,8 @@ export class EventInfoComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private eventService: EventService,
-              private dialog: MatDialog) {
-  }
+              private dialog: MatDialog,
+              private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -48,7 +48,17 @@ export class EventInfoComponent implements OnInit {
     this.router.navigateByUrl('/sell/' + this.id);
   }
 
-  editAttendee(attendee: Attendee) {
+  editAttendee(attendee: Attendee): void {
     const editDialogRef = this.dialog.open(EditAttendeeDialogComponent, { data: attendee });
+
+    editDialogRef.afterClosed().subscribe((value: Attendee) => {
+      console.log(JSON.stringify(value));
+
+      this.eventService.updateAttendee(this.id, value).subscribe((event: Event) => {
+        this.dataSource = new MatTableDataSource<Attendee>(event.attendees);
+        this.changeDetectorRef.detectChanges();
+        // TODO: popup success message
+      });
+    });
   }
 }
