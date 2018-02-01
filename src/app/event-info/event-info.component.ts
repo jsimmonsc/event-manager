@@ -2,8 +2,9 @@ import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core
 import {ActivatedRoute, Router} from '@angular/router';
 import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Attendee} from "../shared/models/attendee.model";
+import {EditAttendeeDialogComponent} from "./edit-attendee-dialog/edit-attendee-dialog.component";
 
 @Component({
   selector: 'app-event-info',
@@ -22,7 +23,8 @@ export class EventInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private eventService: EventService) {
+              private eventService: EventService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -47,6 +49,6 @@ export class EventInfoComponent implements OnInit {
   }
 
   editAttendee() {
-    // TODO
+    const editDialogRef = this.dialog.open(EditAttendeeDialogComponent, { data: {} });
   }
 }

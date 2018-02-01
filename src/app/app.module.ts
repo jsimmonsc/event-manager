@@ -71,6 +71,7 @@ import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/e
     MomentModule
 
   ],
+  entryComponents: [EditAttendeeDialogComponent],
   providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],
   bootstrap: [AppComponent]
 })
