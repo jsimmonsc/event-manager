@@ -54,11 +54,13 @@ export class EventInfoComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((value: Attendee) => {
       console.log(JSON.stringify(value));
 
-      this.eventService.updateAttendee(this.id, value).subscribe((event: Event) => {
-        this.dataSource = new MatTableDataSource<Attendee>(event.attendees);
-        this.changeDetectorRef.detectChanges();
-        // TODO: popup success message
-      });
+      if (value) {
+        this.eventService.updateAttendee(this.id, value).subscribe((event: Event) => {
+          this.dataSource = new MatTableDataSource<Attendee>(event.attendees);
+          this.changeDetectorRef.detectChanges();
+          // TODO: popup success message
+        });
+      }
     });
   }
 }
