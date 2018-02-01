@@ -29,6 +29,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import {EventService} from "./shared/services/event.service";
 import * as moment from 'moment-timezone';
 import {MomentModule} from "angular2-moment";
+import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {MomentModule} from "angular2-moment";
     StudentInfoComponent,
     EventInfoComponent,
     ErrorPageComponent,
-    EventInfoComponent
+    EventInfoComponent,
+    EditAttendeeDialogComponent
   ],
   imports: [
     BrowserModule,

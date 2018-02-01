@@ -45,13 +45,13 @@
 
       <ng-container matColumnDef="comment">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Comment </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ '' }} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{ element.comment }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef>
-          <mat-icon>edit</mat-icon>
+          <a (click)="editAttendee()"><mat-icon>edit</mat-icon></a>
         </mat-cell>
       </ng-container>
 

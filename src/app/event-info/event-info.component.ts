@@ -45,4 +45,8 @@ export class EventInfoComponent implements OnInit {
   goToSellTickets() {
     this.router.navigateByUrl('/sell/' + this.id);
   }
+
+  editAttendee() {
+    // TODO
+  }
 }
