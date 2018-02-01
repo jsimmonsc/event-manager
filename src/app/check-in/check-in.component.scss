@@ -1,11 +1,9 @@
 @import '../../styles';
 
 .input-wrapper {
-
   display: flex;
   flex-direction: row;
   justify-content: center;
-
 }
 
 .button-wrapper {
@@ -26,28 +24,6 @@
 
   &:hover {
     background: $light-green;
-  }
-}
-
-#submit-button {
-  width: 15%;
-  height: 50px;
-  color: white;
-  background: $green;
-  border: none;
-  font-size: 1.8vw;
-
-  &:disabled {
-    background: #aaaaaa;
-  }
-
-  &:hover {
-    background: $light-green;
-
-    &:disabled {
-      background: #aaaaaa;
-      cursor: default;
-    }
   }
 }
 

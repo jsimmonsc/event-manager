@@ -1,22 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule} from "@angular/forms";
-import { EventListComponent } from './event-list/event-list.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {EventListComponent} from './event-list/event-list.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { CreateEventComponent } from './create-event/create-event.component';
+import {CreateEventComponent} from './create-event/create-event.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatInputModule, MatNativeDateModule,
-  MatStepperModule, MatTableModule, MatTooltipModule, MatProgressSpinnerModule,
-  MatDialogModule, MatIconModule, MatIconRegistry, MatFormFieldModule, MatFormFieldControl, MatSnackBarModule
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatFormFieldModule,
+  MatIconModule,
 } from "@angular/material";
 import { HttpClientModule } from '@angular/common/http';
 import { CheckInComponent } from './check-in/check-in.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { RequirementsComponent } from './purchase/requirements/requirements.component';
 import { WarningDialogComponent } from './purchase/warning-dialog/warning-dialog.component';
-import { FancyInputComponent } from './shared/fancy-input/fancy-input.component';
 import { StudentInfoComponent } from './shared/student-info/student-info.component';
 import { EventInfoComponent } from './event-info/event-info.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -24,6 +33,7 @@ import { FormBuilder } from '@angular/forms';
 import { NgControl } from '@angular/forms/src/directives/ng_control';
 import { ControlContainer } from '@angular/forms/src/directives/control_container';
 import { SlidingDialogComponent } from './shared/sliding-dialog/sliding-dialog.component';
+import {EventService} from "./shared/services/event.service";
 
 @NgModule({
   declarations: [
@@ -34,11 +44,12 @@ import { SlidingDialogComponent } from './shared/sliding-dialog/sliding-dialog.c
     PurchaseComponent,
     RequirementsComponent,
     WarningDialogComponent,
-    FancyInputComponent,
     StudentInfoComponent,
     EventInfoComponent,
     ErrorPageComponent,
-    SlidingDialogComponent
+    SlidingDialogComponent,
+    ErrorPageComponent,
+    EventInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +68,7 @@ import { SlidingDialogComponent } from './shared/sliding-dialog/sliding-dialog.c
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    ReactiveFormsModule,
     MatTableModule,
     MatIconModule,
     MatFormFieldModule,

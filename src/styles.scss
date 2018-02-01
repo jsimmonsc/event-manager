@@ -28,6 +28,18 @@ h1 {
   color: white !important;
 }
 
+input {
+  height: 50px;
+  font-size: 1.5rem;
+  border: none;
+  text-align: center;
+}
+
+input:focus {
+  box-shadow: 0 0 5px #44B78B;
+  border: none;
+}
+
 snack-bar-container.snackbar-custom-class {
   background: yellow !important;
 }

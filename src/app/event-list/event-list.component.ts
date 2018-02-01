@@ -1,27 +1,23 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Event } from './../shared/models/event.model';
+import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Event} from './../shared/models/event.model';
+import {EventService} from "../shared/services/event.service";
 
 
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss'],
+  styleUrls: ['./event-list.component.scss']
 })
 export class EventListComponent implements OnInit {
 
   events: Event[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private router: Router, private eventService: EventService) {
+  }
 
   ngOnInit(): void {
-
-    this.http.get('http://capstone.psdr3.org:3000/events').subscribe((data: Event[]) => {
-      this.events = data;
-      console.log(this.events);
-    });
-
+    this.eventService.getAllEvents().subscribe(events => this.events = events);
   }
 
   openEventInfo(event: Event) {

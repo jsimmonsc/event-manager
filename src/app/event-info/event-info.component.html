@@ -1,6 +1,8 @@
-<h2>{{event.name}}</h2>
-<p><b>Description:</b> {{event.description}}</p>
-<p><b>Date:</b> {{event.date.toDateString()}}</p>
+<div *ngIf="event">
+  <h2>{{event.name}}</h2>
+  <p><b>Description:</b> {{event.description}}</p>
+  <p><b>Date:</b> {{ event.date.toDateString() }}</p>
+</div>
 
 <div class="button-container">
   <button mat-raised-button color="primary" (click)="goToSellTickets()">Sell</button>
