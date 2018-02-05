@@ -29,7 +29,8 @@
           <input matInput placeholder="Age" value="{{changedAttendee.guest?.age}}">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Phone Number" value="{{changedAttendee.guest?.phone}}">
+          <span matPrefix>+1 &nbsp;</span>
+          <input type="tel" maxlength="10" matInput placeholder="Phone Number" value="{{changedAttendee.guest?.phone}}">
         </mat-form-field>
       </div>
       <div *ngIf="pattonvilleGuestCheckbox.checked" class="pattonville-guest">
@@ -46,6 +47,18 @@
           <input matInput placeholder="Guest Grade Level" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.grade_level : '' }}">
         </mat-form-field>
       </div>
+    </div>
+    <div class="end-fields">
+      <h4>Additional</h4>
+      <mat-form-field>
+        <input matInput #timestampInput placeholder="Timestamp" disabled value="{{ changedAttendee.timestamp ? (changedAttendee.timestamp | amDateFormat:'LTS l') : 'None' }}">
+        <button mat-button *ngIf="changedAttendee.timestamp" matSuffix mat-icon-button aria-label="Clear" (click)="changedAttendee.timestamp = null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Comment"></textarea>
+      </mat-form-field>
     </div>
   </form>
 </mat-dialog-content>
