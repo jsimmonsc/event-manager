@@ -7,7 +7,8 @@
              #idInput
              formControlName="idInput"
              placeholder="Enter ID Number"
-             maxlength="5"/>
+             maxlength="5"
+             class="fancy-input"/>
 
       <button type="button"
               (click)="searchForStudent(idInput.value, 'student')"
@@ -33,7 +34,8 @@
                    #guestIDInput
                    formControlName="guestIDInput"
                    placeholder="Enter ID Number"
-                   maxlength="5"/>
+                   maxlength="5"
+                   class="fancy-input"/>
 
             <button type="button"
                     (click)="searchForStudent(guestIDInput.value, 'guest')"
@@ -46,16 +48,20 @@
         <div class="outside-guest-form" *ngIf="!hasPattonvilleGuest.checked" formGroupName="outsideGuest">
           <input type="text"
                  placeholder="Enter Guest Name"
-                 formControlName="guestName">
+                 formControlName="guestName"
+                 class="fancy-input">
           <input type="text"
                  placeholder="Enter Guest School"
-                 formControlName="guestSchoolName">
+                 formControlName="guestSchoolName"
+                 class="fancy-input">
           <input type="text"
                  placeholder="Enter Guest Phone"
-                 formControlName="guestHomePhone">
+                 formControlName="guestHomePhone"
+                 class="fancy-input">
           <input type="text"
                  placeholder="Enter Guest Age"
-                 formControlName="guestAge">
+                 formControlName="guestAge"
+                 class="fancy-input">
 
         </div>
       </div>

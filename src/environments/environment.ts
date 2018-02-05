@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://capstone.psdr3.org:3000"
+  apiUrl: "http://localhost:3000"
 };

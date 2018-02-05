@@ -120,39 +120,38 @@ export class PurchaseComponent {
     }
 
     this.eventService.createAttendee(this.id, saveAttendee).subscribe((event: Event) => {
-      this.purchaseForm.reset();
       console.log("Attendee created.");
+      if (saveAttendee.guestId > 0) {
+        const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
+        const guestAttendee: Attendee = {
+          _id: null,
+          first_name: guestModel.first_name,
+          last_name: guestModel.last_name,
+          student_number: guestModel.student_number,
+          grade_level: guestModel.grade_level,
+          guest: {name: "of " + studentModel.first_name + " " + studentModel.last_name,
+            age: null,
+            phone: null,
+            school: "Pattonville HS"},
+          guestId: -1,
+          timestamp: null,
+          comment: null
+        };
+
+        this.eventService.createAttendee(this.id, guestAttendee).subscribe((e: Event) => {
+          console.log("Guest Attendee created.");
+          // TODO: Attendee added dialog
+        }, (err) => {
+          // TODO: Error connection failed
+          console.log(err);
+        });
+      }
+      this.purchaseForm.reset();
       // TODO: Attendee added dialog
     }, (err) => {
       // TODO: Error connection failed
       console.log(err);
     });
-
-    if (saveAttendee.guestId > 0) {
-      const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
-      const guestAttendee: Attendee = {
-        _id: null,
-        first_name: guestModel.first_name,
-        last_name: guestModel.last_name,
-        student_number: guestModel.student_number,
-        grade_level: guestModel.grade_level,
-        guest: {name: "of " + studentModel.first_name + " " + studentModel.last_name,
-                age: null,
-                phone: null,
-                school: "Pattonville HS"},
-        guestId: -1,
-        timestamp: null,
-        comment: null
-      };
-
-      this.eventService.createAttendee(this.id, guestAttendee).subscribe((event: Event) => {
-        console.log("Guest Attendee created.");
-        // TODO: Attendee added dialog
-      }, (err) => {
-        // TODO: Error connection failed
-        console.log(err);
-      });
-    }
   }
 
   checkGuestValidity(obj: any): boolean {
