@@ -12,12 +12,12 @@
         <input matInput placeholder="Grade" disabled value="{{changedAttendee.grade_level}}">
       </mat-form-field>
 
-      <mat-checkbox #hasGuest (change)="checkboxChanged()" [checked]="changedAttendee.guest">Has Guest</mat-checkbox>
+      <mat-checkbox #hasGuest (change)="hasGuestCheckboxChanged()" [checked]="changedAttendee.guest">Has Guest</mat-checkbox>
     </div>
 
     <div class="guest-edit" *ngIf="hasGuest.checked">
       <h4>Guest</h4>
-      <mat-checkbox #pattonvilleGuestCheckbox (change)="checkboxChanged()" [checked]="changedAttendee.guestId != -1">Guest Attends Pattonville</mat-checkbox>
+      <mat-checkbox #pattonvilleGuestCheckbox (change)="hasPattonvilleGuestCheckboxChanged(pattonvilleGuestCheckbox)" [checked]="changedAttendee.guestId != -1">Guest Attends Pattonville</mat-checkbox>
       <div *ngIf="!pattonvilleGuestCheckbox.checked" class="non-pattonville-guest">
         <mat-form-field>
           <input matInput placeholder="Name" value="{{changedAttendee.guest?.name}}">

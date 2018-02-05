@@ -1,5 +1,5 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {Component, ElementRef, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatCheckbox, MatDialogRef} from "@angular/material";
 import {Attendee} from "../../shared/models/attendee.model";
 import {Guest} from "../../shared/models/guest.model";
 import {EventService} from "../../shared/services/event.service";
@@ -38,9 +38,17 @@ export class EditAttendeeDialogComponent {
     }
   }
 
-  checkboxChanged(): void {
+  hasGuestCheckboxChanged(): void {
     this.pattonvilleGuest = null;
     this.changedAttendee.guest = null;
     this.changedAttendee.guestId = -1;
+  }
+
+  hasPattonvilleGuestCheckboxChanged(checkbox: MatCheckbox) {
+    if (checkbox.checked) {
+      this.changedAttendee.guest = { name: null, age: null, phone: null, school: null };
+    } else {
+      this.changedAttendee.guestId = -1;
+    }
   }
 }
