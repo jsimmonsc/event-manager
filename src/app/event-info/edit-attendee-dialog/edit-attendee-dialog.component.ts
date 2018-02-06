@@ -1,7 +1,8 @@
 import {Component, ElementRef, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatCheckbox, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatCheckbox, MatDialog, MatDialogRef} from "@angular/material";
 import {Attendee} from "../../shared/models/attendee.model";
 import {EventService} from "../../shared/services/event.service";
+import {DeleteWarningDialogComponent} from "../delete-warning-dialog/delete-warning-dialog.component";
 
 @Component({
   selector: 'app-edit-attendee-dialog',
@@ -13,9 +14,9 @@ export class EditAttendeeDialogComponent {
   changedAttendee: Attendee;
   pattonvilleGuest: any;
 
-  constructor(public dialogRef: MatDialogRef<EditAttendeeDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private eventService: EventService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private eventService: EventService,
+              private matDialog: MatDialog) {
     this.changedAttendee = Object.assign({}, data.attendee);
     if (this.changedAttendee.guestId > 0) {
       this.searchForGuest(this.changedAttendee.guestId + '');
@@ -49,5 +50,9 @@ export class EditAttendeeDialogComponent {
     } else {
       this.changedAttendee.guestId = -1;
     }
+  }
+
+  openDeleteWarningDialog() {
+    this.matDialog.open(DeleteWarningDialogComponent, { data: this.data });
   }
 }
