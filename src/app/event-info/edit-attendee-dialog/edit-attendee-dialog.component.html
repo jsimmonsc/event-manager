@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Edit</h2>
 <mat-dialog-content>
-  <form>
+  <form [formGroup]="editGroup" novalidate>
     <div class="preset-info">
       <mat-form-field>
         <input matInput placeholder="Name" disabled value="{{changedAttendee.first_name + ' ' + changedAttendee.last_name}}">
@@ -15,28 +15,28 @@
       <mat-checkbox #hasGuest (change)="hasGuestCheckboxChanged()" [checked]="changedAttendee.guest">Has Guest</mat-checkbox>
     </div>
 
-    <div class="guest-edit" *ngIf="hasGuest.checked">
+    <div class="guest-edit" formGroupName="guestEdit" *ngIf="hasGuest.checked">
       <h4>Guest</h4>
       <mat-checkbox #pattonvilleGuestCheckbox (change)="hasPattonvilleGuestCheckboxChanged(pattonvilleGuestCheckbox)" [checked]="changedAttendee.guestId != -1">Guest Attends Pattonville</mat-checkbox>
-      <div *ngIf="!pattonvilleGuestCheckbox.checked" class="non-pattonville-guest">
+      <div *ngIf="!pattonvilleGuestCheckbox.checked" formGroupName="outsideGuest" class="non-pattonville-guest">
         <mat-form-field>
-          <input matInput placeholder="Name" value="{{changedAttendee.guest?.name}}">
+          <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="School" value="{{changedAttendee.guest?.school}}">
+          <input matInput placeholder="School" formControlName="school">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Age" value="{{changedAttendee.guest?.age}}">
+          <input matInput placeholder="Age" formControlName="age">
         </mat-form-field>
         <mat-form-field>
           <span matPrefix>+1 &nbsp;</span>
-          <input type="tel" maxlength="10" matInput placeholder="Phone Number" value="{{changedAttendee.guest?.phone}}">
+          <input type="tel" maxlength="10" matInput placeholder="Phone Number" formControlName="phone">
         </mat-form-field>
       </div>
-      <div *ngIf="pattonvilleGuestCheckbox.checked" class="pattonville-guest">
+      <div *ngIf="pattonvilleGuestCheckbox.checked" formGroupName="pattonvilleGuest" class="pattonville-guest">
         <div class="guest-id-field">
           <mat-form-field>
-            <input matInput placeholder="Guest SID" (keyup.enter)="searchForGuest(guestIDInput.value)" #guestIDInput value="{{changedAttendee.guestId > 0 ? changedAttendee.guestId : ''}}">
+            <input matInput placeholder="Guest SID" (keyup.enter)="searchForGuest(guestIDInput.value)" #guestIDInput>
           </mat-form-field>
           <button (click)="searchForGuest(guestIDInput.value)" mat-button>Enter</button>
         </div>
@@ -48,7 +48,7 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="end-fields">
+    <div class="end-fields" formGroupName="extraEdit">
       <h4>Additional</h4>
       <mat-form-field>
         <input matInput #timestampInput placeholder="Timestamp" disabled value="{{ changedAttendee.timestamp ? (changedAttendee.timestamp | amDateFormat:'LTS l') : 'None' }}">
@@ -57,9 +57,10 @@
         </button>
       </mat-form-field>
       <mat-form-field>
-        <textarea matInput placeholder="Comment"></textarea>
+        <textarea formControlName="comment" matInput placeholder="Comment"></textarea>
       </mat-form-field>
     </div>
+    <p>{{editGroup.value | json}}</p>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
