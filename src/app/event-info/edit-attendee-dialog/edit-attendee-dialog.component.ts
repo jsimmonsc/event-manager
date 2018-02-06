@@ -1,7 +1,6 @@
 import {Component, ElementRef, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatCheckbox, MatDialogRef} from "@angular/material";
 import {Attendee} from "../../shared/models/attendee.model";
-import {Guest} from "../../shared/models/guest.model";
 import {EventService} from "../../shared/services/event.service";
 
 @Component({

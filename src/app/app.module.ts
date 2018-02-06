@@ -30,6 +30,7 @@ import {EventService} from "./shared/services/event.service";
 import * as moment from 'moment-timezone';
 import {MomentModule} from "angular2-moment";
 import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
+import { DeleteWarningDialogComponent } from './event-info/delete-warning-dialog/delete-warning-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/e
     EventInfoComponent,
     ErrorPageComponent,
     EventInfoComponent,
-    EditAttendeeDialogComponent
+    EditAttendeeDialogComponent,
+    DeleteWarningDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,7 @@ import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/e
     MomentModule
 
   ],
-  entryComponents: [EditAttendeeDialogComponent],
+  entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent],
   providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],
   bootstrap: [AppComponent]
 })
