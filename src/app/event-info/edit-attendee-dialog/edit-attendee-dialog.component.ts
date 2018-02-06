@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatCheckbox, MatDialog, MatDialogRef} from "@angular/ma
 import {Attendee} from "../../shared/models/attendee.model";
 import {EventService} from "../../shared/services/event.service";
 import {DeleteWarningDialogComponent} from "../delete-warning-dialog/delete-warning-dialog.component";
+import {Event} from "../../shared/models/event.model";
 
 @Component({
   selector: 'app-edit-attendee-dialog',
@@ -14,7 +15,8 @@ export class EditAttendeeDialogComponent {
   changedAttendee: Attendee;
   pattonvilleGuest: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(private dialogRef: MatDialogRef<EditAttendeeDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
               private matDialog: MatDialog) {
     this.changedAttendee = Object.assign({}, data.attendee);
@@ -52,7 +54,23 @@ export class EditAttendeeDialogComponent {
     }
   }
 
+  saveEditedAttendee() {
+    this.eventService.updateAttendee(this.data.eventID, this.changedAttendee).subscribe((value: Event) => {
+      if (value) {
+        this.dialogRef.close(value);
+      }
+    }, err => {
+      console.log(err);
+      // TODO: Error dialog
+    });
+  }
+
   openDeleteWarningDialog() {
-    this.matDialog.open(DeleteWarningDialogComponent, { data: this.data });
+    const warningRef = this.matDialog.open(DeleteWarningDialogComponent, { data: this.data });
+    warningRef.afterClosed().subscribe(value => {
+      if (value) {
+        this.dialogRef.close(value);
+      }
+    });
   }
 }

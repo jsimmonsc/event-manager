@@ -12,7 +12,8 @@ export class DeleteWarningDialogComponent {
 
   attendee: Attendee;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(private dialogRef: MatDialogRef<DeleteWarningDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
               private matDialog: MatDialog) {
 
@@ -22,7 +23,7 @@ export class DeleteWarningDialogComponent {
 
   removeAttendee(): void {
     this.eventService.deleteAttendee(this.data.eventID, this.attendee).subscribe(value => {
-      this.matDialog.closeAll();
+      this.dialogRef.close(value);
     }, err => {
       console.log(err);
       // TODO: Error dialog
