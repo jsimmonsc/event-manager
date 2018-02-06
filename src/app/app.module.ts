@@ -32,8 +32,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { FormBuilder } from '@angular/forms';
 import { NgControl } from '@angular/forms/src/directives/ng_control';
 import { ControlContainer } from '@angular/forms/src/directives/control_container';
-import { SlidingDialogComponent } from './shared/sliding-dialog/sliding-dialog.component';
 import {EventService} from "./shared/services/event.service";
+import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import {EventService} from "./shared/services/event.service";
     StudentInfoComponent,
     EventInfoComponent,
     ErrorPageComponent,
-    SlidingDialogComponent,
     ErrorPageComponent,
     EventInfoComponent
   ],
@@ -76,6 +75,8 @@ import {EventService} from "./shared/services/event.service";
   ],
   providers: [
     FormBuilder,
+    SlidingDialogService,
+    EventService
   ],
   bootstrap: [AppComponent]
 })

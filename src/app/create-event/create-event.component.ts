@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import {SlidingDialogService} from "../sliding-dialog.service";
+import {FormGroup, Validators, FormBuilder, FormControl, FormArray} from '@angular/forms';
+import {SlidingDialogService} from "../shared/services/sliding-dialog.service";
+import {EventService} from "../shared/services/event.service";
+import {Event} from "../shared/models/event.model";
 
 @Component({
   selector: 'app-create-event',
@@ -9,31 +11,58 @@ import {SlidingDialogService} from "../sliding-dialog.service";
 })
 export class CreateEventComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
+  formGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, private slidingDialog: SlidingDialogService) { }
+  constructor(private formBuilder: FormBuilder, private slidingDialog: SlidingDialogService, private eventService: EventService) {
+    this.createForm();
+  }
 
   ngOnInit() {
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-
-    this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required]
-    });
 
   }
 
   createEvent() {
-    console.log("Successfully created event");
-    this.slidingDialog.displayNotification("Successfully created event");
+
+    console.log("creating event...");
+    const nameString = this.formGroup.get("eventNameGroup.eventNameCtrl").value;
+    console.log(nameString);
+    const descriptionString = this.formGroup.get("eventNameGroup.eventDescriptionCtrl").value;
+    console.log(descriptionString);
+    const dateString = this.formGroup.get("dateGroup.dateCtrl").value;
+    console.log(dateString);
+
+    this.eventService.createEvent({
+      _id: null,
+      name: nameString,
+      description: descriptionString,
+      date: new Date(dateString),
+      sales: 0,
+      attendees: null
+    }).subscribe((event: Event) => {
+      this.slidingDialog.displayNotification("Successfully created event");
+      console.log(JSON.stringify(event));
+    }, (err) => {
+      this.slidingDialog.displayNotification("Error creating event");
+      console.log(err);
+    });
+  }
+
+  createForm() {
+
+    this.formGroup = this.formBuilder.group({
+      eventNameGroup: this.formBuilder.group({
+        eventNameCtrl: ['', Validators.required],
+        eventDescriptionCtrl: ['', Validators.required]
+      }),
+      dateGroup: this.formBuilder.group({
+        dateCtrl: ['', Validators.required]
+      }),
+      costGroup: this.formBuilder.group({
+        costCtrl: ['', Validators.required]
+      })
+
+    });
+
   }
 
 }
