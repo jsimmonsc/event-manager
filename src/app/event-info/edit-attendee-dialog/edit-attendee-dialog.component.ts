@@ -62,26 +62,74 @@ export class EditAttendeeDialogComponent {
 
   hasGuestCheckboxChanged(): void {
     this.pattonvilleGuest = null;
-    this.changedAttendee.guest = null;
-    this.changedAttendee.guestId = -1;
     this.editGroup.get('guestEdit').reset();
   }
 
   hasPattonvilleGuestCheckboxChanged(checkbox: MatCheckbox) {
     if (checkbox.checked) {
-      this.changedAttendee.guest = { name: null, age: null, phone: null, school: null };
       this.editGroup.get('guestEdit.outsideGuest').reset();
     } else {
-      this.changedAttendee.guestId = -1;
       this.editGroup.get('guestEdit.pattonvilleGuest').reset();
+      this.pattonvilleGuest = null;
     }
   }
 
   saveEditedAttendee() {
-    this.eventService.updateAttendee(this.data.eventID, this.changedAttendee).subscribe((value: Event) => {
-      if (value) {
-        this.dialogRef.close(value);
+    const savedAttendee: Attendee = {
+      _id: this.changedAttendee._id,
+      first_name: this.changedAttendee.first_name,
+      last_name: this.changedAttendee.last_name,
+      student_number: this.changedAttendee.student_number,
+      grade_level: this.changedAttendee.grade_level,
+      guestId: -1,
+      guest: null,
+      timestamp: this.changedAttendee.timestamp,
+      comment: this.editGroup.get('extraEdit.comment').value
+    };
+
+    if (this.pattonvilleGuest) {
+      savedAttendee.guestId = this.pattonvilleGuest.student_number;
+      savedAttendee.guest = {
+        name: this.pattonvilleGuest.first_name + ' ' + this.pattonvilleGuest.last_name,
+        school: null,
+        age: null,
+        phone: null
+      };
+    } else if (this.outsideGuestIsValid()) {
+      savedAttendee.guest = this.editGroup.get('guestEdit.outsideGuest').value;
+    }
+
+    this.eventService.updateAttendee(this.data.eventID, savedAttendee).subscribe((value: Event) => {
+      if ((this.changedAttendee.guestId !== savedAttendee.guestId)
+        && this.changedAttendee.guestId !== -1) {
+        this.eventService.getAttendeeFromEvent(this.data.eventID, this.changedAttendee.guestId).subscribe(old => {
+          this.eventService.deleteAttendee(this.data.eventID, old).subscribe();
+        });
+
+        if (savedAttendee.guestId !== -1) {
+          this.eventService.getStudent(savedAttendee.guestId).subscribe(guestStudent => {
+            const guest: Attendee = {
+              _id: null,
+              first_name: guestStudent.first_name,
+              last_name: guestStudent.last_name,
+              student_number: guestStudent.student_number,
+              grade_level: guestStudent.grade_level,
+              guest: {name: "of " + guestStudent.first_name + " " + guestStudent.last_name,
+                age: null,
+                phone: null,
+                school: "Pattonville HS"},
+              guestId: -1,
+              timestamp: null,
+              comment: null
+            };
+
+            this.eventService.createAttendee(this.data.eventID, guest).subscribe();
+          });
+        }
       }
+      console.log(value);
+      this.dialogRef.close(value);
+
     }, err => {
       console.log(err);
       // TODO: Error dialog
@@ -95,5 +143,10 @@ export class EditAttendeeDialogComponent {
         this.dialogRef.close(value);
       }
     });
+  }
+
+  outsideGuestIsValid(): boolean {
+    const guest = this.editGroup.get('guestEdit.outsideGuest').value;
+    return guest.name && guest.school && guest.age && guest.phone;
   }
 }

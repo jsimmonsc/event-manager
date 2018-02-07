@@ -20,13 +20,13 @@
       <mat-checkbox #pattonvilleGuestCheckbox (change)="hasPattonvilleGuestCheckboxChanged(pattonvilleGuestCheckbox)" [checked]="changedAttendee.guestId != -1">Guest Attends Pattonville</mat-checkbox>
       <div *ngIf="!pattonvilleGuestCheckbox.checked" formGroupName="outsideGuest" class="non-pattonville-guest">
         <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name">
+          <input matInput type="text" placeholder="Name" formControlName="name">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="School" formControlName="school">
+          <input matInput type="text" placeholder="School" formControlName="school">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Age" formControlName="age">
+          <input matInput type="text" placeholder="Age" formControlName="age">
         </mat-form-field>
         <mat-form-field>
           <span matPrefix>+1 &nbsp;</span>
@@ -36,15 +36,15 @@
       <div *ngIf="pattonvilleGuestCheckbox.checked" formGroupName="pattonvilleGuest" class="pattonville-guest">
         <div class="guest-id-field">
           <mat-form-field>
-            <input matInput placeholder="Guest SID" (keyup.enter)="searchForGuest(guestIDInput.value)" #guestIDInput>
+            <input matInput type="text" formControlName="guestSID" maxlength="5" placeholder="Guest SID" (keyup.enter)="searchForGuest(guestIDInput.value)" #guestIDInput>
           </mat-form-field>
           <button (click)="searchForGuest(guestIDInput.value)" mat-button>Enter</button>
         </div>
         <mat-form-field>
-          <input matInput placeholder="Guest Name" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.first_name + ' ' + pattonvilleGuest.last_name : ''}}">
+          <input matInput type="text" placeholder="Guest Name" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.first_name + ' ' + pattonvilleGuest.last_name : ''}}">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Guest Grade Level" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.grade_level : '' }}">
+          <input matInput type="text" placeholder="Guest Grade Level" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.grade_level : '' }}">
         </mat-form-field>
       </div>
     </div>

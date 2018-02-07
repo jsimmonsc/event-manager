@@ -103,7 +103,7 @@ export class PurchaseComponent {
         const guest = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
 
         saveAttendee.guestId = guest.student_number;
-        saveAttendee.guest = { name: null, age: null, phone: null, school: null };
+        saveAttendee.guest = { name: guest.first_name + ' ' + guest.last_name, age: null, phone: null, school: null };
       } else if (this.checkGuestValidity(this.purchaseForm.get('guestForm.outsideGuest').value)) {
         const outsideGuest = this.purchaseForm.get('guestForm.outsideGuest').value;
         saveAttendee.guest = { name: outsideGuest.guestName,
