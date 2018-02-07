@@ -40,7 +40,7 @@ export class EditAttendeeDialogComponent {
         })
       }),
       extraEdit: this.fb.group({
-        comment: ''
+        comment: this.changedAttendee.comment
       })
     });
   }
