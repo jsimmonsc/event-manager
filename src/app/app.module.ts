@@ -16,7 +16,10 @@ import {
   MatProgressSpinnerModule,
   MatStepperModule,
   MatTableModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatFormFieldModule,
+  MatIconModule,
 } from "@angular/material";
 import { HttpClientModule } from '@angular/common/http';
 import { CheckInComponent } from './check-in/check-in.component';
@@ -26,8 +29,11 @@ import { WarningDialogComponent } from './purchase/warning-dialog/warning-dialog
 import { StudentInfoComponent } from './shared/student-info/student-info.component';
 import { EventInfoComponent } from './event-info/event-info.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { FormBuilder } from '@angular/forms';
+import { NgControl } from '@angular/forms/src/directives/ng_control';
+import { ControlContainer } from '@angular/forms/src/directives/control_container';
 import {EventService} from "./shared/services/event.service";
-import * as moment from 'moment-timezone';
+import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 
 @NgModule({
   declarations: [
@@ -40,6 +46,7 @@ import * as moment from 'moment-timezone';
     WarningDialogComponent,
     StudentInfoComponent,
     EventInfoComponent,
+    ErrorPageComponent,
     ErrorPageComponent,
     EventInfoComponent
   ],
@@ -60,11 +67,17 @@ import * as moment from 'moment-timezone';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    ReactiveFormsModule,
     MatTableModule,
-    ReactiveFormsModule
-
+    MatIconModule,
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
-  providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],
+  providers: [
+    FormBuilder,
+    SlidingDialogService,
+    EventService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
