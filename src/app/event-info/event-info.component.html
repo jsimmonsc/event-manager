@@ -12,6 +12,13 @@
   </div>
 
   <div class="attendee-container">
+
+    <div class="table-head">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+    </div>
+
     <mat-table #table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="ticket">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Ticket # </mat-header-cell>

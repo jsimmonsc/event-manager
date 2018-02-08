@@ -58,4 +58,10 @@ export class EventInfoComponent implements OnInit {
       }
     });
   }
+
+  applyFilter(value: string): void {
+    value = value.trim();
+    value = value.toLowerCase();
+    this.dataSource.filter = value;
+  }
 }
