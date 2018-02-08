@@ -9,7 +9,8 @@ var attendeeSchema = new mongoose.Schema({
   grade_level: {type: Number, required: true},
   guest: {type: Guest, required: true},
   guestId: {type: Number, required: true},
-  timestamp: {type: String, required: true}
+  timestamp: {type: String, required: true},
+  comment: {type: String}
 });
 
 module.exports = attendeeSchema;
