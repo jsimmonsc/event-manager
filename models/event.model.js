@@ -6,7 +6,12 @@ var eventSchema = new mongoose.Schema({
   description: String,
   date: { type: Date, default: Date.now},
   sales: { type: Number, default: 0 },
-  attendees: [Attendee]
+  attendees: [Attendee],
+  parameters: {
+    fines: Boolean,
+    attendance: Boolean
+  },
+  cost: Number
 });
 
 module.exports = mongoose.model('Event', eventSchema);
