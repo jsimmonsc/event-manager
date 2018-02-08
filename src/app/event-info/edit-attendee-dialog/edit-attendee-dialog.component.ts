@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, EventEmitter, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatCheckbox, MatDialog, MatDialogRef} from "@angular/material";
 import {Attendee} from "../../shared/models/attendee.model";
 import {EventService} from "../../shared/services/event.service";
@@ -16,12 +16,14 @@ export class EditAttendeeDialogComponent {
   public changedAttendee: Attendee;
   public pattonvilleGuest: any;
   public editGroup: FormGroup;
+  public eventEmitter: EventEmitter<Event>;
 
   constructor(private dialogRef: MatDialogRef<EditAttendeeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
               private matDialog: MatDialog,
               private fb: FormBuilder) {
+    this.eventEmitter = new EventEmitter<Event>();
     this.changedAttendee = Object.assign({}, data.attendee);
     if (this.changedAttendee.guestId > 0) {
       this.searchForGuest(this.changedAttendee.guestId + '');
@@ -100,12 +102,15 @@ export class EditAttendeeDialogComponent {
     }
 
     this.eventService.updateAttendee(this.data.eventID, savedAttendee).subscribe((value: Event) => {
-      if ((this.changedAttendee.guestId !== savedAttendee.guestId)
-        && this.changedAttendee.guestId !== -1) {
-        this.eventService.getAttendeeFromEvent(this.data.eventID, this.changedAttendee.guestId).subscribe(old => {
-          this.eventService.deleteAttendee(this.data.eventID, old).subscribe();
-        });
 
+      if (this.changedAttendee.guestId !== savedAttendee.guestId) {
+        if (this.changedAttendee.guestId !== -1) {
+          this.eventService.getAttendeeFromEvent(this.data.eventID, this.changedAttendee.guestId).subscribe(old => {
+            this.eventService.deleteAttendee(this.data.eventID, old).subscribe(value => {
+              this.dialogRef.close(value);
+            });
+          });
+        }
         if (savedAttendee.guestId !== -1) {
           this.eventService.getStudent(savedAttendee.guestId).subscribe(guestStudent => {
             const guest: Attendee = {
@@ -114,7 +119,7 @@ export class EditAttendeeDialogComponent {
               last_name: guestStudent.last_name,
               student_number: guestStudent.student_number,
               grade_level: guestStudent.grade_level,
-              guest: {name: "of " + guestStudent.first_name + " " + guestStudent.last_name,
+              guest: {name: "of " + savedAttendee.first_name + " " + savedAttendee.last_name,
                 age: null,
                 phone: null,
                 school: "Pattonville HS"},
@@ -123,13 +128,14 @@ export class EditAttendeeDialogComponent {
               comment: null
             };
 
-            this.eventService.createAttendee(this.data.eventID, guest).subscribe();
+            this.eventService.createAttendee(this.data.eventID, guest).subscribe(value => {
+              this.dialogRef.close(value);
+            });
           });
         }
+      } else {
+        this.dialogRef.close(value);
       }
-      console.log(value);
-      this.dialogRef.close(value);
-
     }, err => {
       console.log(err);
       // TODO: Error dialog
