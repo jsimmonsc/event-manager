@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators, FormBuilder, FormControl, FormArray} from '@angular/forms';
-import {SlidingDialogService} from "../shared/services/sliding-dialog.service";
+import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
 
@@ -31,20 +31,22 @@ export class CreateEventComponent implements OnInit {
     const dateString = this.formGroup.get("dateGroup.dateCtrl").value;
     console.log(dateString);
 
-    this.eventService.createEvent({
-      _id: null,
-      name: nameString,
-      description: descriptionString,
-      date: new Date(dateString),
-      sales: 0,
-      attendees: null
-    }).subscribe((event: Event) => {
-      this.slidingDialog.displayNotification("Successfully created event");
-      console.log(JSON.stringify(event));
-    }, (err) => {
-      this.slidingDialog.displayNotification("Error creating event");
-      console.log(err);
-    });
+    this.slidingDialog.displayNotification("heyo you got a problem", SlidingDialogType.ERROR);
+
+    // this.eventService.createEvent({
+    //   _id: null,
+    //   name: nameString,
+    //   description: descriptionString,
+    //   date: new Date(dateString),
+    //   sales: 0,
+    //   attendees: null
+    // }).subscribe((event: Event) => {
+    //   this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
+    //   console.log(JSON.stringify(event));
+    // }, (err) => {
+    //   this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
+    //   console.log(err);
+    // });
   }
 
   createForm() {

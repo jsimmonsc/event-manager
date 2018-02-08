@@ -6,16 +6,38 @@ export class SlidingDialogService {
 
   constructor(public snackBar: MatSnackBar) { }
 
-  displayNotification(message: string) {
+  displayNotification(message: string, dialogType: SlidingDialogType) {
+
+    let styleClass = "";
+    let displayDuration = 5000;
+
+    switch (dialogType) {
+      case SlidingDialogType.INFO:
+        styleClass = "info-type";
+        displayDuration = 10000;
+        break;
+      case SlidingDialogType.ERROR:
+        styleClass = "error-type";
+        displayDuration = 7200000;
+        break;
+      case SlidingDialogType.SUCCESS:
+        styleClass = "success-type";
+        displayDuration = 10000;
+        break;
+    }
 
     this.snackBar.open(message, "OK", {
-      duration: 5000,
+      duration: displayDuration,
       verticalPosition: 'top',
-      panelClass: ['snackbar-custom-class'],
+      panelClass: ['snackbar-custom-class', styleClass]
     });
 
 
 
   }
 
+}
+
+export enum SlidingDialogType {
+  INFO, ERROR, SUCCESS
 }

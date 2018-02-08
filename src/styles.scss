@@ -39,10 +39,18 @@ input:focus {
   border: none;
 }
 
-snack-bar-container.snackbar-custom-class {
+snack-bar-container.snackbar-custom-class.error-type {
+  background: #ff413f !important;
+}
+
+snack-bar-container.snackbar-custom-class.info-type {
+  background: #13488d !important;
+}
+
+snack-bar-container.snackbar-custom-class.success-type {
   background: $green !important;
 }
 
-.snackbar-custom-class .mat-simple-snackbar {
+/deep/ .snackbar-custom-class .mat-simple-snackbar-action {
   color: white !important;
 }
