@@ -106,8 +106,8 @@ export class EditAttendeeDialogComponent {
       if (this.changedAttendee.guestId !== savedAttendee.guestId) {
         if (this.changedAttendee.guestId !== -1) {
           this.eventService.getAttendeeFromEvent(this.data.eventID, this.changedAttendee.guestId).subscribe(old => {
-            this.eventService.deleteAttendee(this.data.eventID, old).subscribe(value => {
-              this.dialogRef.close(value);
+            this.eventService.deleteAttendee(this.data.eventID, old).subscribe(event => {
+              this.dialogRef.close(event);
             });
           });
         }
@@ -128,8 +128,8 @@ export class EditAttendeeDialogComponent {
               comment: null
             };
 
-            this.eventService.createAttendee(this.data.eventID, guest).subscribe(value => {
-              this.dialogRef.close(value);
+            this.eventService.createAttendee(this.data.eventID, guest).subscribe(event => {
+              this.dialogRef.close(event);
             });
           });
         }
