@@ -1,5 +1,7 @@
-button {
-  margin: 3rem;
+.button-container {
+  button {
+    margin: 3rem;
+  }
 }
 
 p {
@@ -26,3 +28,13 @@ a {
   cursor: pointer;
   user-select: none;
 }
+
+.table-head {
+  background-color: #cccccc;
+
+  mat-form-field {
+    width: 25%;
+  }
+}
+
+

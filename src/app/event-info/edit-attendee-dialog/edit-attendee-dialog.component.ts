@@ -133,9 +133,8 @@ export class EditAttendeeDialogComponent {
             });
           });
         }
-      } else {
-        this.dialogRef.close(value);
       }
+      this.dialogRef.close(value);
     }, err => {
       console.log(err);
       // TODO: Error dialog
