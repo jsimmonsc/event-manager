@@ -7,7 +7,7 @@
       <h2>{{ event.name }}</h2>
     </div>
     <div class="event-date">
-      <h3>{{ event.description }}</h3>
+      <h3>{{ event.date.toDateString() }}</h3>
     </div>
     <div class="event-button">
       <button mat-button (click)="openEventInfo(event)">INFO</button>
