@@ -2,6 +2,7 @@ var Event = require('../models/event.model');
 
 exports.create = async (req, res) => {
     try {
+	delete req.body._id;
         res.send(await Event.create(req.body));
         console.log("Created event: " + JSON.stringify(req.body));
     } catch(err) {
@@ -91,7 +92,7 @@ async function addAttendee(attendee, event) {
 
 exports.deleteAttendee = async (req, res) => {
     try {
-        res.send(await Event.findByIdAndUpdate(req.params.id, {$pull: { attendees: { _id: req.params.ticketnum }}}));
+        res.send(await Event.findByIdAndUpdate(req.params.id, {$pull: { attendees: { _id: req.params.ticketnum }}}, {new: true}));
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
