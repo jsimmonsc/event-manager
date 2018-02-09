@@ -23,13 +23,10 @@ export class CreateEventComponent implements OnInit {
 
   createEvent() {
 
-    console.log("creating event...");
-    const nameString = this.formGroup.get("eventNameGroup.eventNameCtrl").value;
-    console.log(nameString);
-    const descriptionString = this.formGroup.get("eventNameGroup.eventDescriptionCtrl").value;
-    console.log(descriptionString);
-    const dateString = this.formGroup.get("dateGroup.dateCtrl").value;
-    console.log(dateString);
+    const nameString = this.formGroup.get("eventNameCtrl").value;
+    const descriptionString = this.formGroup.get("eventDescriptionCtrl").value;
+    const dateString = this.formGroup.get("dateCtrl").value;
+    const costString = this.formGroup.get("costCtrl").value;
 
     this.slidingDialog.displayNotification("heyo you got a problem", SlidingDialogType.ERROR);
 
@@ -50,21 +47,12 @@ export class CreateEventComponent implements OnInit {
   }
 
   createForm() {
-
     this.formGroup = this.formBuilder.group({
-      eventNameGroup: this.formBuilder.group({
         eventNameCtrl: ['', Validators.required],
-        eventDescriptionCtrl: ['', Validators.required]
-      }),
-      dateGroup: this.formBuilder.group({
-        dateCtrl: ['', Validators.required]
-      }),
-      costGroup: this.formBuilder.group({
-        costCtrl: ['', Validators.required]
-      })
-
-    });
-
+        eventDescriptionCtrl: ['', Validators.required],
+        dateCtrl: ['', Validators.required],
+        costCtrl: ['', Validators.required, Validators.pattern("^[0-9]*$")]
+      });
   }
 
 }

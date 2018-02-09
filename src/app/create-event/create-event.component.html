@@ -2,12 +2,6 @@
 
 <form [formGroup]="formGroup">
 
-  <mat-horizontal-stepper [linear]="true">
-
-    <mat-step class="step step1" label="Event Name">
-
-      <form formGroupName="eventNameGroup">
-
         <mat-form-field>
           <input matInput placeholder="Event Name" formControlName="eventNameCtrl" maxlength="100" required>
         </mat-form-field>
@@ -15,66 +9,19 @@
           <textarea matInput placeholder="Event Description" formControlName="eventDescriptionCtrl" maxlength="1000"></textarea>
         </mat-form-field>
 
-      </form>
-
-      <div>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-
-    </mat-step>
-
-
-    <mat-step class="step step2" label="Event Date">
-
-      <form formGroupName="dateGroup">
-
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateCtrl" required>
+          <input matInput [matDatepicker]="picker" placeholder="Event Date" formControlName="dateCtrl" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-      </form>
-
-      <div>
-        <button mat-button matStepperPrevious type="button">Previous</button>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-
-    </mat-step>
-
-    <mat-step class="step step4" label="Requirements">
-
         <mat-checkbox>Attendance</mat-checkbox>
-        <mat-checkbox>Discipline</mat-checkbox>
         <mat-checkbox>Fines</mat-checkbox>
-
-      <div>
-        <button mat-button matStepperPrevious type="button">Previous</button>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-
-    </mat-step>
-
-    <mat-step class="step step5" label="Cost">
-
-      <form formGroupName="costGroup">
 
         <mat-form-field>
           <input matInput placeholder="Ticket Cost" formControlName="costCtrl" required>
           <span matPrefix>$&nbsp;</span>
         </mat-form-field>
-
-      </form>
-
-      <div>
-        <button mat-button matStepperPrevious type="button">Previous</button>
-        <button mat-button matStepperNext type="button">Next</button>
-      </div>
-
-    </mat-step>
-
-    <mat-step class="step6 step" label="Finish">
 
       <button
         class="create-event-button"
@@ -84,13 +31,5 @@
         (click)="createEvent()">
         Create Event
       </button>
-
-      <div>
-        <button mat-button matStepperPrevious type="button">Previous</button>
-      </div>
-
-    </mat-step>
-
-  </mat-horizontal-stepper>
 
 </form>
