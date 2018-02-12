@@ -52,7 +52,7 @@ export class CreateEventComponent implements OnInit {
         eventDescriptionCtrl: ['', Validators.required],
         dateCtrl: ['', Validators.required],
         costCtrl: ['', Validators.required, Validators.pattern("^[0-9]*$")]
-      });
+    });
   }
 
 }

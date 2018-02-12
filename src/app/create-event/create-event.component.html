@@ -2,34 +2,63 @@
 
 <form [formGroup]="formGroup">
 
+  <div class="row">
+
+    <div class="column">
+      <div class="top-row">
         <mat-form-field>
           <input matInput placeholder="Event Name" formControlName="eventNameCtrl" maxlength="100" required>
         </mat-form-field>
-        <mat-form-field>
-          <textarea matInput placeholder="Event Description" formControlName="eventDescriptionCtrl" maxlength="1000"></textarea>
-        </mat-form-field>
+      </div>
 
+      <div class="bottom-row">
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Event Date" formControlName="dateCtrl" required>
+          <textarea matInput placeholder="Event Description" matTextareaAutosize formControlName="eventDescriptionCtrl" maxlength="1000"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="top-row">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Event Date" [readonly]="true" formControlName="dateCtrl"
+                 required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+      </div>
 
-        <mat-checkbox>Attendance</mat-checkbox>
-        <mat-checkbox>Fines</mat-checkbox>
-
+      <div class="bottom-row">
         <mat-form-field>
           <input matInput placeholder="Ticket Cost" formControlName="costCtrl" required>
           <span matPrefix>$&nbsp;</span>
         </mat-form-field>
+      </div>
+    </div>
 
-      <button
-        class="create-event-button"
-        matTooltip="You can always come back and make changes later."
-        matTooltipPosition="above"
-        mat-button
-        (click)="createEvent()">
-        Create Event
-      </button>
+
+    <div class="column">
+
+      <h3>Requirements</h3>
+      <div>
+        <mat-checkbox>Attendance</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox>Fines</mat-checkbox>
+      </div>
+
+    </div>
+
+  </div>
+
+  <button
+    class="create-event-button"
+    matTooltip="You can always come back and make changes later."
+    matTooltipPosition="above"
+    mat-button
+    (click)="createEvent()">
+    Create Event
+  </button>
+
 
 </form>

@@ -4,28 +4,60 @@ button {
   border: 1px solid $background-gray;
 }
 
-.step6 {
-
+div {
   text-align: center;
   width: 100%;
+}
 
-  .create-event-button {
-    width: 20%;
-    height: 75px;
-    background-color: $green;
-    color: white;
-    font-size: 20px;
+form {
+  text-align: center;
+}
 
-    &:hover {
-      background-color: $light-green;
-    }
+h1 {
+  padding-top: 100px;
+  text-align: center;
+  font-size: 30px;
+}
 
-  }
-
+mat-form-field {
+  width: 80%;
+  font-size: 14px;
 }
 
 mat-checkbox {
-  font-size: 16px;
+  font-size: 14px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.top-row {
+  margin-bottom: 40px;
+}
+
+.create-event-button {
+  width: 20%;
+  height: 75px;
+  background-color: $green;
+  color: white;
+  font-size: 20px;
+  margin-top: 60px;
+
+  &:hover {
+    background-color: $light-green;
+  }
+
 }
 
 
