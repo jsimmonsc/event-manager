@@ -6,6 +6,7 @@ import {PurchaseComponent} from "./purchase/purchase.component";
 import {EventInfoComponent} from './event-info/event-info.component';
 import {CreateEventComponent} from "./create-event/create-event.component";
 import { ErrorPageComponent } from './error-page/error-page.component';
+import {LoginComponent} from "./login/login.component";
 
 const appRoutes: Routes = [
   {path: 'checkin/:id', component: CheckInComponent, data: {title: "Check In"}},
@@ -18,8 +19,8 @@ const appRoutes: Routes = [
 
   {
     path: '',
-    redirectTo: '/events',
-    pathMatch: 'full'
+    component: LoginComponent,
+    data: {title: "Log In"}
   },
   {
     path: '**',
