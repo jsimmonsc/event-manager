@@ -1,7 +1,7 @@
 import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {Event} from './../shared/models/event.model';
-import {EventService} from "../shared/services/event.service";
+import {EventService} from "../shared/services/event/event.service";
 
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatCheckbox, MatDialog, MatDialogRef} from "@angular/material";
 import {Attendee} from "../../shared/models/attendee.model";
-import {EventService} from "../../shared/services/event.service";
+import {EventService} from "../../shared/services/event/event.service";
 import {DeleteWarningDialogComponent} from "../delete-warning-dialog/delete-warning-dialog.component";
 import {Event} from "../../shared/models/event.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";

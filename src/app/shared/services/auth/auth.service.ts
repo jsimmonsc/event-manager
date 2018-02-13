@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
     responseType: 'token id_token',
   });
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private http: HttpClient) { }
 
   public login(): void {
     this.auth0.authorize();

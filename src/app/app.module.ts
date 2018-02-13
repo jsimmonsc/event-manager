@@ -26,13 +26,15 @@ import { WarningDialogComponent } from './purchase/warning-dialog/warning-dialog
 import { StudentInfoComponent } from './shared/student-info/student-info.component';
 import { EventInfoComponent } from './event-info/event-info.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import {EventService} from "./shared/services/event.service";
+import {EventService} from "./shared/services/event/event.service";
 import * as moment from 'moment-timezone';
 import {MomentModule} from "angular2-moment";
 import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
 import { DeleteWarningDialogComponent } from './event-info/delete-warning-dialog/delete-warning-dialog.component';
 import { LoginComponent } from './login/login.component';
-import {AuthService} from "./shared/services/auth.service";
+import {AuthService} from "./shared/services/auth/auth.service";
+import { AuthCallbackComponent } from './login/auth-callback/auth-callback.component';
+import {JwtModule} from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import {AuthService} from "./shared/services/auth.service";
     EventInfoComponent,
     EditAttendeeDialogComponent,
     DeleteWarningDialogComponent,
-    LoginComponent
+    LoginComponent,
+    AuthCallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -73,8 +76,15 @@ import {AuthService} from "./shared/services/auth.service";
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MomentModule
-
+    MomentModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+        whitelistedDomains: ['http://capstone.psdr3.org:3000']
+      }
+    })
   ],
   entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent],
   providers: [EventService, { provide: 'moment', useFactory: (): any => moment }, AuthService],

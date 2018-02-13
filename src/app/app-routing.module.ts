@@ -7,6 +7,7 @@ import {EventInfoComponent} from './event-info/event-info.component';
 import {CreateEventComponent} from "./create-event/create-event.component";
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {LoginComponent} from "./login/login.component";
+import {AuthCallbackComponent} from "./login/auth-callback/auth-callback.component";
 
 const appRoutes: Routes = [
   {path: 'checkin/:id', component: CheckInComponent, data: {title: "Check In"}},
@@ -16,10 +17,11 @@ const appRoutes: Routes = [
   {path: 'sell/:id', component: PurchaseComponent, data: {title: "Sell"}},
   {path: 'create', component: CreateEventComponent, data: {title: "Create Event"}},
   {path: 'error', component: ErrorPageComponent, data: {title: "Error"}},
-
+  {path: 'login', component: LoginComponent, data: {title: "Log In"}},
   {
     path: '',
     component: LoginComponent,
+    children: [{path: 'callback', component: AuthCallbackComponent, data: {title: ''}}],
     data: {title: "Log In"}
   },
   {
