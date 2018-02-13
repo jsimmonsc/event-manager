@@ -9,6 +9,11 @@ import {AuthService} from "../../shared/services/auth/auth.service";
 })
 export class AuthCallbackComponent {
 
-  constructor(public router: Router, public authService: AuthService) { }
-
+  constructor(public router: Router, public authService: AuthService) {
+    if (authService.isAuthenticated()) {
+      this.router.navigate(['/events']);
+    } else {
+      this.authService.handleAuthentication();
+    }
+  }
 }

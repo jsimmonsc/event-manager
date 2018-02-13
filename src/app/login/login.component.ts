@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../shared/services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -8,5 +9,9 @@ import {AuthService} from "../shared/services/auth/auth.service";
 })
 export class LoginComponent {
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private router: Router) {
+    if (authService.isAuthenticated()) {
+      this.router.navigate(['/events']);
+    }
+  }
 }

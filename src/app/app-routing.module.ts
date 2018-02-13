@@ -17,12 +17,20 @@ const appRoutes: Routes = [
   {path: 'sell/:id', component: PurchaseComponent, data: {title: "Sell"}},
   {path: 'create', component: CreateEventComponent, data: {title: "Create Event"}},
   {path: 'error', component: ErrorPageComponent, data: {title: "Error"}},
-  {path: 'login', component: LoginComponent, data: {title: "Log In"}},
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {title: "Log In"},
+  },
+  {
+    path: 'login/callback',
+    component: AuthCallbackComponent,
+    data: {title: ''}
+  },
   {
     path: '',
-    component: LoginComponent,
-    children: [{path: 'callback', component: AuthCallbackComponent, data: {title: ''}}],
-    data: {title: "Log In"}
+    redirectTo: '/login',
+    pathMatch: 'full'
   },
   {
     path: '**',

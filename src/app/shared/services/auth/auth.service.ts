@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,10 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+
+        console.log(authResult);
+        // this.http.post(environment.apiUrl + "/login", { authResult: authResult });
+
         window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/events']);
