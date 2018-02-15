@@ -12,7 +12,6 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-	console.log(req.headers);
         res.send(await Event.find().select("-attendees"));
     } catch(err) {
         console.error(err);

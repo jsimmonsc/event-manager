@@ -34,6 +34,7 @@ app.use(cors());
 
 require('./routes/student.routes')(app);
 require('./routes/event.routes')(app);
+require('./routes/auth.routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
