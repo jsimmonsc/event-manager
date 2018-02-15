@@ -1,7 +1,8 @@
-var controller = require('../controllers/event.controller');
+const controller = require('../controllers/event.controller');
+const validateJWT = require('../auth/jwt-validator');
 
 module.exports = (app) => {
-    app.post('/events', controller.create);
+    app.post('/events', validateJWT, controller.create);
     app.get('/events', controller.findAll);
     app.get('/events/id/:id', controller.findOne);
     app.put('/events/id/:id', controller.updateOne);

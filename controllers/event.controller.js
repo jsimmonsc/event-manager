@@ -4,7 +4,6 @@ exports.create = async (req, res) => {
     try {
 	delete req.body._id;
         res.send(await Event.create(req.body));
-        console.log("Created event: " + JSON.stringify(req.body));
     } catch(err) {
         console.error(err);
         res.status(500).send(err);
@@ -13,6 +12,7 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
+	console.log(req.headers);
         res.send(await Event.find().select("-attendees"));
     } catch(err) {
         console.error(err);
