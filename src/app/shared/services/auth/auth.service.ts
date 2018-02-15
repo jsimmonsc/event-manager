@@ -17,7 +17,7 @@ export class AuthService {
     scope: 'openid email'
   });
 
-  userProfile: any;
+  public userProfile: any;
 
   constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
@@ -64,6 +64,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    this.userProfile = null;
     // Go back to the home route
     this.router.navigate(['/']);
   }

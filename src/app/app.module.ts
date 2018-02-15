@@ -4,7 +4,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EventListComponent} from './event-list/event-list.component';
-import {AppRoutingModule} from "./app-routing.module";
+import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
   MatButtonModule,
@@ -82,7 +82,7 @@ import {JwtModule} from "@auth0/angular-jwt";
         tokenGetter: () => {
           return localStorage.getItem('access_token');
         },
-        whitelistedDomains: ['capstone.psdr3.org:3000']
+        whitelistedDomains: ['capstone.psdr3.org:3000', 'localhost:3000']
       }
     })
   ],
