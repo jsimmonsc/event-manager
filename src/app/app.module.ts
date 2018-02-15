@@ -82,7 +82,7 @@ import {JwtModule} from "@auth0/angular-jwt";
         tokenGetter: () => {
           return localStorage.getItem('access_token');
         },
-        whitelistedDomains: ['http://capstone.psdr3.org:3000']
+        whitelistedDomains: ['capstone.psdr3.org:3000']
       }
     })
   ],

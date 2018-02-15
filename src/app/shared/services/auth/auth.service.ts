@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js';
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable()
 export class AuthService {
 
   auth0 = new auth0.WebAuth({
-    clientID: '2l6EUFcHggByVV3-NIk840wAK3aRwN84',
+    clientID: environment.auth0ClientID,
     domain: 'event-manager.auth0.com',
     redirectUri: 'http://localhost:4200/login/callback',
+    audience: 'http://capstone.psdr3.org:3000',
     responseType: 'token id_token',
+    scope: 'openid email'
   });
 
-  constructor(public router: Router, private http: HttpClient) { }
+  userProfile: any;
+
+  constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   public login(): void {
     this.auth0.authorize();
@@ -25,11 +30,25 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
 
         console.log(authResult);
-        // this.http.post(environment.apiUrl + "/login", { authResult: authResult });
 
-        window.location.hash = '';
-        this.setSession(authResult);
-        this.router.navigate(['/events']);
+        this.userProfile = this.jwtHelper.decodeToken(authResult.idToken);
+        console.log(this.userProfile);
+
+        this.http.post(environment.apiUrl + "/authorize",
+          {email: this.userProfile.email, token: authResult.idToken},
+          { headers: new HttpHeaders({
+              'Authorization': 'Bearer ' + authResult.accessToken
+            })}).subscribe(res => {
+          window.location.hash = '';
+          this.setSession(authResult);
+          console.log(res);
+
+          this.router.navigate(['/events']);
+        }, error => {
+          this.router.navigate(['/']);
+          console.log(error);
+        });
+
       } else if (err) {
         this.router.navigate(['/']);
         console.log(err);
