@@ -29,19 +29,14 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
 
-        console.log(authResult);
-
-        this.userProfile = this.jwtHelper.decodeToken(authResult.idToken);
-        console.log(this.userProfile);
-
         this.http.post(environment.apiUrl + "/authorize",
-          {email: this.userProfile.email, token: authResult.idToken},
+          {email: this.jwtHelper.decodeToken(authResult.idToken).email, token: authResult.idToken},
           { headers: new HttpHeaders({
               'Authorization': 'Bearer ' + authResult.accessToken
             })}).subscribe(res => {
           window.location.hash = '';
           this.setSession(authResult);
-          console.log(res);
+          this.userProfile = res;
 
           this.router.navigate(['/events']);
         }, error => {
