@@ -6,7 +6,7 @@ exports.authorize = async (req, res) => {
     if (user) {
       res.status(200).send(user);
     } else {
-      res.status(401).send("Authentication failed.");
+      res.status(401).send("Authentication failed, user not found.");
     }
   } catch (error) {
     console.error(error);
