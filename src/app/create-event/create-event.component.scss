@@ -5,7 +5,6 @@ button {
 }
 
 div {
-  text-align: center;
   width: 100%;
 }
 
@@ -21,12 +20,15 @@ h1 {
 
 mat-form-field {
   width: 80%;
-  font-size: 14px;
+  font-size: 16px !important;
+  font-family: "Roboto", Avenir, sans-serif !important;
 }
 
-mat-checkbox {
-  font-size: 14px;
+input, mat-checkbox {
+  font-size: 16px;
+  font-family: "Roboto", Avenir, sans-serif;
 }
+
 
 h3 {
   font-size: 20px;
@@ -56,9 +58,40 @@ h3 {
 
   &:hover {
     background-color: $light-green;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: gray;
+
+    &:hover {
+      background-color: gray;
+      cursor: not-allowed;
+    }
   }
 
 }
+
+.checkbox-container {
+  text-align: left !important;
+  padding-left: 40%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.mat-form-field-suffix.mat-icon-button {
+  width: 2em !important;
+  height: 2em !important;
+  font-size: 20px !important;
+}
+
+.mat-input-infix.mat-form-field-infix {
+  padding: 0 !important;
+}
+
 
 
 
