@@ -40,3 +40,12 @@ exports.delete = async (req, res) => {
     res.status(500).send(error);
   }
 }
+
+exports.updateRole = async (req, res) => {
+  try {
+    res.send(User.findOneAndUpdate({ email: req.body.email }, { $set: { role: req.body.role } }));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+}

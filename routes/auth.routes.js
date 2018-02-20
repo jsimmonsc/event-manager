@@ -7,4 +7,5 @@ module.exports = (app) => {
   app.post("/users/create", validateJWT, guards.super, controller.create);
   app.get("/users", validateJWT, guards.super, controller.findAll);
   app.post("/users/remove", validateJWT, guards.super, controller.delete);
+  app.post('/users', validateJWT, guards.super, controller.updateRole);
 }
