@@ -35,6 +35,7 @@ import { LoginComponent } from './login/login.component';
 import {AuthService} from "./shared/services/auth/auth.service";
 import { AuthCallbackComponent } from './login/auth-callback/auth-callback.component';
 import {JwtModule} from "@auth0/angular-jwt";
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {JwtModule} from "@auth0/angular-jwt";
     EditAttendeeDialogComponent,
     DeleteWarningDialogComponent,
     LoginComponent,
-    AuthCallbackComponent
+    AuthCallbackComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
