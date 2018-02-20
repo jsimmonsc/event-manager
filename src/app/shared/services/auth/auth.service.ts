@@ -98,4 +98,11 @@ export class AuthService {
 
     return this.http.post<User>(API_URL + '/users/remove', user, {headers: headers});
   }
+
+  public updateUser(user: User): Observable<User> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post<User>(API_URL + '/users', user, {headers: headers});
+  }
 }
