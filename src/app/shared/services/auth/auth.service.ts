@@ -5,6 +5,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {User} from "../../models/user.model";
+import {Observable} from "rxjs/Observable";
+
+const API_URL = environment.apiUrl;
 
 @Injectable()
 export class AuthService {
@@ -78,5 +81,21 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
+  public createUser(user: User): Observable<User> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
 
+    return this.http.post<User>(API_URL + '/users', user, {headers: headers});
+  }
+
+  public findAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(API_URL + '/users');
+  }
+
+  public deleteUser(user: User): Observable<User> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post<User>(API_URL + '/users/remove', user, {headers: headers});
+  }
 }
