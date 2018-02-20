@@ -5,6 +5,9 @@ import {Event} from "../shared/models/event.model";
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Attendee} from "../shared/models/attendee.model";
 import {EditAttendeeDialogComponent} from "./edit-attendee-dialog/edit-attendee-dialog.component";
+import {FormGroup} from "@angular/forms";
+import {AddAttendeeDialogComponent} from "./add-attendee-dialog/add-attendee-dialog.component";
+import {Student} from "../shared/models/student.model";
 
 @Component({
   selector: 'app-event-info',
@@ -13,6 +16,7 @@ import {EditAttendeeDialogComponent} from "./edit-attendee-dialog/edit-attendee-
 })
 export class EventInfoComponent implements OnInit {
 
+  addStudentForm: FormGroup;
   id: string;
   event: Event;
   private sub: any;
@@ -25,7 +29,8 @@ export class EventInfoComponent implements OnInit {
               private router: Router,
               private eventService: EventService,
               private dialog: MatDialog,
-              private changeDetectorRef: ChangeDetectorRef) { }
+              private changeDetectorRef: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -49,7 +54,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   editAttendee(attendee: Attendee): void {
-    const editDialogRef = this.dialog.open(EditAttendeeDialogComponent, { data: { attendee: attendee, eventID: this.id } });
+    const editDialogRef = this.dialog.open(EditAttendeeDialogComponent, {data: {attendee: attendee, eventID: this.id}});
 
     editDialogRef.afterClosed().subscribe((value: Event) => {
       if (value) {
@@ -58,10 +63,23 @@ export class EventInfoComponent implements OnInit {
       }
     });
   }
-
   applyFilter(value: string): void {
     value = value.trim();
     value = value.toLowerCase();
     this.dataSource.filter = value;
   }
+
+  addAttendee(): void {
+    const addDialogRef = this.dialog.open(AddAttendeeDialogComponent, {data: {eventID: this.id, }, width: '30%', height: '35%'});
+    console.log("adding attendee");
+    addDialogRef.afterClosed().subscribe((value: Event) => {
+      if (value) {
+        this.dataSource = new MatTableDataSource<Attendee>(value.attendees);
+        this.changeDetectorRef.detectChanges();
+      }
+    });
+
+
+  }
 }
+

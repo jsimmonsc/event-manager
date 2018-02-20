@@ -15,7 +15,7 @@ export class DeleteWarningDialogComponent {
   constructor(private dialogRef: MatDialogRef<DeleteWarningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
-              private matDialog: MatDialog) {
+              ) {
 
     this.attendee = data.attendee;
 
