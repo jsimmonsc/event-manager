@@ -40,6 +40,7 @@ import {MomentModule} from "angular2-moment";
 import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
 import { DeleteWarningDialogComponent } from './event-info/delete-warning-dialog/delete-warning-dialog.component';
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
+import {RestrictInputDirective} from "./restrict-input.directive";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
     EditAttendeeDialogComponent,
     DeleteWarningDialogComponent,
     ErrorPageComponent,
-    EventInfoComponent
+    EventInfoComponent,
+    RestrictInputDirective
   ],
   imports: [
     BrowserModule,

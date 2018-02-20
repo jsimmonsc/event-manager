@@ -68,17 +68,6 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
-  restrictInputToNumbers(event: any) {
-    const pattern = /[0-9\.]/;
-    const inputChar = String.fromCharCode(event.charCode);
-
-    if (!pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-
-  }
-
-
 }
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {

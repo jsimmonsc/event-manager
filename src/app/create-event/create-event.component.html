@@ -38,7 +38,7 @@
 
       <div class="bottom-row">
         <mat-form-field>
-          <input matInput placeholder="Ticket Cost" (keypress)="restrictInputToNumbers($event)" formControlName="costCtrl">
+          <input matInput placeholder="Ticket Cost" appRestrictInput="decimal" formControlName="costCtrl">
           <span matPrefix>$&nbsp;</span>
           <mat-error *ngIf="costCtrl.hasError('required')">
             Ticket cost is required
