@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {User} from "../../models/user.model";
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
     scope: 'openid email'
   });
 
-  public userProfile: any;
+  public userProfile: User;
 
   constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
@@ -34,7 +35,7 @@ export class AuthService {
           {email: this.jwtHelper.decodeToken(authResult.idToken).email, token: authResult.accessToken},
           { headers: new HttpHeaders({
               'Authorization': 'Bearer ' + authResult.accessToken
-            })}).subscribe(res => {
+            })}).subscribe((res: User): void => {
           window.location.hash = '';
           this.setSession(authResult);
           this.userProfile = res;
