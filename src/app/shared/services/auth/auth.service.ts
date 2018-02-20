@@ -28,9 +28,10 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        this.logout();
 
         this.http.post(environment.apiUrl + "/authorize",
-          {email: this.jwtHelper.decodeToken(authResult.idToken).email, token: authResult.idToken},
+          {email: this.jwtHelper.decodeToken(authResult.idToken).email, token: authResult.accessToken},
           { headers: new HttpHeaders({
               'Authorization': 'Bearer ' + authResult.accessToken
             })}).subscribe(res => {
@@ -75,5 +76,6 @@ export class AuthService {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
+
 
 }
