@@ -6,7 +6,8 @@ export interface Attendee {
   last_name: string;
   student_number: number;
   grade_level: number;
-  guest: Guest;
+  guest?: Guest;
   guestId: number;
   timestamp: string;
+  comment: string;
 }

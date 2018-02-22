@@ -55,8 +55,6 @@ export class PurchaseComponent {
       }
     }
 
-
-
     if (+studentNumber) {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
         console.log("Error, student already registered.");
@@ -96,7 +94,8 @@ export class PurchaseComponent {
       grade_level: studentModel.grade_level,
       guest: null,
       guestId: -1,
-      timestamp: null
+      timestamp: null,
+      comment: null
     };
 
     if (this.purchaseForm.get('guestForm.hasGuest').value) {
@@ -104,7 +103,7 @@ export class PurchaseComponent {
         const guest = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
 
         saveAttendee.guestId = guest.student_number;
-        saveAttendee.guest = { name: guest.first_name + " " + guest.last_name, age: null, phone: null, school: 'Pattonville HS' };
+        saveAttendee.guest = { name: guest.first_name + ' ' + guest.last_name, age: null, phone: null, school: null };
       } else if (this.checkGuestValidity(this.purchaseForm.get('guestForm.outsideGuest').value)) {
         const outsideGuest = this.purchaseForm.get('guestForm.outsideGuest').value;
         saveAttendee.guest = { name: outsideGuest.guestName,
@@ -119,38 +118,38 @@ export class PurchaseComponent {
     }
 
     this.eventService.createAttendee(this.id, saveAttendee).subscribe((event: Event) => {
-      this.purchaseForm.reset();
       console.log("Attendee created.");
+      if (saveAttendee.guestId > 0) {
+        const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
+        const guestAttendee: Attendee = {
+          _id: null,
+          first_name: guestModel.first_name,
+          last_name: guestModel.last_name,
+          student_number: guestModel.student_number,
+          grade_level: guestModel.grade_level,
+          guest: {name: "of " + studentModel.first_name + " " + studentModel.last_name,
+            age: null,
+            phone: null,
+            school: "Pattonville HS"},
+          guestId: -1,
+          timestamp: null,
+          comment: null
+        };
+
+        this.eventService.createAttendee(this.id, guestAttendee).subscribe((e: Event) => {
+          console.log("Guest Attendee created.");
+          // TODO: Attendee added dialog
+        }, (err) => {
+          // TODO: Error connection failed
+          console.log(err);
+        });
+      }
+      this.purchaseForm.reset();
       // TODO: Attendee added dialog
     }, (err) => {
       // TODO: Error connection failed
       console.log(err);
     });
-
-    if (saveAttendee.guestId > 0) {
-      const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
-      const guestAttendee: Attendee = {
-        _id: null,
-        first_name: guestModel.first_name,
-        last_name: guestModel.last_name,
-        student_number: guestModel.student_number,
-        grade_level: guestModel.grade_level,
-        guest: {name: "of " + studentModel.first_name + " " + studentModel.last_name,
-                age: null,
-                phone: null,
-                school: "Pattonville HS"},
-        guestId: -1,
-        timestamp: null
-      };
-
-      this.eventService.createAttendee(this.id, guestAttendee).subscribe((event: Event) => {
-        console.log("Guest Attendee created.");
-        // TODO: Attendee added dialog
-      }, (err) => {
-        // TODO: Error connection failed
-        console.log(err);
-      });
-    }
   }
 
   checkGuestValidity(obj: any): boolean {

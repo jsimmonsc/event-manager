@@ -13,7 +13,9 @@ import {
   MatDialogModule,
   MatInputModule,
   MatNativeDateModule,
+  MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSortModule,
   MatStepperModule,
   MatTableModule,
   MatTooltipModule,
@@ -33,7 +35,12 @@ import { FormBuilder } from '@angular/forms';
 import { NgControl } from '@angular/forms/src/directives/ng_control';
 import { ControlContainer } from '@angular/forms/src/directives/control_container';
 import {EventService} from "./shared/services/event.service";
+import * as moment from 'moment-timezone';
+import {MomentModule} from "angular2-moment";
+import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
+import { DeleteWarningDialogComponent } from './event-info/delete-warning-dialog/delete-warning-dialog.component';
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
+import {RestrictInputDirective} from "./restrict-input.directive";
 
 @NgModule({
   declarations: [
@@ -47,8 +54,12 @@ import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
     StudentInfoComponent,
     EventInfoComponent,
     ErrorPageComponent,
+    EventInfoComponent,
+    EditAttendeeDialogComponent,
+    DeleteWarningDialogComponent,
     ErrorPageComponent,
-    EventInfoComponent
+    EventInfoComponent,
+    RestrictInputDirective
   ],
   imports: [
     BrowserModule,
@@ -69,15 +80,20 @@ import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
     MatTooltipModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     MatIconModule,
+    MomentModule,
     MatFormFieldModule,
     MatSnackBarModule
   ],
   providers: [
     FormBuilder,
     SlidingDialogService,
-    EventService
+    EventService,
+    { provide: 'moment', useFactory: (): any => moment }
   ],
+  entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

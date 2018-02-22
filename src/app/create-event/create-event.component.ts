@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, Validators, FormBuilder, FormControl, FormArray} from '@angular/forms';
+import {FormGroup, Validators, FormBuilder, FormControl, FormArray, FormGroupDirective, NgForm} from '@angular/forms';
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
+import {ErrorStateMatcher} from "@angular/material";
 
 @Component({
   selector: 'app-create-event',
@@ -12,6 +13,13 @@ import {Event} from "../shared/models/event.model";
 export class CreateEventComponent implements OnInit {
 
   formGroup: FormGroup;
+
+  eventNameCtrl = new FormControl('', [Validators.required]);
+  eventDescriptionCtrl = new FormControl('');
+  dateCtrl = new FormControl('', [Validators.required]);
+  costCtrl = new FormControl('', [Validators.required]);
+
+  matcher = new CustomErrorStateMatcher();
 
   constructor(private formBuilder: FormBuilder, private slidingDialog: SlidingDialogService, private eventService: EventService) {
     this.createForm();
@@ -23,48 +31,51 @@ export class CreateEventComponent implements OnInit {
 
   createEvent() {
 
-    console.log("creating event...");
-    const nameString = this.formGroup.get("eventNameGroup.eventNameCtrl").value;
-    console.log(nameString);
-    const descriptionString = this.formGroup.get("eventNameGroup.eventDescriptionCtrl").value;
-    console.log(descriptionString);
-    const dateString = this.formGroup.get("dateGroup.dateCtrl").value;
-    console.log(dateString);
+    this.eventService.createEvent({
+      _id: null,
+      name: this.getFormValue("eventNameCtrl"),
+      description: this.getFormValue("eventDescriptionCtrl"),
+      date: new Date(this.getFormValue("dateCtrl")),
+      sales: 0,
+      attendees: null
+    }).subscribe((event: Event) => {
+      this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
+      console.log(JSON.stringify(event));
+    }, (err) => {
+      this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
+      console.log(err);
+    });
+  }
 
-    this.slidingDialog.displayNotification("heyo you got a problem", SlidingDialogType.ERROR);
+  inputIsInvalid(): boolean {
 
-    // this.eventService.createEvent({
-    //   _id: null,
-    //   name: nameString,
-    //   description: descriptionString,
-    //   date: new Date(dateString),
-    //   sales: 0,
-    //   attendees: null
-    // }).subscribe((event: Event) => {
-    //   this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
-    //   console.log(JSON.stringify(event));
-    // }, (err) => {
-    //   this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
-    //   console.log(err);
-    // });
+    return this.getFormValue("eventNameCtrl") === "" ||
+      this.getFormValue("dateCtrl") === "" ||
+      this.getFormValue("costCtrl") === "";
+
+  }
+
+  getFormValue(formControl: string): string {
+    return this.formGroup.get(formControl).value;
   }
 
   createForm() {
-
     this.formGroup = this.formBuilder.group({
-      eventNameGroup: this.formBuilder.group({
-        eventNameCtrl: ['', Validators.required],
-        eventDescriptionCtrl: ['', Validators.required]
-      }),
-      dateGroup: this.formBuilder.group({
-        dateCtrl: ['', Validators.required]
-      }),
-      costGroup: this.formBuilder.group({
-        costCtrl: ['', Validators.required]
-      })
-
+        eventNameCtrl: this.eventNameCtrl,
+        eventDescriptionCtrl: this.eventDescriptionCtrl,
+        dateCtrl: this.dateCtrl,
+        costCtrl: this.costCtrl
     });
-
   }
 
 }
+
+export class CustomErrorStateMatcher implements ErrorStateMatcher {
+
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+
+}
+
