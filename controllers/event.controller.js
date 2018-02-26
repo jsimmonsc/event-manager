@@ -4,7 +4,6 @@ exports.create = async (req, res) => {
     try {
 	delete req.body._id;
         res.send(await Event.create(req.body));
-        console.log("Created event: " + JSON.stringify(req.body));
     } catch(err) {
         console.error(err);
         res.status(500).send(err);
