@@ -8,4 +8,5 @@ module.exports = (app) => {
   app.get("/users", validateJWT, guards.super, controller.findAll);
   app.post("/users/remove", validateJWT, guards.super, controller.delete);
   app.post('/users', validateJWT, guards.super, controller.updateRole);
+  app.post('/isauth', validateJWT, controller.isAuth);
 }

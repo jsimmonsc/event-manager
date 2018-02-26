@@ -43,7 +43,16 @@ exports.delete = async (req, res) => {
 
 exports.updateRole = async (req, res) => {
   try {
-    res.send(User.findOneAndUpdate({ email: req.body.email }, { $set: { role: req.body.role } }));
+    res.send(await User.findOneAndUpdate({ email: req.body.email }, { $set: { role: req.body.role } }, {new: true}));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+}
+
+exports.isAuth = async (req, res) => {
+  try {
+    res.send(await User.findOne({ email: req.body.email, currentToken: req.body.token }));
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
