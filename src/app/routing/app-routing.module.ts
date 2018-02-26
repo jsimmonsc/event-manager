@@ -13,6 +13,8 @@ import {CanActivateCreateGuard} from "./guards/can-activate-create.guard";
 import {CanActivateEventGuard} from "./guards/can-activate-event.guard";
 import {CanActivateSellGuard} from "./guards/can-activate-sell.guard";
 import {CanActivateCheckInGuard} from "./guards/can-activate-check-in.guard";
+import {AppModule} from "../app.module";
+import {AuthModule} from "../shared/services/auth/auth.module";
 
 const appRoutes: Routes = [
 

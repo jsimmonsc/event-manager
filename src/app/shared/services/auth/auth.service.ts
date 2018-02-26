@@ -12,6 +12,8 @@ const API_URL = environment.apiUrl;
 @Injectable()
 export class AuthService {
 
+  userProfile: User;
+
   auth0 = new auth0.WebAuth({
     clientID: environment.auth0ClientID,
     domain: 'event-manager.auth0.com',
@@ -20,8 +22,6 @@ export class AuthService {
     responseType: 'token id_token',
     scope: 'openid email'
   });
-
-  public userProfile: User;
 
   constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
@@ -42,7 +42,7 @@ export class AuthService {
           window.location.hash = '';
           this.setSession(authResult);
           this.userProfile = res;
-
+          console.log(res);
           this.router.navigate(['/events']);
         }, error => {
           this.router.navigate(['/']);
@@ -81,6 +81,17 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
+  public checkAuth(): Observable<User> {
+    const idToken = localStorage.getItem("id_token");
+    const accessToken = localStorage.getItem("access_token");
+
+
+    return this.http.post<User>(environment.apiUrl + "/isauth", {email: this.jwtHelper.decodeToken(idToken).email, token: accessToken},
+      { headers: new HttpHeaders({
+          'Authorization': 'Bearer ' + accessToken
+        })});
+  }
+
   public createUser(user: User): Observable<User> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
@@ -104,5 +115,9 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
 
     return this.http.post<User>(API_URL + '/users', user, {headers: headers});
+  }
+
+  public retrieveProfile(): User {
+    return this.userProfile;
   }
 }

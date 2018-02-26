@@ -36,6 +36,7 @@ import {AuthService} from "./shared/services/auth/auth.service";
 import { AuthCallbackComponent } from './login/auth-callback/auth-callback.component';
 import {JwtModule} from "@auth0/angular-jwt";
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import {AuthModule} from "./shared/services/auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -86,10 +87,11 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
         },
         whitelistedDomains: ['capstone.psdr3.org:3000', 'localhost:3000']
       }
-    })
+    }),
+    AuthModule.forRoot()
   ],
   entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent],
-  providers: [EventService, { provide: 'moment', useFactory: (): any => moment }, AuthService],
+  providers: [EventService, { provide: 'moment', useFactory: (): any => moment }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

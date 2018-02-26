@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import {AuthService} from "../../shared/services/auth/auth.service";
+import {User} from "../../shared/models/user.model";
 
 @Injectable()
 export class CanActivateEventGuard implements CanActivate {
@@ -11,9 +12,16 @@ export class CanActivateEventGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.authService.userProfile) { this.router.navigate(['/login']); }
+
     const allowed = ['admin', 'super'];
 
-    return allowed.includes(this.authService.userProfile.role);
+    return this.authService.checkAuth().map((user: User) => {
+      if (user && allowed.includes(user.role)) {
+        return true;
+      } else {
+        this.router.navigate(['/error']);
+        return false;
+      }
+    });
   }
 }
