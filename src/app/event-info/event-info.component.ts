@@ -1,6 +1,6 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {EventService} from "../shared/services/event.service";
+import {EventService} from "../shared/services/event/event.service";
 import {Event} from "../shared/models/event.model";
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Attendee} from "../shared/models/attendee.model";

@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {Attendee} from "../shared/models/attendee.model";
-import {EventService} from "../shared/services/event.service";
+import {EventService} from "../shared/services/event/event.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
