@@ -1,6 +1,6 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { CanActivateSellGuard } from './can-activate-sell.guard';
+import {CanActivateSellGuard} from './can-activate-sell.guard';
 
 describe('CanActivateSellGuard', () => {
   beforeEach(() => {

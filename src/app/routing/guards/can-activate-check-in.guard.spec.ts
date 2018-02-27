@@ -1,6 +1,6 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { CanActivateCheckInGuard } from './can-activate-check-in.guard';
+import {CanActivateCheckInGuard} from './can-activate-check-in.guard';
 
 describe('CanActivateCheckInGuard', () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { CanActivateCreateGuard } from './can-activate-create.guard';
+import {CanActivateCreateGuard} from './can-activate-create.guard';
 
 describe('CanActivateCreateGuard', () => {
   beforeEach(() => {

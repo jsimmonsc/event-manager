@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AuthCallbackComponent } from './auth-callback.component';
+import {AuthCallbackComponent} from './auth-callback.component';
 
 describe('AuthCallbackComponent', () => {
   let component: AuthCallbackComponent;
@@ -8,9 +8,9 @@ describe('AuthCallbackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthCallbackComponent ]
+      declarations: [AuthCallbackComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

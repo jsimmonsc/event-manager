@@ -102,7 +102,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(appRoutes) ],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
   providers: [AuthGuard, CanActivateCreateGuard, CanActivateEventGuard, CanActivateSellGuard, CanActivateCheckInGuard, CanActivateAdminPanelGuard]
 })

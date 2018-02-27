@@ -1,6 +1,6 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { CanActivateEventGuard } from './can-activate-event.guard';
+import {CanActivateEventGuard} from './can-activate-event.guard';
 
 describe('CanActivateEventGuard', () => {
   beforeEach(() => {

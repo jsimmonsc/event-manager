@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as auth0 from 'auth0-js';
 import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -23,7 +23,8 @@ export class AuthService {
     scope: 'openid email'
   });
 
-  constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) {
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -36,9 +37,11 @@ export class AuthService {
 
         this.http.post(environment.apiUrl + "/authorize",
           {email: this.jwtHelper.decodeToken(authResult.idToken).email, token: authResult.accessToken},
-          { headers: new HttpHeaders({
+          {
+            headers: new HttpHeaders({
               'Authorization': 'Bearer ' + authResult.accessToken
-            })}).subscribe((res: User): void => {
+            })
+          }).subscribe((res: User): void => {
           window.location.hash = '';
           this.setSession(authResult);
           this.userProfile = res;
@@ -54,14 +57,6 @@ export class AuthService {
         console.log(err);
       }
     });
-  }
-
-  private setSession(authResult): void {
-    // Set the time that the Access Token will expire at
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
   }
 
   public logout(): void {
@@ -87,9 +82,11 @@ export class AuthService {
 
 
     return this.http.post<User>(environment.apiUrl + "/isauth", {email: this.jwtHelper.decodeToken(idToken).email, token: accessToken},
-      { headers: new HttpHeaders({
+      {
+        headers: new HttpHeaders({
           'Authorization': 'Bearer ' + accessToken
-        })});
+        })
+      });
   }
 
   public createUser(user: User): Observable<User> {
@@ -119,5 +116,13 @@ export class AuthService {
 
   public retrieveProfile(): User {
     return this.userProfile;
+  }
+
+  private setSession(authResult): void {
+    // Set the time that the Access Token will expire at
+    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
   }
 }
