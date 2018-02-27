@@ -5,6 +5,7 @@ import {EventService} from "../shared/services/event.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Attendee} from "../shared/models/attendee.model";
 import {Event} from "../shared/models/event.model";
+import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 
 @Component({
   selector: 'app-purchase',
@@ -18,7 +19,10 @@ export class PurchaseComponent {
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
-  constructor(private route: ActivatedRoute, private eventService: EventService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute,
+              private eventService: EventService,
+              private fb: FormBuilder,
+              private slidingDialog: SlidingDialogService) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -50,7 +54,7 @@ export class PurchaseComponent {
       this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
 
       if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
-        // TODO: Display error about guest not being able to be the student
+        this.slidingDialog.displayNotification("Guest cannot be the student!", SlidingDialogType.ERROR);
         return;
       }
     }
@@ -58,7 +62,7 @@ export class PurchaseComponent {
     if (+studentNumber) {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
         console.log("Error, student already registered.");
-        // TODO: Error dialog
+        this.slidingDialog.displayNotification("Student already registered!", SlidingDialogType.ERROR);
       }, (err) => {
         if (err.status === 404) {
 
@@ -71,7 +75,7 @@ export class PurchaseComponent {
           });
         } else {
           console.log(err);
-          // TODO: Connection error dialog
+          this.slidingDialog.displayNotification("Connection error", SlidingDialogType.ERROR);
         }
       });
     }
@@ -112,7 +116,7 @@ export class PurchaseComponent {
                                phone: +outsideGuest.guestHomePhone};
       } else {
         console.log("invalid");
-        // TODO: Error invalid guest form
+        this.slidingDialog.displayNotification("Invalid guest form", SlidingDialogType.ERROR);
         return;
       }
     }
@@ -138,16 +142,16 @@ export class PurchaseComponent {
 
         this.eventService.createAttendee(this.id, guestAttendee).subscribe((e: Event) => {
           console.log("Guest Attendee created.");
-          // TODO: Attendee added dialog
+          this.slidingDialog.displayNotification("Attendee added", SlidingDialogType.SUCCESS);
         }, (err) => {
-          // TODO: Error connection failed
+          this.slidingDialog.displayNotification("Connection failed", SlidingDialogType.ERROR);
           console.log(err);
         });
       }
       this.purchaseForm.reset();
-      // TODO: Attendee added dialog
+      this.slidingDialog.displayNotification("Attendee added", SlidingDialogType.SUCCESS);
     }, (err) => {
-      // TODO: Error connection failed
+      this.slidingDialog.displayNotification("Connection failed", SlidingDialogType.ERROR);
       console.log(err);
     });
   }

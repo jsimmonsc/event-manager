@@ -1,7 +1,7 @@
 <div class="container">
 
   <div *ngIf="event">
-    <h2>{{event.name}}</h2>
+    <h2>{{event.name}} <a (click)="editEvent()" matTooltip="Edit event"><mat-icon>edit</mat-icon></a></h2>
     <p><b>Description:</b> {{event.description}}</p>
     <p><b>Date:</b> {{ event.date.toDateString() }}</p>
   </div>

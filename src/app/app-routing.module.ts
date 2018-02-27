@@ -14,6 +14,7 @@ const appRoutes: Routes = [
   {path: 'checkin/:id', component: CheckInComponent, data: {title: "Check In"}},
   {path: 'sell/:id', component: PurchaseComponent, data: {title: "Sell"}},
   {path: 'create', component: CreateEventComponent, data: {title: "Create Event"}},
+  {path: 'create/:id', component: CreateEventComponent, data: {title: "Edit Event"}},
   {path: 'error', component: ErrorPageComponent, data: {title: "Error"}},
 
   {

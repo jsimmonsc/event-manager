@@ -4,6 +4,7 @@ import {SlidingDialogService, SlidingDialogType} from "../shared/services/slidin
 import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
 import {ErrorStateMatcher} from "@angular/material";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-create-event',
@@ -13,7 +14,9 @@ import {ErrorStateMatcher} from "@angular/material";
 export class CreateEventComponent implements OnInit {
 
   formGroup: FormGroup;
-
+  private eventID: string;
+  private savedEvent: Event;
+  isNewEvent: boolean;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
   dateCtrl = new FormControl('', [Validators.required]);
@@ -21,7 +24,25 @@ export class CreateEventComponent implements OnInit {
 
   matcher = new CustomErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, private slidingDialog: SlidingDialogService, private eventService: EventService) {
+  constructor(private formBuilder: FormBuilder,
+              private slidingDialog: SlidingDialogService,
+              private eventService: EventService,
+              private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+
+      if (params['id'] !== undefined) {
+        this.eventID = params['id'];
+        this.eventService.getEvent(this.eventID).subscribe(event => {
+          this.savedEvent = event;
+        });
+        this.isNewEvent = false;
+      } else {
+        this.isNewEvent = true;
+      }
+    });
+
+    console.log(this.isNewEvent);
+
     this.createForm();
   }
 
@@ -47,6 +68,39 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
+  updateEvent() {
+
+    this.eventService.updateEvent(this.getEventFromInputs())
+      .subscribe((event: Event) => {
+      this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
+      console.log(JSON.stringify(event));
+      }, (err) => {
+      this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
+      });
+
+  }
+
+  submitEvent() {
+
+    if (this.isNewEvent) {
+      this.createEvent();
+    } else {
+      this.updateEvent();
+    }
+
+  }
+
+  getEventFromInputs(): Event {
+    return {
+      _id: this.eventID,
+      name: this.getFormValue("eventNameCtrl"),
+      description: this.getFormValue("dateCtrl"),
+      date: new Date(this.getFormValue("dateCtrl")),
+      sales: this.savedEvent.sales,
+      attendees: this.savedEvent.attendees
+    };
+  }
+
   inputIsInvalid(): boolean {
 
     return this.getFormValue("eventNameCtrl") === "" ||
@@ -67,6 +121,8 @@ export class CreateEventComponent implements OnInit {
         costCtrl: this.costCtrl
     });
   }
+
+
 
 }
 

@@ -48,6 +48,10 @@ export class EventInfoComponent implements OnInit {
     this.router.navigateByUrl('/sell/' + this.id);
   }
 
+  editEvent() {
+    this.router.navigateByUrl('/create/' + this.id);
+  }
+
   editAttendee(attendee: Attendee): void {
     const editDialogRef = this.dialog.open(EditAttendeeDialogComponent, { data: { attendee: attendee, eventID: this.id } });
 
