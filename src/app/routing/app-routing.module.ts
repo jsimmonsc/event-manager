@@ -5,7 +5,7 @@ import {CheckInComponent} from '../check-in/check-in.component';
 import {PurchaseComponent} from "../purchase/purchase.component";
 import {EventInfoComponent} from '../event-info/event-info.component';
 import {CreateEventComponent} from "../create-event/create-event.component";
-import { ErrorPageComponent } from '../error-page/error-page.component';
+import {ErrorPageComponent} from '../error-page/error-page.component';
 import {LoginComponent} from "../login/login.component";
 import {AuthCallbackComponent} from "../login/auth-callback/auth-callback.component";
 import {AuthGuard} from "./guards/auth.guard";
@@ -13,8 +13,8 @@ import {CanActivateCreateGuard} from "./guards/can-activate-create.guard";
 import {CanActivateEventGuard} from "./guards/can-activate-event.guard";
 import {CanActivateSellGuard} from "./guards/can-activate-sell.guard";
 import {CanActivateCheckInGuard} from "./guards/can-activate-check-in.guard";
-import {AppModule} from "../app.module";
-import {AuthModule} from "../shared/services/auth/auth.module";
+import {AdminPanelComponent} from "../admin-panel/admin-panel.component";
+import {CanActivateAdminPanelGuard} from "./guards/can-activate-admin-panel.guard";
 
 const appRoutes: Routes = [
 
@@ -71,6 +71,15 @@ const appRoutes: Routes = [
     ]
   },
   {
+    path: 'admin',
+    component: AdminPanelComponent,
+    data: {title: "Admin"},
+    canActivate: [
+      AuthGuard,
+      CanActivateAdminPanelGuard
+    ]
+  },
+  {
     path: 'login',
     component: LoginComponent,
     data: {title: "Log In"},
@@ -95,7 +104,7 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [ RouterModule.forRoot(appRoutes) ],
   exports: [RouterModule],
-  providers: [AuthGuard, CanActivateCreateGuard, CanActivateEventGuard, CanActivateSellGuard, CanActivateCheckInGuard]
+  providers: [AuthGuard, CanActivateCreateGuard, CanActivateEventGuard, CanActivateSellGuard, CanActivateCheckInGuard, CanActivateAdminPanelGuard]
 })
 export class AppRoutingModule {
 
