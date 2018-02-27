@@ -122,7 +122,26 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
+  getPropertyValue(property: string): string {
 
+    if (this.isNewEvent) {
+      return "";
+    } else {
+
+      switch (property) {
+        case "name":
+          return this.savedEvent.name;
+        case "description":
+          return this.savedEvent.description;
+        case "date":
+          console.log(this.savedEvent.date.toDateString());
+          return this.savedEvent.date.toDateString();
+      }
+
+    }
+
+
+  }
 
 }
 

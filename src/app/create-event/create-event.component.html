@@ -8,7 +8,7 @@
     <div class="column">
       <div class="top-row">
         <mat-form-field>
-          <input matInput placeholder="Event Name" formControlName="eventNameCtrl" maxlength="100">
+          <input matInput placeholder="Event Name" formControlName="eventNameCtrl" maxlength="100" [value]="getPropertyValue('name')">
           <mat-error *ngIf="eventNameCtrl.hasError('required')">
             Event name is required
           </mat-error>
@@ -17,7 +17,7 @@
 
       <div class="bottom-row">
         <mat-form-field>
-          <textarea matInput placeholder="Event Description" matTextareaAutosize formControlName="eventDescriptionCtrl" maxlength="1000"></textarea>
+          <textarea matInput placeholder="Event Description" matTextareaAutosize formControlName="eventDescriptionCtrl" maxlength="1000" [value]="getPropertyValue('description')"></textarea>
         </mat-form-field>
       </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="column">
       <div class="top-row">
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Event Date" [readonly]="true" formControlName="dateCtrl">
+          <input matInput [matDatepicker]="picker" placeholder="Event Date" [readonly]="true" formControlName="dateCtrl" [value]="getPropertyValue('date')">
 
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
