@@ -21,9 +21,11 @@ export class AppComponent implements OnInit {
               private router: Router,
               public authService: AuthService) {
 
-    this.authService.checkAuth().subscribe((val: User) => {
-      this.user = val;
-    });
+    if (authService.isAuthenticated()) {
+      this.authService.checkAuth().subscribe((val: User) => {
+        this.user = val;
+      });
+    }
 
   }
 

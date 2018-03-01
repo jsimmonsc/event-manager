@@ -4,10 +4,14 @@
   <nav>
     <p><img src="../assets/logo.png" style="width:25px;height:25px;">Event Manager</p>
     <a *ngIf="authService.isAuthenticated()" routerLink="/events">Events</a>
-    <a *ngIf="authService.isAuthenticated() && (user?.role === 'admin' || user?.role === 'super')" routerLink="/create">Create
+    <a
+      *ngIf="authService.isAuthenticated() && ((user?.role === 'admin' || user?.role === 'super') || (authService.userProfile?.role === 'admin' || authService.userProfile?.role === 'super'))"
+      routerLink="/create">Create
       Event</a>
 
-    <a class="right-align" *ngIf="user?.role === 'super'" routerLink="/admin">Admin Panel</a>
+    <a class="right-align"
+       *ngIf="authService.isAuthenticated() && (user?.role === 'super' || authService.userProfile?.role === 'super')"
+       routerLink="/admin">Admin Panel</a>
     <a *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
   </nav>
 </header>
