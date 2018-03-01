@@ -2,8 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Attendee} from "../../shared/models/attendee.model";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
-import {EventService} from "../../shared/services/event.service";
+import {EventService} from "../../shared/services/event/event.service";
 import {Student} from "../../shared/models/student.model";
+import {SuccessfullySavedDialogComponent} from "../successfully-saved-dialog/successfully-saved-dialog.component";
 
 @Component({
   selector: 'app-add-attendee-dialog',
@@ -21,7 +22,7 @@ export class AddAttendeeDialogComponent {
   constructor(private dialogRef: MatDialogRef<AddAttendeeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
-              private matDialog: MatDialog,
+              private dialog: MatDialog,
               private fb: FormBuilder
               ) {
 
@@ -56,6 +57,9 @@ export class AddAttendeeDialogComponent {
     console.log("Attendee Submitted");
     this.eventService.createAttendee(this.data.eventID, attendee).subscribe(value => {
       this.dialogRef.close(value);
+      const addDialogRef = this.dialog.open(SuccessfullySavedDialogComponent,
+            {data: {eventID: this.data.eventID, }, width: '30%', height: '30%'});
+
     }, err => {
       console.log(err);
       // TODO: Error dialog

@@ -70,7 +70,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   addAttendee(): void {
-    const addDialogRef = this.dialog.open(AddAttendeeDialogComponent, {data: {eventID: this.id, }, width: '30%', height: '35%'});
+    const addDialogRef = this.dialog.open(AddAttendeeDialogComponent, {data: {eventID: this.id, }, width: '30%', height: '50%'});
     console.log("adding attendee");
     addDialogRef.afterClosed().subscribe((value: Event) => {
       if (value) {

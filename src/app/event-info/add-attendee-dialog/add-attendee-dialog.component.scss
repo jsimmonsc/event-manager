@@ -1,7 +1,8 @@
 .input-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
+  padding-left: 15%;
 }
 
 #enter-button {
@@ -11,15 +12,17 @@
 .student-information{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
+  padding-left:15%;
+
+  input{
+    margin-right: 10%;
+  }
 }
 
-mat-dialog-actions{
-  display: inherit;
-}
 
 input {
-  text-align: center;
+  text-align: left;
   background: white;
   width: 40%;
 }

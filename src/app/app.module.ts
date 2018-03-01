@@ -44,6 +44,7 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {AuthModule} from "./shared/services/auth/auth.module";
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 import {RestrictInputDirective} from "./restrict-input.directive";
+import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-dialog/successfully-saved-dialog.component";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {RestrictInputDirective} from "./restrict-input.directive";
     EventInfoComponent,
     EditAttendeeDialogComponent,
     AddAttendeeDialogComponent,
+    SuccessfullySavedDialogComponent,
     DeleteWarningDialogComponent,
     LoginComponent,
     AuthCallbackComponent,
@@ -109,7 +111,8 @@ import {RestrictInputDirective} from "./restrict-input.directive";
     EventService,
     {provide: 'moment', useFactory: (): any => moment},
   ],
-  entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent, AddAttendeeDialogComponent],
+  entryComponents: [EditAttendeeDialogComponent,
+                    DeleteWarningDialogComponent, AddAttendeeDialogComponent, SuccessfullySavedDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
