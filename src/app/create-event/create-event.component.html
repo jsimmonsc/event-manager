@@ -1,82 +1,78 @@
 <h1>Create Event</h1>
 
-<mat-horizontal-stepper [linear]="true">
+<form [formGroup]="formGroup">
 
-  <mat-step>
+  <div class="row">
 
-    <ng-template matStepLabel>Event Name</ng-template>
-    <div class="step step1">
-      <input placeholder="Event Name" maxlength="100" required>
-      <textarea placeholder="Event Description" maxlength="1000" rows="5" cols="80"></textarea>
-    </div>
-    <div>
-      <button mat-button matStepperNext>Next</button>
+    <div class="column">
+      <div class="top-row">
+        <mat-form-field>
+          <input matInput placeholder="Event Name" formControlName="eventNameCtrl" maxlength="100">
+          <mat-error *ngIf="eventNameCtrl.hasError('required')">
+            Event name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="bottom-row">
+        <mat-form-field>
+          <textarea matInput placeholder="Event Description" matTextareaAutosize formControlName="eventDescriptionCtrl" maxlength="1000"></textarea>
+        </mat-form-field>
+      </div>
     </div>
 
-  </mat-step>
+    <div class="column">
+      <div class="top-row">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Event Date" [readonly]="true" formControlName="dateCtrl">
 
-  <mat-step>
-    <ng-template matStepLabel>Event Date</ng-template>
-    <div class="step2 step">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </div>
-    <div>
-      <button mat-button matStepperPrevious>Previous</button>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
 
-  <mat-step>
-    <ng-template matStepLabel>Guests</ng-template>
-    <div class="step3 step">
-      <mat-checkbox>Guest Name</mat-checkbox><br>
-      <mat-checkbox>Guest's School</mat-checkbox><br>
-    </div>
-    <div>
-      <button mat-button matStepperPrevious>Previous</button>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
+          <mat-hint align="start">Click the datepicker button to choose a date</mat-hint>
+          <mat-error *ngIf="dateCtrl.hasError('required')">
+            Event date is required
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-  <mat-step>
-    <div class="step4 step">
-      <ng-template matStepLabel>Requirements</ng-template>
-      <mat-checkbox>Attendance</mat-checkbox><br>
-      <mat-checkbox>Discipline</mat-checkbox><br>
-      <mat-checkbox>Fines</mat-checkbox><br>
+      <div class="bottom-row">
+        <mat-form-field>
+          <input matInput placeholder="Ticket Cost" appRestrictInput="decimal" formControlName="costCtrl">
+          <span matPrefix>$&nbsp;</span>
+          <mat-error *ngIf="costCtrl.hasError('required')">
+            Ticket cost is required
+          </mat-error>
+        </mat-form-field>
+      </div>
     </div>
-    <div>
-      <button mat-button matStepperPrevious>Previous</button>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Cost</ng-template>
-    <div class="step5 step">
-      <label>$<input placeholder="Ticket Cost"></label>
-    </div>
-    <div>
-      <button mat-button matStepperPrevious>Previous</button>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-  </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Finish</ng-template>
-    <div class="step6 step">
-      <button
-        class="create-event-button"
-        matTooltip="You can always come back and make changes later."
-        matTooltipPosition="above"
-        mat-button>
-        Create Event</button>
-    </div>
-    <div>
-      <button mat-button matStepperPrevious>Previous</button>
-    </div>
-  </mat-step>
+    <div class="column requirements">
 
-</mat-horizontal-stepper>
+      <h3>Requirements</h3>
+      <div class="checkbox-container">
+        <div>
+          <mat-checkbox>Attendance</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox>Fines</mat-checkbox>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <button
+    class="create-event-button"
+    matTooltip="You can always come back and make changes later."
+    matTooltipPosition="above"
+    mat-button
+    [disabled]="inputIsInvalid()"
+    (click)="createEvent()">
+    Create Event
+  </button>
+
+
+</form>

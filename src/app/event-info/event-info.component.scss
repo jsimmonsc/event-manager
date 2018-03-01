@@ -13,9 +13,10 @@ p {
 h2 {
   text-align: center;
   font-size: 2rem;
+  margin-top: 50px;
 }
 
-::ng-deep .mat-sort-header-container {
+/deep/ .mat-sort-header-container {
   display:flex;
   justify-content:center;
 }
