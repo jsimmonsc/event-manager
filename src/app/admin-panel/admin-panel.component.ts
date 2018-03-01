@@ -3,6 +3,7 @@ import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from "@angular/mat
 import {AuthService} from "../shared/services/auth/auth.service";
 import {User} from "../shared/models/user.model";
 import {EditUserDialogComponent} from "./edit-user-dialog/edit-user-dialog.component";
+import {AddUserDialogComponent} from "./add-user-dialog/add-user-dialog.component";
 
 @Component({
   selector: 'app-admin-panel',
@@ -30,6 +31,19 @@ export class AdminPanelComponent {
     const editDialogRef = this.dialog.open(EditUserDialogComponent, {data: {user: user}});
 
     editDialogRef.afterClosed().subscribe((value: User) => {
+      if (value) {
+        this.authService.findAllUsers().subscribe(val => {
+          this.dataSource = new MatTableDataSource<User>(val);
+          this.changeDetectorRef.detectChanges();
+        });
+      }
+    });
+  }
+
+  addUser(): void {
+    const addDialogRef = this.dialog.open(AddUserDialogComponent);
+
+    addDialogRef.afterClosed().subscribe((value: User) => {
       if (value) {
         this.authService.findAllUsers().subscribe(val => {
           this.dataSource = new MatTableDataSource<User>(val);
