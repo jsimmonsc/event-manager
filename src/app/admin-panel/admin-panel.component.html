@@ -1,26 +1,32 @@
-<h2>Administration</h2>
+<div id="wrapper">
+  <h2>Administration</h2>
 
-<div class="attendee-container">
+  <div class="table-container">
+    <div class="table-header">
+      <h4>User Management</h4>
+    </div>
+    <mat-table class="mat-elevation-z8" #table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
+      </ng-container>
 
-  <mat-table #table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Email</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.email}}</mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.role}}</mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="role">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Role</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.role}}</mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <a *ngIf="element.role !== 'super'">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <mat-icon>edit</mat-icon>
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
 </div>
