@@ -7,11 +7,16 @@
   justify-content: center;
 }
 
-mat-table {
+.table-container {
+  margin-top: 3rem;
+}
+
+.table-wrapper {
   width: 50%;
   margin: 0 auto 0 auto;
 }
 
-.table-container {
-  margin-top: 3rem;
+a {
+  cursor: pointer;
+  user-select: none;
 }

@@ -1,5 +1,15 @@
 <h2 mat-dialog-title>Edit</h2>
 <mat-dialog-content>
+  <mat-form-field>
+    <input matInput disabled placeholder="Email" value="{{ changedUser?.email }}">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Role" [(ngModel)]="selectedRole">
+      <mat-option *ngFor="let role of roles" [value]="role.value">
+        {{ role.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -15,8 +15,10 @@ import {
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
+  MatOptionModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
   MatSnackBarModule,
   MatSortModule,
   MatStepperModule,
@@ -105,7 +107,9 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     }),
     AuthModule.forRoot(),
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     FormBuilder,
@@ -113,7 +117,13 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     EventService,
     {provide: 'moment', useFactory: (): any => moment},
   ],
-  entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent],
+  entryComponents: [
+    EditAttendeeDialogComponent,
+    DeleteWarningDialogComponent,
+    EditUserDialogComponent,
+    DeleteUserWarningDialogComponent,
+    AddUserDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
