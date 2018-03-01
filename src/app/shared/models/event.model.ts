@@ -8,6 +8,7 @@ export class Event {
   date: Date;
   sales: number;
   attendees: Attendee[];
+  cost: number;
 
   constructor(event: any) {
     this._id = event._id;
@@ -16,5 +17,6 @@ export class Event {
     this.date = new Date(event.date);
     this.sales = event.sales;
     this.attendees = event.attendees;
+    this.cost = event.cost;
   }
 }

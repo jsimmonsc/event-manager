@@ -16,6 +16,10 @@ export class CreateEventComponent implements OnInit {
   formGroup: FormGroup;
   private eventID: string;
   private savedEvent: Event;
+  private savedEventName: string;
+  private savedEventDescription: string;
+  private savedEventDate: string;
+  private savedEventCost: string;
   isNewEvent: boolean;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
@@ -28,12 +32,25 @@ export class CreateEventComponent implements OnInit {
               private slidingDialog: SlidingDialogService,
               private eventService: EventService,
               private route: ActivatedRoute) {
+    this.savedEventName = "";
+    this.savedEventDescription = "";
+    this.savedEventDate = "";
+    this.savedEventCost = "";
+    this.createForm();
+  }
+
+  ngOnInit() {
+
     this.route.params.subscribe(params => {
 
       if (params['id'] !== undefined) {
         this.eventID = params['id'];
         this.eventService.getEvent(this.eventID).subscribe(event => {
           this.savedEvent = event;
+          this.savedEventName = this.savedEvent.name;
+          this.savedEventDescription = this.savedEvent.description;
+          this.savedEventDate = this.savedEvent.date.toDateString();
+          this.savedEventCost = this.savedEvent.cost.toString();
         });
         this.isNewEvent = false;
       } else {
@@ -41,25 +58,11 @@ export class CreateEventComponent implements OnInit {
       }
     });
 
-    console.log(this.isNewEvent);
-
-    this.createForm();
-  }
-
-  ngOnInit() {
-
   }
 
   createEvent() {
 
-    this.eventService.createEvent({
-      _id: null,
-      name: this.getFormValue("eventNameCtrl"),
-      description: this.getFormValue("eventDescriptionCtrl"),
-      date: new Date(this.getFormValue("dateCtrl")),
-      sales: 0,
-      attendees: null
-    }).subscribe((event: Event) => {
+    this.eventService.createEvent(this.getEventFromInputs()).subscribe((event: Event) => {
       this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
       console.log(JSON.stringify(event));
     }, (err) => {
@@ -70,13 +73,12 @@ export class CreateEventComponent implements OnInit {
 
   updateEvent() {
 
-    this.eventService.updateEvent(this.getEventFromInputs())
-      .subscribe((event: Event) => {
+    this.eventService.updateEvent(this.getEventFromInputs()).subscribe((event: Event) => {
       this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
       console.log(JSON.stringify(event));
-      }, (err) => {
+    }, (err) => {
       this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
-      });
+    });
 
   }
 
@@ -91,13 +93,25 @@ export class CreateEventComponent implements OnInit {
   }
 
   getEventFromInputs(): Event {
+
+    let newID = null;
+    let newSales = 0;
+    let newAttendees = null;
+
+    if (!this.isNewEvent) {
+      newID = this.eventID;
+      newSales = this.savedEvent.sales;
+      newAttendees = this.savedEvent.attendees;
+    }
+
     return {
-      _id: this.eventID,
+      _id: newID,
       name: this.getFormValue("eventNameCtrl"),
       description: this.getFormValue("dateCtrl"),
       date: new Date(this.getFormValue("dateCtrl")),
-      sales: this.savedEvent.sales,
-      attendees: this.savedEvent.attendees
+      sales: newSales,
+      attendees: newAttendees,
+      cost: +this.getFormValue("costCtrl")
     };
   }
 
@@ -130,12 +144,13 @@ export class CreateEventComponent implements OnInit {
 
       switch (property) {
         case "name":
-          return this.savedEvent.name;
+          return this.savedEventName;
         case "description":
-          return this.savedEvent.description;
+          return this.savedEventDescription;
         case "date":
-          console.log(this.savedEvent.date.toDateString());
-          return this.savedEvent.date.toDateString();
+          return this.savedEventDate;
+        case "cost":
+          return this.savedEventCost;
       }
 
     }

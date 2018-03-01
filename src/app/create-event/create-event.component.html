@@ -39,7 +39,7 @@
 
       <div class="bottom-row">
         <mat-form-field>
-          <input matInput placeholder="Ticket Cost" appRestrictInput="decimal" formControlName="costCtrl">
+          <input matInput placeholder="Ticket Cost" appRestrictInput="decimal" formControlName="costCtrl" [value]="getPropertyValue('cost')">
           <span matPrefix>$&nbsp;</span>
           <mat-error *ngIf="costCtrl.hasError('required')">
             Ticket cost is required
