@@ -4,6 +4,7 @@ import {Title} from '@angular/platform-browser';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import {AuthService} from "./shared/services/auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private title: Title,
-              private router: Router) {
+              private router: Router,
+              public authService: AuthService) {
 
   }
 
@@ -31,5 +33,6 @@ export class AppComponent implements OnInit {
       .filter((route) => route.outlet === 'primary')
       .mergeMap((route) => route.data)
       .subscribe((event) => this.title.setTitle(event['title']));
+
   }
 }

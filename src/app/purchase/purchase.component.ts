@@ -1,8 +1,8 @@
-import {Component, DoCheck, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {Student} from "../shared/models/student.model";
 import {ActivatedRoute} from "@angular/router";
-import {EventService} from "../shared/services/event.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {EventService} from "../shared/services/event/event.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Attendee} from "../shared/models/attendee.model";
 import {Event} from "../shared/models/event.model";
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";

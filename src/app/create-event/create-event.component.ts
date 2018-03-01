@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup, Validators, FormBuilder, FormControl, FormArray, FormGroupDirective, NgForm} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
-import {EventService} from "../shared/services/event.service";
 import {Event} from "../shared/models/event.model";
 import {ErrorStateMatcher} from "@angular/material";
+import {EventService} from "../shared/services/event/event.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
