@@ -34,10 +34,8 @@ export class AddUserDialogComponent {
     if (this.userForm.valid) {
       this.authService.findAllUsers().subscribe((users: User[]) => {
         if (!users.find(x => x.email === this.userForm.get('email').value.toLowerCase())) {
-          this.authService.createUser(
-            {
-              email: this.userForm.get('email').value,
-              role: this.userForm.get('role').value
+          this.authService.createUser({
+            email: this.userForm.get('email').value, role: this.userForm.get('role').value
             }).subscribe((value: User) => {
             this.dialogRef.close(value);
           }, err => {
