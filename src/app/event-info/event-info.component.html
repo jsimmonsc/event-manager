@@ -4,6 +4,7 @@
     <h2>{{event.name}} <a (click)="editEvent()" matTooltip="Edit event"><mat-icon>edit</mat-icon></a></h2>
     <p><b>Description:</b> {{event.description}}</p>
     <p><b>Date:</b> {{ event.date.toDateString() }}</p>
+    <p><b>Revenue:</b> {{event.cost}}</p>
   </div>
 
   <div class="button-container">

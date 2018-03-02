@@ -4,7 +4,7 @@ import {SlidingDialogService, SlidingDialogType} from "../shared/services/slidin
 import {Event} from "../shared/models/event.model";
 import {ErrorStateMatcher} from "@angular/material";
 import {EventService} from "../shared/services/event/event.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-event',
@@ -18,9 +18,13 @@ export class CreateEventComponent implements OnInit {
   private savedEvent: Event;
   private savedEventName: string;
   private savedEventDescription: string;
-  private savedEventDate: string;
+  private savedEventDate: Date;
   private savedEventCost: string;
+  private savedEventAttendaceRequirement: boolean;
+  private savedEventFinesRequirement: boolean;
   isNewEvent: boolean;
+  attendanceChecked = false;
+  finesChecked = false;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
   dateCtrl = new FormControl('', [Validators.required]);
@@ -28,14 +32,19 @@ export class CreateEventComponent implements OnInit {
 
   matcher = new CustomErrorStateMatcher();
 
+
+
   constructor(private formBuilder: FormBuilder,
               private slidingDialog: SlidingDialogService,
               private eventService: EventService,
-              private route: ActivatedRoute) {
-    this.savedEventName = "";
-    this.savedEventDescription = "";
-    this.savedEventDate = "";
-    this.savedEventCost = "";
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.savedEventName = " ";
+    this.savedEventDescription = " ";
+    this.savedEventDate = new Date();
+    this.savedEventCost = " ";
+    this.savedEventAttendaceRequirement = false;
+    this.savedEventFinesRequirement = false;
     this.createForm();
   }
 
@@ -49,8 +58,10 @@ export class CreateEventComponent implements OnInit {
           this.savedEvent = event;
           this.savedEventName = this.savedEvent.name;
           this.savedEventDescription = this.savedEvent.description;
-          this.savedEventDate = this.savedEvent.date.toDateString();
+          this.savedEventDate = this.savedEvent.date;
           this.savedEventCost = this.savedEvent.cost.toString();
+          this.savedEventAttendaceRequirement = this.savedEvent.requirements.attendance;
+          this.savedEventFinesRequirement = this.savedEvent.requirements.fines;
         });
         this.isNewEvent = false;
       } else {
@@ -82,14 +93,26 @@ export class CreateEventComponent implements OnInit {
 
   }
 
-  submitEvent() {
+  deleteEvent() {
 
-    if (this.isNewEvent) {
+    // TODO: Add double confirmation dialog
+
+    this.eventService.deleteEvent(this.eventID).subscribe((event: Event) => {
+      this.router.navigateByUrl("/events").then(() => {
+        this.slidingDialog.displayNotification("Deleted event", SlidingDialogType.SUCCESS);
+      });
+    }, (err) => {
+      this.slidingDialog.displayNotification("Could not delete event", SlidingDialogType.ERROR);
+    });
+
+  }
+
+  submitEvent() {
+    if(this.isNewEvent) {
       this.createEvent();
     } else {
       this.updateEvent();
     }
-
   }
 
   getEventFromInputs(): Event {
@@ -107,12 +130,20 @@ export class CreateEventComponent implements OnInit {
     return {
       _id: newID,
       name: this.getFormValue("eventNameCtrl"),
-      description: this.getFormValue("dateCtrl"),
+      description: this.getFormValue("eventDescriptionCtrl"),
       date: new Date(this.getFormValue("dateCtrl")),
       sales: newSales,
       attendees: newAttendees,
-      cost: +this.getFormValue("costCtrl")
+      cost: +this.getFormValue("costCtrl"),
+      requirements: {
+        attendance: this.attendanceChecked,
+        fines: this.finesChecked
+      }
     };
+  }
+
+  getFormValue(formControl: string) {
+    return this.formGroup.get(formControl).value;
   }
 
   inputIsInvalid(): boolean {
@@ -121,10 +152,6 @@ export class CreateEventComponent implements OnInit {
       this.getFormValue("dateCtrl") === "" ||
       this.getFormValue("costCtrl") === "";
 
-  }
-
-  getFormValue(formControl: string): string {
-    return this.formGroup.get(formControl).value;
   }
 
   createForm() {
@@ -136,7 +163,7 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
-  getPropertyValue(property: string): string {
+  getPropertyValue(property: string) {
 
     if (this.isNewEvent) {
       return "";
@@ -151,6 +178,10 @@ export class CreateEventComponent implements OnInit {
           return this.savedEventDate;
         case "cost":
           return this.savedEventCost;
+        case "attendance":
+          return this.savedEventAttendaceRequirement;
+        case "fines":
+          return this.savedEventFinesRequirement;
       }
 
     }

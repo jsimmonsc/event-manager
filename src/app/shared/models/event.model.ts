@@ -9,6 +9,10 @@ export class Event {
   sales: number;
   attendees: Attendee[];
   cost: number;
+  requirements: {
+    attendance: boolean,
+    fines: boolean
+  };
 
   constructor(event: any) {
     this._id = event._id;
