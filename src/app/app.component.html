@@ -9,10 +9,11 @@
       routerLink="/create">Create
       Event</a>
 
-    <a class="right-align"
-       *ngIf="authService.isAuthenticated() && (user?.role === 'super' || authService.userProfile?.role === 'super')"
-       routerLink="/admin">Admin Panel</a>
-    <a *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
+    <div class="right-align">
+      <a *ngIf="authService.isAuthenticated() && (user?.role === 'super' || authService.userProfile?.role === 'super')"
+         routerLink="/admin">Admin Panel</a>
+      <a *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
+    </div>
   </nav>
 </header>
 <router-outlet>

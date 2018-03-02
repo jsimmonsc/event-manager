@@ -51,8 +51,12 @@ header {
         vertical-align: top;
       }
     }
+
     .right-align {
-      margin-left: auto;
+      width: 100%;
+      justify-content: flex-end;
+      display: flex;
+      flex-direction: row;
     }
   }
 }
