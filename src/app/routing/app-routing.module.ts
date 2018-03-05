@@ -63,6 +63,15 @@ const appRoutes: Routes = [
     ]
   },
   {
+    path: 'create/:id',
+    component: CreateEventComponent,
+    data: {title: "Edit Event"},
+    canActivate: [
+      AuthGuard,
+      CanActivateCreateGuard
+    ]
+  },
+  {
     path: 'error',
     component: ErrorPageComponent,
     data: {title: "Error"},
@@ -104,7 +113,14 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
-  providers: [AuthGuard, CanActivateCreateGuard, CanActivateEventGuard, CanActivateSellGuard, CanActivateCheckInGuard, CanActivateAdminPanelGuard]
+  providers: [
+    AuthGuard,
+    CanActivateCreateGuard,
+    CanActivateEventGuard,
+    CanActivateSellGuard,
+    CanActivateCheckInGuard,
+    CanActivateAdminPanelGuard
+  ]
 })
 export class AppRoutingModule {
 

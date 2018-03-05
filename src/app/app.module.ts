@@ -24,6 +24,7 @@ import {
   MatStepperModule,
   MatTableModule,
   MatTooltipModule,
+  MatCardModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
 import {CheckInComponent} from './check-in/check-in.component';
@@ -96,6 +97,7 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    MatCardModule,
     MomentModule,
     JwtModule.forRoot({
       config: {
