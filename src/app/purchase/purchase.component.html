@@ -69,7 +69,11 @@
     </div>
 
     <div class="button-wrapper" *ngIf="purchaseForm.value.student">
-      <button type="button" mat-button (click)="submitAttendee()" id="submit-button">Submit</button>
+      <button type="button"
+              mat-button
+              (click)="attendeeFailsRequirements() ? openWarningDialog() : submitAttendee()"
+              id="submit-button">Submit
+      </button>
       <button type="button" mat-button (click)="purchaseForm.reset()" id="cancel-button">Cancel</button>
     </div>
 

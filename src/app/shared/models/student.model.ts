@@ -5,4 +5,5 @@ export interface Student {
   grade_level: number;
   student_number: number;
   fines: boolean;
+  attendance?: boolean;
 }
