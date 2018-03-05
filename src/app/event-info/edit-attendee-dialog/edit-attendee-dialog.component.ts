@@ -5,6 +5,7 @@ import {EventService} from "../../shared/services/event/event.service";
 import {DeleteWarningDialogComponent} from "../delete-warning-dialog/delete-warning-dialog.component";
 import {Event} from "../../shared/models/event.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
 
 @Component({
   selector: 'app-edit-attendee-dialog',
@@ -22,7 +23,8 @@ export class EditAttendeeDialogComponent {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
               private matDialog: MatDialog,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private errorDialog: SlidingDialogService) {
     this.eventEmitter = new EventEmitter<Event>();
     this.changedAttendee = Object.assign({}, data.attendee);
     if (this.changedAttendee.guestId > 0) {
@@ -49,15 +51,13 @@ export class EditAttendeeDialogComponent {
 
   searchForGuest(studentNumber: string): void {
     if (+studentNumber === this.changedAttendee.student_number) {
-      // TODO: error about attendee cant be guest
-      console.log("Attendee cannot be the guest of themself.");
+      this.errorDialog.displayNotification("ERROR: Attendee can be the guest of themself", SlidingDialogType.ERROR);
     } else if (+studentNumber) {
 
       this.eventService.getStudent(+studentNumber).subscribe(value => {
         this.pattonvilleGuest = value;
       }, err => {
-        console.log(err);
-        // TODO: Error Dialog
+        this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
       });
     }
   }
@@ -136,8 +136,7 @@ export class EditAttendeeDialogComponent {
       }
       this.dialogRef.close(value);
     }, err => {
-      console.log(err);
-      // TODO: Error dialog
+      this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
     });
   }
 

@@ -22,7 +22,7 @@ export class PurchaseComponent {
   constructor(private route: ActivatedRoute,
               private eventService: EventService,
               private fb: FormBuilder,
-              private slidingDialog: SlidingDialogService) {
+              private errorDialog: SlidingDialogService) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -45,46 +45,6 @@ export class PurchaseComponent {
       })
     });
 
-  }
-
-  private searchForStudent(studentNumber: string, type: string): void {
-    if (type === 'student') {
-      this.purchaseForm.reset();
-    } else if (type === 'guest') {
-      this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
-
-      if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
-        this.slidingDialog.displayNotification("Guest cannot be the student!", SlidingDialogType.ERROR);
-        return;
-      }
-    }
-
-    if (+studentNumber) {
-      this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
-        console.log("Error, student already registered.");
-        this.slidingDialog.displayNotification("Student already registered!", SlidingDialogType.ERROR);
-      }, (err) => {
-        if (err.status === 404) {
-
-          this.eventService.getStudent(+studentNumber).subscribe(student => {
-            if (type === 'student') {
-              this.purchaseForm.patchValue({student: student});
-            } else if (type === 'guest') {
-              this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
-            }
-          });
-        } else {
-          console.log(err);
-          this.slidingDialog.displayNotification("Connection error", SlidingDialogType.ERROR);
-        }
-      });
-    }
-
-  }
-
-  checkboxChanged(): void {
-    this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
-    this.purchaseForm.get('guestForm.outsideGuest').reset();
   }
 
   submitAttendee(): void {
@@ -115,14 +75,12 @@ export class PurchaseComponent {
                                age: +outsideGuest.guestAge,
                                phone: +outsideGuest.guestHomePhone};
       } else {
-        console.log("invalid");
-        this.slidingDialog.displayNotification("Invalid guest form", SlidingDialogType.ERROR);
+        this.errorDialog.displayNotification("ERROR: Invalid guest form!", SlidingDialogType.ERROR);
         return;
       }
     }
 
     this.eventService.createAttendee(this.id, saveAttendee).subscribe((event: Event) => {
-      console.log("Attendee created.");
       if (saveAttendee.guestId > 0) {
         const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
         const guestAttendee: Attendee = {
@@ -141,19 +99,54 @@ export class PurchaseComponent {
         };
 
         this.eventService.createAttendee(this.id, guestAttendee).subscribe((e: Event) => {
-          console.log("Guest Attendee created.");
-          this.slidingDialog.displayNotification("Attendee added", SlidingDialogType.SUCCESS);
+          this.errorDialog.displayNotification("Guest registered!", SlidingDialogType.SUCCESS, 2000);
         }, (err) => {
-          this.slidingDialog.displayNotification("Connection failed", SlidingDialogType.ERROR);
-          console.log(err);
+          this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
         });
       }
       this.purchaseForm.reset();
-      this.slidingDialog.displayNotification("Attendee added", SlidingDialogType.SUCCESS);
+      this.errorDialog.displayNotification("Attendee registered!", SlidingDialogType.SUCCESS, 2000);
     }, (err) => {
-      this.slidingDialog.displayNotification("Connection failed", SlidingDialogType.ERROR);
-      console.log(err);
+      this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
     });
+  }
+
+  checkboxChanged(): void {
+    this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
+    this.purchaseForm.get('guestForm.outsideGuest').reset();
+  }
+
+  private searchForStudent(studentNumber: string, type: string): void {
+    if (type === 'student') {
+      this.purchaseForm.reset();
+    } else if (type === 'guest') {
+      this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
+
+      if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
+        this.errorDialog.displayNotification("ERROR: The guest cannot also be the student!", SlidingDialogType.ERROR);
+        return;
+      }
+    }
+
+    if (+studentNumber) {
+      this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
+        this.errorDialog.displayNotification("ERROR: Student already registered in event!", SlidingDialogType.ERROR);
+      }, (err) => {
+        if (err.status === 404) {
+
+          this.eventService.getStudent(+studentNumber).subscribe(student => {
+            if (type === 'student') {
+              this.purchaseForm.patchValue({student: student});
+            } else if (type === 'guest') {
+              this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
+            }
+          });
+        } else {
+          this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
+        }
+      });
+    }
+
   }
 
   checkGuestValidity(obj: any): boolean {
