@@ -27,10 +27,19 @@ export class AuthService {
   });
 
   constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) {
+    if (this.isAuthenticated()) {
+      this.checkAuth().subscribe((val: User) => {
+        this.userProfile = val;
+      });
+    }
   }
 
   public login(): void {
     this.auth0.authorize();
+  }
+
+  public isAdmin(): boolean {
+    return this.userProfile.role === 'super' || this.userProfile.role === 'admin';
   }
 
   public handleAuthentication(): void {
