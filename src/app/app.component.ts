@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
       this.authService.checkAuth().subscribe((val: User) => {
         this.user = val;
       });
+      this.authService.scheduleRenewal();
     }
 
   }
@@ -42,6 +43,5 @@ export class AppComponent implements OnInit {
       .filter((route) => route.outlet === 'primary')
       .mergeMap((route) => route.data)
       .subscribe((event) => this.title.setTitle(event['title']));
-
   }
 }
