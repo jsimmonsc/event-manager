@@ -93,7 +93,7 @@ export class AuthService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post<User>(API_URL + '/users', user, {headers: headers});
+    return this.http.post<User>(API_URL + '/users/create', user, {headers: headers});
   }
 
   public findAllUsers(): Observable<User[]> {

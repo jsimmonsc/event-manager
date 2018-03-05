@@ -15,8 +15,10 @@ import {
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
+  MatOptionModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
   MatSnackBarModule,
   MatSortModule,
   MatStepperModule,
@@ -43,6 +45,9 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {AuthModule} from "./shared/services/auth/auth.module";
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 import {RestrictInputDirective} from "./restrict-input.directive";
+import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
+import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
+import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +69,10 @@ import {RestrictInputDirective} from "./restrict-input.directive";
     AdminPanelComponent,
     ErrorPageComponent,
     EventInfoComponent,
-    RestrictInputDirective
+    RestrictInputDirective,
+    EditUserDialogComponent,
+    AddUserDialogComponent,
+    DeleteUserWarningDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +107,9 @@ import {RestrictInputDirective} from "./restrict-input.directive";
     }),
     AuthModule.forRoot(),
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     FormBuilder,
@@ -107,7 +117,13 @@ import {RestrictInputDirective} from "./restrict-input.directive";
     EventService,
     {provide: 'moment', useFactory: (): any => moment},
   ],
-  entryComponents: [EditAttendeeDialogComponent, DeleteWarningDialogComponent],
+  entryComponents: [
+    EditAttendeeDialogComponent,
+    DeleteWarningDialogComponent,
+    EditUserDialogComponent,
+    DeleteUserWarningDialogComponent,
+    AddUserDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

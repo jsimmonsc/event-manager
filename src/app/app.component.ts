@@ -5,6 +5,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import {AuthService} from "./shared/services/auth/auth.service";
+import {User} from "./shared/models/user.model";
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,18 @@ import {AuthService} from "./shared/services/auth/auth.service";
 })
 export class AppComponent implements OnInit {
 
+  public user: User;
+
   constructor(private activatedRoute: ActivatedRoute,
               private title: Title,
               private router: Router,
               public authService: AuthService) {
+
+    if (authService.isAuthenticated()) {
+      this.authService.checkAuth().subscribe((val: User) => {
+        this.user = val;
+      });
+    }
 
   }
 
