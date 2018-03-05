@@ -141,13 +141,17 @@ export class PurchaseComponent {
   }
 
   openWarningDialog() {
-    const dialogRef = this.dialog.open(WarningDialogComponent);
+    if (this.authService.isAdmin()) {
+      const dialogRef = this.dialog.open(WarningDialogComponent);
 
-    dialogRef.afterClosed().subscribe(val => {
-      if (val) {
-        this.submitAttendee();
-      }
-    });
+      dialogRef.afterClosed().subscribe(val => {
+        if (val) {
+          this.submitAttendee();
+        }
+      });
+    } else {
+      this.errorDialog.displayNotification("ERROR: Student has problems with fines or attendance!", SlidingDialogType.ERROR);
+    }
   }
 
   private searchForStudent(studentNumber: string, type: string): void {
