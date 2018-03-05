@@ -122,7 +122,8 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     DeleteWarningDialogComponent,
     EditUserDialogComponent,
     DeleteUserWarningDialogComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    WarningDialogComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Attendee} from "../shared/models/attendee.model";
 import {Event} from "../shared/models/event.model";
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
+import {AuthService} from "../shared/services/auth/auth.service";
+import {MatDialog} from "@angular/material";
+import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component";
 
 @Component({
   selector: 'app-purchase',
@@ -22,7 +25,9 @@ export class PurchaseComponent {
   constructor(private route: ActivatedRoute,
               private eventService: EventService,
               private fb: FormBuilder,
-              private errorDialog: SlidingDialogService) {
+              private errorDialog: SlidingDialogService,
+              private authService: AuthService,
+              private dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -116,6 +121,35 @@ export class PurchaseComponent {
     this.purchaseForm.get('guestForm.outsideGuest').reset();
   }
 
+  public hasFailedRequirement(student: Student): boolean {
+    return student.fines || student.attendance;
+  }
+
+  attendeeFailsRequirements(): boolean {
+    return this.hasFailedRequirement(this.purchaseForm.get('student').value)
+      || (this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value
+        && this.hasFailedRequirement(this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value));
+  }
+
+  checkGuestValidity(obj: any): boolean {
+    for (const key in obj) {
+      if (!obj[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  openWarningDialog() {
+    const dialogRef = this.dialog.open(WarningDialogComponent);
+
+    dialogRef.afterClosed().subscribe(val => {
+      if (val) {
+        this.submitAttendee();
+      }
+    });
+  }
+
   private searchForStudent(studentNumber: string, type: string): void {
     if (type === 'student') {
       this.purchaseForm.reset();
@@ -146,15 +180,5 @@ export class PurchaseComponent {
         }
       });
     }
-
-  }
-
-  checkGuestValidity(obj: any): boolean {
-    for (const key in obj) {
-      if (!obj[key]) {
-        return false;
-      }
-    }
-    return true;
   }
 }
