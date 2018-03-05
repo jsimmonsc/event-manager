@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MatSnackBar} from "@angular/material";
 
 @Injectable()
@@ -6,7 +6,7 @@ export class SlidingDialogService {
 
   constructor(public snackBar: MatSnackBar) { }
 
-  displayNotification(message: string, dialogType: SlidingDialogType) {
+  displayNotification(message: string, dialogType: SlidingDialogType, duration?: number): void {
 
     let styleClass = "";
     let displayDuration = 5000;
@@ -27,13 +27,10 @@ export class SlidingDialogService {
     }
 
     this.snackBar.open(message, "OK", {
-      duration: displayDuration,
+      duration: duration ? duration : displayDuration,
       verticalPosition: 'top',
       panelClass: ['snackbar-custom-class', styleClass]
     });
-
-
-
   }
 
 }

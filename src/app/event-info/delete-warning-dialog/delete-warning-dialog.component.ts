@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 import {EventService} from "../../shared/services/event/event.service";
 import {Attendee} from "../../shared/models/attendee.model";
+import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
 
 @Component({
   selector: 'app-delete-warning-dialog',
@@ -15,7 +16,8 @@ export class DeleteWarningDialogComponent {
   constructor(private dialogRef: MatDialogRef<DeleteWarningDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private eventService: EventService,
-              private matDialog: MatDialog) {
+              private matDialog: MatDialog,
+              private errorDialog: SlidingDialogService) {
 
     this.attendee = data.attendee;
 
@@ -26,7 +28,7 @@ export class DeleteWarningDialogComponent {
       this.dialogRef.close(value);
     }, err => {
       console.log(err);
-      // TODO: Error dialog
+      this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
     });
   }
 
