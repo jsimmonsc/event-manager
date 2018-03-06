@@ -1,9 +1,12 @@
-<h2>Check In</h2>
+<div class="component-wrapper">
+  <h2>Check In</h2>
 
-<div class="input-wrapper">
-  <input class="fancy-input" #idInput (keyup.enter)="searchForAttendee(idInput.value)" placeholder="Enter ID Number" maxlength="5"/>
-  <button mat-button (click)="searchForAttendee(idInput.value)" id="enter-button">Enter</button>
+  <div class="input-wrapper">
+    <input class="fancy-input" #idInput (keyup.enter)="searchForAttendee(idInput.value)" placeholder="Enter ID Number"
+           maxlength="5"/>
+    <button mat-button (click)="searchForAttendee(idInput.value)" id="enter-button">Enter</button>
+  </div>
+
+  <app-student-info [(student)]="attendee" *ngIf="attendee"></app-student-info>
+  <h2 *ngIf="checkedIn">Student successfully checked in!</h2>
 </div>
-
-<app-student-info [(student)]="attendee" *ngIf="attendee"></app-student-info>
-<h2 *ngIf="checkedIn">Student successfully checked in!</h2>
