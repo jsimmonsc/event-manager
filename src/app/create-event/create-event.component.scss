@@ -1,10 +1,10 @@
 @import "../../styles";
 
-button {
+.create-event-button {
   border: 1px solid $background-gray;
 }
 
-div {
+.column {
   width: 100%;
 }
 
@@ -13,9 +13,11 @@ form {
 }
 
 h1 {
-  padding-top: 100px;
-  text-align: center;
   font-size: 30px;
+}
+
+.header-container h1 {
+  width: 100%;
 }
 
 mat-form-field {
@@ -91,6 +93,31 @@ h3 {
 .mat-input-infix.mat-form-field-infix {
   padding: 0 !important;
 }
+
+.header-container {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 30px;
+
+  h1 {
+    padding-right: 0;
+  }
+
+}
+
+.delete-button {
+  margin-top: 26px;
+  border: none;
+  background-color: #c23616 !important;
+
+  &:hover {
+    background-color: #eb4d4b !important;
+  }
+}
+
 
 
 

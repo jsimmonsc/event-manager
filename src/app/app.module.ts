@@ -49,6 +49,8 @@ import {RestrictInputDirective} from "./restrict-input.directive";
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
+import { DeleteEventDialogComponent } from './create-event/delete-event-dialog/event-delete-dialog.component';
+import { DeleteConfirmationDialogComponent } from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     RestrictInputDirective,
     EditUserDialogComponent,
     AddUserDialogComponent,
-    DeleteUserWarningDialogComponent
+    DeleteUserWarningDialogComponent,
+    DeleteEventDialogComponent,
+    DeleteConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +129,8 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     EditUserDialogComponent,
     DeleteUserWarningDialogComponent,
     AddUserDialogComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    DeleteEventDialogComponent
   ],
   bootstrap: [AppComponent]
 })

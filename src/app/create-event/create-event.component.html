@@ -1,6 +1,9 @@
-<h1>{{this.isNewEvent ? "Create" : "Edit"}} Event</h1>
-
-<a (click)="deleteEvent()" matTooltip="Delete event"><mat-icon>delete</mat-icon></a>
+<div class="header-container">
+  <h1>{{this.isNewEvent ? "Create" : "Edit"}} Event</h1>
+  <button class="delete-button" *ngIf="!this.isNewEvent" mat-fab (click)="deleteEvent()" matTooltip="Delete event">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 
 <form [formGroup]="formGroup">
 
@@ -55,10 +58,10 @@
       <h3>Requirements</h3>
       <div class="checkbox-container">
         <div>
-          <mat-checkbox [checked]="getPropertyValue('attendance')" onchange="attendanceChecked = !attendanceChecked">Attendance</mat-checkbox>
+          <mat-checkbox>Attendance</mat-checkbox>
         </div>
         <div>
-          <mat-checkbox [checked]="getPropertyValue('fines')" onchange="finesChecked = !finesChecked">Fines</mat-checkbox>
+          <mat-checkbox>Fines</mat-checkbox>
         </div>
       </div>
 

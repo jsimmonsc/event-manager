@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 import {Event} from "../shared/models/event.model";
-import {ErrorStateMatcher} from "@angular/material";
+import {ErrorStateMatcher, MatDialog} from "@angular/material";
 import {EventService} from "../shared/services/event/event.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {DeleteEventDialogComponent} from "./delete-event-dialog/event-delete-dialog.component";
 
 @Component({
   selector: 'app-create-event',
@@ -38,7 +39,8 @@ export class CreateEventComponent implements OnInit {
               private slidingDialog: SlidingDialogService,
               private eventService: EventService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog) {
     this.savedEventName = " ";
     this.savedEventDescription = " ";
     this.savedEventDate = new Date();
@@ -74,7 +76,9 @@ export class CreateEventComponent implements OnInit {
   createEvent() {
 
     this.eventService.createEvent(this.getEventFromInputs()).subscribe((event: Event) => {
-      this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
+      this.router.navigateByUrl('/events').then(() => {
+        this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
+      });
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
@@ -85,7 +89,9 @@ export class CreateEventComponent implements OnInit {
   updateEvent() {
 
     this.eventService.updateEvent(this.getEventFromInputs()).subscribe((event: Event) => {
-      this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
+      this.router.navigateByUrl('/events').then(() => {
+        this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
+      });
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
@@ -95,20 +101,13 @@ export class CreateEventComponent implements OnInit {
 
   deleteEvent() {
 
-    // TODO: Add double confirmation dialog
-
-    this.eventService.deleteEvent(this.eventID).subscribe((event: Event) => {
-      this.router.navigateByUrl("/events").then(() => {
-        this.slidingDialog.displayNotification("Deleted event", SlidingDialogType.SUCCESS);
-      });
-    }, (err) => {
-      this.slidingDialog.displayNotification("Could not delete event", SlidingDialogType.ERROR);
-    });
+    const confirmationDialogRef = this.dialog.open(DeleteEventDialogComponent, { data: { eventID: this.eventID } });
 
   }
 
+
   submitEvent() {
-    if(this.isNewEvent) {
+    if (this.isNewEvent) {
       this.createEvent();
     } else {
       this.updateEvent();
