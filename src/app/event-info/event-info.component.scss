@@ -1,3 +1,5 @@
+@import "../../styles";
+
 .button-container {
   button {
     margin: 3rem;
@@ -25,17 +27,21 @@ h2 {
   margin: 100px 0 4rem 0;
 }
 
-a {
-  cursor: pointer;
-  user-select: none;
-}
-
 .table-head {
   background-color: #cccccc;
 
   mat-form-field {
     width: 25%;
   }
+}
+
+.container button {
+
+  &:hover {
+    color: $green !important;
+  }
+
+
 }
 
 

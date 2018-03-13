@@ -23,10 +23,10 @@ export class DeleteConfirmationDialogComponent {
 
   deleteEvent() {
 
-    this.eventService.deleteEvent(this.data.eventID).subscribe((event) => {
+    this.eventService.deleteEvent(this.data.eventID).subscribe((event: Event) => {
       this.dialogRef.close(event);
       this.router.navigateByUrl('/events').then(() => {
-        this.slidingDialog.displayNotification("Event successfully deleted", SlidingDialogType.SUCCESS);
+        this.slidingDialog.displayNotification('Event successfully deleted', SlidingDialogType.SUCCESS);
       });
 
     }, (err) => {

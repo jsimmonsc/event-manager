@@ -15,14 +15,14 @@ import {DeleteEventDialogComponent} from "./delete-event-dialog/event-delete-dia
 export class CreateEventComponent implements OnInit {
 
   formGroup: FormGroup;
-  private eventID: string;
-  private savedEvent: Event;
-  private savedEventName: string;
-  private savedEventDescription: string;
-  private savedEventDate: Date;
-  private savedEventCost: string;
-  private savedEventAttendaceRequirement: boolean;
-  private savedEventFinesRequirement: boolean;
+  eventID: string;
+  savedEvent: Event;
+  savedEventName: string;
+  savedEventDescription: string;
+  savedEventDate: Date;
+  savedEventCost: string;
+  savedEventAttendaceRequirement: boolean;
+  savedEventFinesRequirement: boolean;
   isNewEvent: boolean;
   attendanceChecked = false;
   finesChecked = false;
@@ -47,7 +47,9 @@ export class CreateEventComponent implements OnInit {
     this.savedEventCost = " ";
     this.savedEventAttendaceRequirement = false;
     this.savedEventFinesRequirement = false;
+
     this.createForm();
+
   }
 
   ngOnInit() {
@@ -70,6 +72,8 @@ export class CreateEventComponent implements OnInit {
         this.isNewEvent = true;
       }
     });
+
+    this.setFormValues();
 
   }
 
@@ -143,6 +147,15 @@ export class CreateEventComponent implements OnInit {
 
   getFormValue(formControl: string) {
     return this.formGroup.get(formControl).value;
+  }
+
+  setFormValues() {
+    this.formGroup.setValue({
+      eventNameCtrl: this.savedEventName,
+      eventDescriptionCtrl: this.savedEventDescription,
+      dateCtrl: this.savedEventDate.toDateString(),
+      costCtrl: this.savedEventCost
+    });
   }
 
   inputIsInvalid(): boolean {
