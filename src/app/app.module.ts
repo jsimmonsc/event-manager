@@ -8,6 +8,7 @@ import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -23,8 +24,7 @@ import {
   MatSortModule,
   MatStepperModule,
   MatTableModule,
-  MatTooltipModule,
-  MatCardModule
+  MatTooltipModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
 import {CheckInComponent} from './check-in/check-in.component';
@@ -101,9 +101,7 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     MomentModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ['capstone.psdr3.org:3000', 'localhost:3000']
       }
     }),
@@ -130,3 +128,7 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
