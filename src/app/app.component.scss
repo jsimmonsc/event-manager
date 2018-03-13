@@ -50,7 +50,7 @@ header {
       text-decoration: none;
       color: rgb(19, 116, 0);
       width: 170px;
-      margin: 0 0 0 15px;
+      margin: 0 15px 0 15px;
       font-size: 15px;
       img {
         vertical-align: top;
@@ -64,4 +64,8 @@ header {
       flex-direction: row;
     }
   }
+}
+
+.active-link {
+  background-color: rgb(216, 216, 216);
 }
