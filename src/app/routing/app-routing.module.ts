@@ -63,7 +63,7 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'create/:id',
+    path: 'edit/:id',
     component: CreateEventComponent,
     data: {title: "Edit Event"},
     canActivate: [
