@@ -130,7 +130,8 @@ import { DeleteConfirmationDialogComponent } from './create-event/delete-confirm
     DeleteUserWarningDialogComponent,
     AddUserDialogComponent,
     WarningDialogComponent,
-    DeleteEventDialogComponent
+    DeleteEventDialogComponent,
+    DeleteConfirmationDialogComponent
   ],
   bootstrap: [AppComponent]
 })

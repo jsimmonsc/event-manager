@@ -101,7 +101,7 @@ export class CreateEventComponent implements OnInit {
 
   deleteEvent() {
 
-    const confirmationDialogRef = this.dialog.open(DeleteEventDialogComponent, { data: { eventID: this.eventID } });
+    this.dialog.open(DeleteEventDialogComponent, { data: { eventID: this.eventID } });
 
   }
 
