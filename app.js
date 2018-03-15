@@ -17,12 +17,7 @@ mongoose.connect(dbConfig.uri, () => {
 });
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function() {
-  console.log("Connected to mongodb.");
-  if(dbConfig.restURL) {
-    runPowerSchoolUpdate();
-  } else {
-    console.log("PowerSchool api url must be supplied to update student collection.");
-  }
+  console.log("Connected to database: " + dbConfig.uri);
 });
 
 app.use(logger('dev'));
@@ -56,29 +51,5 @@ app.use(function(err, req, res, next) {
     error: err
   })
 });
-
-
-
-function runPowerSchoolUpdate() {
-  restClient.get(dbConfig.restURL, function (data, response) {
-    console.log('Updating powerschool student info.');
-    data.items.forEach(function (element) {
-      var student = {
-        schoolid: element.schoolid,
-        first_name: element.first_name,
-        last_name: element.last_name,
-        student_number: element.student_number,
-        grade_level: element.grade_level,
-        fines: !!element.fines
-      };
-      Student.update({ student_number: element.student_number }, student, { upsert: true }, function (err) {
-        if (err) {
-          console.log(err);
-        }
-      });
-    });
-  });
-  setTimeout(runPowerSchoolUpdate, 60*1000*10)
-}
 
 module.exports = app;
