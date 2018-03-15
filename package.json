@@ -4,7 +4,8 @@
   "description": "updates students in db for event-manager",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/Pattonville-App-Development-Team/student-db-updater#readme",
   "dependencies": {
-    "mongoose": "^5.0.10"
+    "mongoose": "^5.0.10",
+    "node-rest-client": "^3.1.0",
+    "request": "^2.85.0"
   }
 }
