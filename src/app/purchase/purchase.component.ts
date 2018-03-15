@@ -5,6 +5,7 @@ import {EventService} from "../shared/services/event/event.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Attendee} from "../shared/models/attendee.model";
 import {Event} from "../shared/models/event.model";
+import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 
 @Component({
   selector: 'app-purchase',
@@ -14,15 +15,22 @@ import {Event} from "../shared/models/event.model";
 export class PurchaseComponent {
 
   private id: string;
+  sellAttendeeForm: FormGroup;
   purchaseForm: FormGroup;
+  student: Student;
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
-  constructor(private route: ActivatedRoute, private eventService: EventService, private fb: FormBuilder) {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
+  constructor(private route: ActivatedRoute,
+              private eventService: EventService,
+              private fb: FormBuilder,
+              private slidingDialog: SlidingDialogService ) {
+              this.route.params.subscribe(params => {
+                this.id = params['id'];
+              });
+    this.sellAttendeeForm = this.fb.group({
+      idInput: '',
     });
-
     this.purchaseForm = this.fb.group({
       idInput: ['', Validators.maxLength(5)],
       student: [null, Validators.required],
@@ -58,13 +66,14 @@ export class PurchaseComponent {
     if (+studentNumber) {
       this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
         console.log("Error, student already registered.");
-        // TODO: Error dialog
+        this.slidingDialog.displayNotification("ERROR: Student already registered!", SlidingDialogType.ERROR);
       }, (err) => {
         if (err.status === 404) {
 
           this.eventService.getStudent(+studentNumber).subscribe(student => {
             if (type === 'student') {
               this.purchaseForm.patchValue({student: student});
+              this.student = student;
             } else if (type === 'guest') {
               this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
             }
@@ -85,7 +94,7 @@ export class PurchaseComponent {
 
   submitAttendee(): void {
     const studentModel: Student = this.purchaseForm.get('student').value;
-
+    this.student = studentModel;
     const saveAttendee: Attendee = {
       _id: null,
       first_name: studentModel.first_name,

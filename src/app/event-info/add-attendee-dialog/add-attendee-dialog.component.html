@@ -2,22 +2,22 @@
 <mat-dialog-content>
   <form [formGroup]="addAttendeeForm" novalidate>
     <div class="input-wrapper" >
-      <mat-form-field>
-        <input matInput
-               type="text"
-               (keyup.enter)="searchForStudent(idInput.value, 'student')"
-               #idInput
-               formControlName="idInput"
-               placeholder="Enter ID Number"
-               maxlength="5"
-               id="inputId"
-        />
-      </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 (keyup.enter)="searchForStudent(idInput.value, 'student')"
+                 #idInput
+                 formControlName="idInput"
+                 placeholder="Enter ID Number"
+                 maxlength="5"
+                 id="inputId"
+          />
+        </mat-form-field>
 
-      <button type="button"
-              id="enter-button"
-              (click)="searchForStudent(idInput.value, 'student')"
-              mat-button class="enter-button">Enter</button>
+        <button type="button"
+                id="enter-button"
+                (click)="searchForStudent(idInput.value, 'student')"
+                mat-button class="enter-button">Enter</button>
     </div>
 
     <div class="student-information">

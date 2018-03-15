@@ -22,6 +22,7 @@ import {
   MatStepperModule,
   MatTableModule,
   MatTooltipModule,
+  MatCardModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
 import {CheckInComponent} from './check-in/check-in.component';
@@ -87,6 +88,7 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,

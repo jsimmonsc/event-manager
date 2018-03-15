@@ -2,20 +2,54 @@
   <h2>Sell Tickets</h2>
   <form [formGroup]="purchaseForm" novalidate>
     <div class="input-wrapper">
-      <input type="text"
-             (keyup.enter)="searchForStudent(idInput.value, 'student')"
-             #idInput
-             formControlName="idInput"
-             placeholder="Enter ID Number"
-             maxlength="5"
-             class="fancy-input"/>
+      <mat-form-field>
+        <input type="text"
+               id="idInput"
+               matInput
+               (keyup.enter)="searchForStudent(idInput.value, 'student')"
+               #idInput
+               formControlName="idInput"
+               placeholder="Enter ID Number"
+               maxlength="5"
+               />
+      </mat-form-field>
 
       <button type="button"
               (click)="searchForStudent(idInput.value, 'student')"
               mat-button class="enter-button">Enter</button>
     </div>
 
-    <app-student-info formControlName="student"></app-student-info>
+
+    <form [formGroup]="sellAttendeeForm" novalidate>
+      <div class="student-information">
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="Student Name"
+                 disabled
+                 value="{{ student ? student.first_name + ' ' + student.last_name : ''}}"
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="Student Number"
+                 disabled
+                 value="{{ student ? student.student_number : ''}}"
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="Grade"
+                 disabled
+                 value="{{ student ? student.grade_level : ''}}"
+          >
+        </mat-form-field>
+      </div>
+    </form>
+
+    <!--<app-student-info formControlName="student"></app-student-info> -->
 
     <div class="guest-div" *ngIf="purchaseForm.value.student" formGroupName="guestForm">
 
@@ -54,11 +88,12 @@
                  placeholder="Enter Guest School"
                  formControlName="guestSchoolName"
                  class="fancy-input">
-          <input type="text"
-                 placeholder="Enter Guest Phone"
+          <input type="tel"
+                 maxlength="10"
+                 matInput placeholder="Phone Number"
                  formControlName="guestHomePhone"
                  class="fancy-input">
-          <input type="text"
+          <input type="number"
                  placeholder="Enter Guest Age"
                  formControlName="guestAge"
                  class="fancy-input">
