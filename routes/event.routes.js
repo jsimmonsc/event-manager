@@ -11,5 +11,5 @@ module.exports = (app) => {
     app.post('/events/id/:id', validateJWT,              guards.seller,  controller.createAttendee);
     app.delete('/events/id/:id/:ticketnum', validateJWT, guards.admin,   controller.deleteAttendee);
     app.delete('/events/id/:id', validateJWT,            guards.admin,   controller.deleteEvent);
-    app.get('/events/id/:id/:studentid', validateJWT,    guards.checker, controller.findOneAttendee);
+    app.get('/events/id/:id/:studentid', validateJWT,    guards.all,     controller.findOneAttendee);
 }

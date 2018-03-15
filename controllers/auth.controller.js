@@ -34,7 +34,7 @@ exports.findAll = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    res.send(User.findOneAndRemove({ email: req.body.email }));
+    res.send(await User.findOneAndRemove({ email: req.body.email }));
   } catch (error) {
     console.error(error);
     res.status(500).send(error);
