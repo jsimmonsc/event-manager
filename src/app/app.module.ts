@@ -24,6 +24,8 @@ import {
   MatSortModule,
   MatStepperModule,
   MatTableModule,
+  MatTooltipModule,
+  MatCardModule
   MatTooltipModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
@@ -37,8 +39,9 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {EventService} from "./shared/services/event/event.service";
 import * as moment from 'moment-timezone';
 import {MomentModule} from "angular2-moment";
-import {EditAttendeeDialogComponent} from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
-import {DeleteWarningDialogComponent} from './event-info/delete-warning-dialog/delete-warning-dialog.component';
+import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
+import { DeleteWarningDialogComponent } from './event-info/delete-warning-dialog/delete-warning-dialog.component';
+import { AddAttendeeDialogComponent } from './event-info/add-attendee-dialog/add-attendee-dialog.component';
 import {LoginComponent} from './login/login.component';
 import {AuthCallbackComponent} from './login/auth-callback/auth-callback.component';
 import {JwtModule} from "@auth0/angular-jwt";
@@ -46,6 +49,7 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {AuthModule} from "./shared/services/auth/auth.module";
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 import {RestrictInputDirective} from "./restrict-input.directive";
+import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-dialog/successfully-saved-dialog.component";
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
@@ -64,6 +68,8 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     ErrorPageComponent,
     EventInfoComponent,
     EditAttendeeDialogComponent,
+    AddAttendeeDialogComponent,
+    SuccessfullySavedDialogComponent,
     DeleteWarningDialogComponent,
     LoginComponent,
     AuthCallbackComponent,
@@ -92,6 +98,7 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatCardModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
@@ -123,7 +130,9 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     EditUserDialogComponent,
     DeleteUserWarningDialogComponent,
     AddUserDialogComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    SuccessfullySavedDialogComponent,
+    AddAttendeeDialogComponent
   ],
   bootstrap: [AppComponent]
 })

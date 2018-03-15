@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Add Attendee</h2>
+<mat-dialog-content>
+  <form [formGroup]="addAttendeeForm" novalidate>
+    <div class="input-wrapper" >
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 (keyup.enter)="searchForStudent(idInput.value, 'student')"
+                 #idInput
+                 formControlName="idInput"
+                 placeholder="Enter ID Number"
+                 maxlength="5"
+                 id="inputId"
+          />
+        </mat-form-field>
+
+        <button type="button"
+                id="enter-button"
+                (click)="searchForStudent(idInput.value, 'student')"
+                mat-button class="enter-button">Enter</button>
+    </div>
+
+    <div class="student-information">
+      <mat-form-field>
+        <input matInput
+             type="text"
+             placeholder="Student Name"
+             disabled
+             value="{{ student ? student.first_name + ' ' + student.last_name : ''}}"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               type="text"
+               placeholder="Student Number"
+               disabled
+               value="{{ student ? student.student_number : ''}}"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               type="text"
+               placeholder="Grade"
+               disabled
+               value="{{ student ? student.grade_level : ''}}"
+        >
+      </mat-form-field>
+    </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button (click)="submitAttendee()">Submit</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

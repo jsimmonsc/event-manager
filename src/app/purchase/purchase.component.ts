@@ -18,20 +18,23 @@ import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component"
 export class PurchaseComponent {
 
   private id: string;
+  sellAttendeeForm: FormGroup;
   purchaseForm: FormGroup;
+  student: Student;
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
   constructor(private route: ActivatedRoute,
               private eventService: EventService,
               private fb: FormBuilder,
-              private errorDialog: SlidingDialogService,
-              private authService: AuthService,
-              private dialog: MatDialog) {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
+              private slidingDialog: SlidingDialogService,
+              this.route.params.subscribe(params => {
+                this.id = params['id'];
+              });
+    
+    this.sellAttendeeForm = this.fb.group({
+      idInput: '',
     });
-
     this.purchaseForm = this.fb.group({
       idInput: ['', Validators.maxLength(5)],
       student: [null, Validators.required],
@@ -52,9 +55,21 @@ export class PurchaseComponent {
 
   }
 
+  searchForStudent(studentNumber: string, type: string): void {
+    if (type === 'student') {
+      this.purchaseForm.reset();
+    } else if (type === 'guest') {
+      this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
+    
+    if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
+        // TODO: Display error about guest not being able to be the student
+        return;
+      }
+  }
+
   submitAttendee(): void {
     const studentModel: Student = this.purchaseForm.get('student').value;
-
+    this.student = studentModel;
     const saveAttendee: Attendee = {
       _id: null,
       first_name: studentModel.first_name,
