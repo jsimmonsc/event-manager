@@ -25,26 +25,42 @@ function runPowerSchoolUpdate() {
   restClient.get(config.finesURI, function (data, response) {
     console.log('Updating powerschool student info.');
     students = data.items;
-    request(config.attendanceURI, (err, res, body) => {
-      let att = res.body.split('\n').map(Number).filter(Boolean);
+
+    console.log("School fines added.");
+
+    request(config.lunchFinesURI, (err, res, body) => {
+      let fines = res.body.split('\n').map(Number).filter(Boolean);
       for (let i = 0; i < students.length; i++) {
-	students[i].attendance = att.includes(students[i].student_number);
+        if (fines.includes(students[i].student_number)) {
+          students[i].fines = 1;
+        }
       }
-      
-      students.forEach((element) => {
-        var student = {
-          schoolid: element.schoolid,
-          first_name: element.first_name,
-          last_name: element.last_name,
-          student_number: element.student_number,
-          grade_level: element.grade_level,
-          fines: !!element.fines,
-          attendance: element.attendance
-        };
-        Student.update({ student_number: element.student_number }, student, { upsert: true }, function (err) {
-          if (err) {
-            console.log(err);
-          }
+
+      console.log("Lunch fines added.");
+
+      request(config.attendanceURI, (err, res, body) => {
+        let att = res.body.split('\n').map(Number).filter(Boolean);
+        for (let i = 0; i < students.length; i++) {
+          students[i].attendance = att.includes(students[i].student_number);
+        }
+
+        console.log("Attendance added.");
+
+        students.forEach((element) => {
+          var student = {
+            schoolid: element.schoolid,
+            first_name: element.first_name,
+            last_name: element.last_name,
+            student_number: element.student_number,
+            grade_level: element.grade_level,
+            fines: !!element.fines,
+            attendance: element.attendance
+          };
+          Student.update({ student_number: element.student_number }, student, { upsert: true }, function (err) {
+            if (err) {
+              console.log(err);
+            }
+          });
         });
       });
     });
