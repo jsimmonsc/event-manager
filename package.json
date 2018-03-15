@@ -1,0 +1,22 @@
+{
+  "name": "student-updater",
+  "version": "1.0.0",
+  "description": "updates students in db for event-manager",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pattonville-App-Development-Team/student-db-updater.git"
+  },
+  "author": "Greg Bahr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pattonville-App-Development-Team/student-db-updater/issues"
+  },
+  "homepage": "https://github.com/Pattonville-App-Development-Team/student-db-updater#readme",
+  "dependencies": {
+    "mongoose": "^5.0.10"
+  }
+}
