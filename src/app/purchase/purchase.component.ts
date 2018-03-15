@@ -6,6 +6,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Attendee} from "../shared/models/attendee.model";
 import {Event} from "../shared/models/event.model";
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
+import {AuthService} from "../shared/services/auth/auth.service";
+import {MatDialog} from "@angular/material";
+import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component";
 
 @Component({
   selector: 'app-purchase',
@@ -24,10 +27,11 @@ export class PurchaseComponent {
   constructor(private route: ActivatedRoute,
               private eventService: EventService,
               private fb: FormBuilder,
-              private slidingDialog: SlidingDialogService ) {
+              private slidingDialog: SlidingDialogService,
               this.route.params.subscribe(params => {
                 this.id = params['id'];
               });
+    
     this.sellAttendeeForm = this.fb.group({
       idInput: '',
     });
@@ -51,45 +55,16 @@ export class PurchaseComponent {
 
   }
 
-  private searchForStudent(studentNumber: string, type: string): void {
+  searchForStudent(studentNumber: string, type: string): void {
     if (type === 'student') {
       this.purchaseForm.reset();
     } else if (type === 'guest') {
       this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
-
-      if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
+    
+    if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
         // TODO: Display error about guest not being able to be the student
         return;
       }
-    }
-
-    if (+studentNumber) {
-      this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
-        console.log("Error, student already registered.");
-        this.slidingDialog.displayNotification("ERROR: Student already registered!", SlidingDialogType.ERROR);
-      }, (err) => {
-        if (err.status === 404) {
-
-          this.eventService.getStudent(+studentNumber).subscribe(student => {
-            if (type === 'student') {
-              this.purchaseForm.patchValue({student: student});
-              this.student = student;
-            } else if (type === 'guest') {
-              this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
-            }
-          });
-        } else {
-          console.log(err);
-          // TODO: Connection error dialog
-        }
-      });
-    }
-
-  }
-
-  checkboxChanged(): void {
-    this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
-    this.purchaseForm.get('guestForm.outsideGuest').reset();
   }
 
   submitAttendee(): void {
@@ -120,14 +95,12 @@ export class PurchaseComponent {
                                age: +outsideGuest.guestAge,
                                phone: +outsideGuest.guestHomePhone};
       } else {
-        console.log("invalid");
-        // TODO: Error invalid guest form
+        this.errorDialog.displayNotification("ERROR: Invalid guest form!", SlidingDialogType.ERROR);
         return;
       }
     }
 
     this.eventService.createAttendee(this.id, saveAttendee).subscribe((event: Event) => {
-      console.log("Attendee created.");
       if (saveAttendee.guestId > 0) {
         const guestModel = this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value;
         const guestAttendee: Attendee = {
@@ -146,19 +119,31 @@ export class PurchaseComponent {
         };
 
         this.eventService.createAttendee(this.id, guestAttendee).subscribe((e: Event) => {
-          console.log("Guest Attendee created.");
-          // TODO: Attendee added dialog
+          this.errorDialog.displayNotification("Guest registered!", SlidingDialogType.SUCCESS, 2000);
         }, (err) => {
-          // TODO: Error connection failed
-          console.log(err);
+          this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
         });
       }
       this.purchaseForm.reset();
-      // TODO: Attendee added dialog
+      this.errorDialog.displayNotification("Attendee registered!", SlidingDialogType.SUCCESS, 2000);
     }, (err) => {
-      // TODO: Error connection failed
-      console.log(err);
+      this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
     });
+  }
+
+  checkboxChanged(): void {
+    this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
+    this.purchaseForm.get('guestForm.outsideGuest').reset();
+  }
+
+  public hasFailedRequirement(student: Student): boolean {
+    return student.fines || student.attendance;
+  }
+
+  attendeeFailsRequirements(): boolean {
+    return this.hasFailedRequirement(this.purchaseForm.get('student').value)
+      || (this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value
+        && this.hasFailedRequirement(this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value));
   }
 
   checkGuestValidity(obj: any): boolean {
@@ -168,5 +153,51 @@ export class PurchaseComponent {
       }
     }
     return true;
+  }
+
+  openWarningDialog() {
+    if (this.authService.isAdmin()) {
+      const dialogRef = this.dialog.open(WarningDialogComponent);
+
+      dialogRef.afterClosed().subscribe(val => {
+        if (val) {
+          this.submitAttendee();
+        }
+      });
+    } else {
+      this.errorDialog.displayNotification("ERROR: Student has problems with fines or attendance!", SlidingDialogType.ERROR);
+    }
+  }
+
+  public searchForStudent(studentNumber: string, type: string): void {
+    if (type === 'student') {
+      this.purchaseForm.reset();
+    } else if (type === 'guest') {
+      this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
+
+      if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
+        this.errorDialog.displayNotification("ERROR: The guest cannot also be the student!", SlidingDialogType.ERROR);
+        return;
+      }
+    }
+
+    if (+studentNumber) {
+      this.eventService.getAttendeeFromEvent(this.id, +studentNumber).subscribe((att: Attendee) => {
+        this.errorDialog.displayNotification("ERROR: Student already registered in event!", SlidingDialogType.ERROR);
+      }, (err) => {
+        if (err.status === 404) {
+
+          this.eventService.getStudent(+studentNumber).subscribe(student => {
+            if (type === 'student') {
+              this.purchaseForm.patchValue({student: student});
+            } else if (type === 'guest') {
+              this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
+            }
+          });
+        } else {
+          this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
+        }
+      });
+    }
   }
 }

@@ -4,6 +4,7 @@ import {SlidingDialogService, SlidingDialogType} from "../shared/services/slidin
 import {Event} from "../shared/models/event.model";
 import {ErrorStateMatcher} from "@angular/material";
 import {EventService} from "../shared/services/event/event.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-event',
@@ -13,7 +14,17 @@ import {EventService} from "../shared/services/event/event.service";
 export class CreateEventComponent implements OnInit {
 
   formGroup: FormGroup;
-
+  private eventID: string;
+  private savedEvent: Event;
+  private savedEventName: string;
+  private savedEventDescription: string;
+  private savedEventDate: Date;
+  private savedEventCost: string;
+  private savedEventAttendaceRequirement: boolean;
+  private savedEventFinesRequirement: boolean;
+  isNewEvent: boolean;
+  attendanceChecked = false;
+  finesChecked = false;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
   dateCtrl = new FormControl('', [Validators.required]);
@@ -21,30 +32,118 @@ export class CreateEventComponent implements OnInit {
 
   matcher = new CustomErrorStateMatcher();
 
-  constructor(private formBuilder: FormBuilder, private slidingDialog: SlidingDialogService, private eventService: EventService) {
+
+
+  constructor(private formBuilder: FormBuilder,
+              private slidingDialog: SlidingDialogService,
+              private eventService: EventService,
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.savedEventName = " ";
+    this.savedEventDescription = " ";
+    this.savedEventDate = new Date();
+    this.savedEventCost = " ";
+    this.savedEventAttendaceRequirement = false;
+    this.savedEventFinesRequirement = false;
     this.createForm();
   }
 
   ngOnInit() {
 
+    this.route.params.subscribe(params => {
+
+      if (params['id'] !== undefined) {
+        this.eventID = params['id'];
+        this.eventService.getEvent(this.eventID).subscribe(event => {
+          this.savedEvent = event;
+          this.savedEventName = this.savedEvent.name;
+          this.savedEventDescription = this.savedEvent.description;
+          this.savedEventDate = this.savedEvent.date;
+          this.savedEventCost = this.savedEvent.cost.toString();
+          this.savedEventAttendaceRequirement = this.savedEvent.requirements.attendance;
+          this.savedEventFinesRequirement = this.savedEvent.requirements.fines;
+        });
+        this.isNewEvent = false;
+      } else {
+        this.isNewEvent = true;
+      }
+    });
+
   }
 
   createEvent() {
 
-    this.eventService.createEvent({
-      _id: null,
-      name: this.getFormValue("eventNameCtrl"),
-      description: this.getFormValue("eventDescriptionCtrl"),
-      date: new Date(this.getFormValue("dateCtrl")),
-      sales: 0,
-      attendees: null
-    }).subscribe((event: Event) => {
+    this.eventService.createEvent(this.getEventFromInputs()).subscribe((event: Event) => {
       this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
       console.log(err);
     });
+  }
+
+  updateEvent() {
+
+    this.eventService.updateEvent(this.getEventFromInputs()).subscribe((event: Event) => {
+      this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
+      console.log(JSON.stringify(event));
+    }, (err) => {
+      this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
+    });
+
+  }
+
+  deleteEvent() {
+
+    // TODO: Add double confirmation dialog
+
+    this.eventService.deleteEvent(this.eventID).subscribe((event: Event) => {
+      this.router.navigateByUrl("/events").then(() => {
+        this.slidingDialog.displayNotification("Deleted event", SlidingDialogType.SUCCESS);
+      });
+    }, (err) => {
+      this.slidingDialog.displayNotification("Could not delete event", SlidingDialogType.ERROR);
+    });
+
+  }
+
+  submitEvent() {
+    if(this.isNewEvent) {
+      this.createEvent();
+    } else {
+      this.updateEvent();
+    }
+  }
+
+  getEventFromInputs(): Event {
+
+    let newID = null;
+    let newSales = 0;
+    let newAttendees = null;
+
+    if (!this.isNewEvent) {
+      newID = this.eventID;
+      newSales = this.savedEvent.sales;
+      newAttendees = this.savedEvent.attendees;
+    }
+
+    return {
+      _id: newID,
+      name: this.getFormValue("eventNameCtrl"),
+      description: this.getFormValue("eventDescriptionCtrl"),
+      date: new Date(this.getFormValue("dateCtrl")),
+      sales: newSales,
+      attendees: newAttendees,
+      cost: +this.getFormValue("costCtrl"),
+      requirements: {
+        attendance: this.attendanceChecked,
+        fines: this.finesChecked
+      }
+    };
+  }
+
+  getFormValue(formControl: string) {
+    return this.formGroup.get(formControl).value;
   }
 
   inputIsInvalid(): boolean {
@@ -55,10 +154,6 @@ export class CreateEventComponent implements OnInit {
 
   }
 
-  getFormValue(formControl: string): string {
-    return this.formGroup.get(formControl).value;
-  }
-
   createForm() {
     this.formGroup = this.formBuilder.group({
         eventNameCtrl: this.eventNameCtrl,
@@ -66,6 +161,32 @@ export class CreateEventComponent implements OnInit {
         dateCtrl: this.dateCtrl,
         costCtrl: this.costCtrl
     });
+  }
+
+  getPropertyValue(property: string) {
+
+    if (this.isNewEvent) {
+      return "";
+    } else {
+
+      switch (property) {
+        case "name":
+          return this.savedEventName;
+        case "description":
+          return this.savedEventDescription;
+        case "date":
+          return this.savedEventDate;
+        case "cost":
+          return this.savedEventCost;
+        case "attendance":
+          return this.savedEventAttendaceRequirement;
+        case "fines":
+          return this.savedEventFinesRequirement;
+      }
+
+    }
+
+
   }
 
 }

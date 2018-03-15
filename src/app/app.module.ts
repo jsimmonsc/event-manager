@@ -8,6 +8,7 @@ import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -15,14 +16,17 @@ import {
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
+  MatOptionModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
   MatSnackBarModule,
   MatSortModule,
   MatStepperModule,
   MatTableModule,
   MatTooltipModule,
   MatCardModule
+  MatTooltipModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
 import {CheckInComponent} from './check-in/check-in.component';
@@ -46,6 +50,9 @@ import {AuthModule} from "./shared/services/auth/auth.module";
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 import {RestrictInputDirective} from "./restrict-input.directive";
 import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-dialog/successfully-saved-dialog.component";
+import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
+import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
+import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +76,10 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
     AdminPanelComponent,
     ErrorPageComponent,
     EventInfoComponent,
-    RestrictInputDirective
+    RestrictInputDirective,
+    EditUserDialogComponent,
+    AddUserDialogComponent,
+    DeleteUserWarningDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,18 +104,19 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    MatCardModule,
     MomentModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ['capstone.psdr3.org:3000', 'localhost:3000']
       }
     }),
     AuthModule.forRoot(),
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     FormBuilder,
@@ -113,8 +124,20 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
     EventService,
     {provide: 'moment', useFactory: (): any => moment},
   ],
-  entryComponents: [EditAttendeeDialogComponent,
-                    DeleteWarningDialogComponent, AddAttendeeDialogComponent, SuccessfullySavedDialogComponent],
+  entryComponents: [
+    EditAttendeeDialogComponent,
+    DeleteWarningDialogComponent,
+    EditUserDialogComponent,
+    DeleteUserWarningDialogComponent,
+    AddUserDialogComponent,
+    WarningDialogComponent,
+    SuccessfullySavedDialogComponent,
+    AddAttendeeDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}

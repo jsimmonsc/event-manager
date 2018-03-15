@@ -2,11 +2,14 @@
   <div class="icon">
     <h4>Fines</h4>
     <img *ngIf="!student.fines" [src]="'../../assets/check.png'" height="132px" width="102px">
-    <img *ngIf="student.fines" [src]="'../../assets/WarningSign.png'" height="102px" width="102px">
+    <img *ngIf="student.fines" matTooltip="Student has issue with fines." [src]="'../../assets/WarningSign.png'"
+         height="102px" width="102px">
   </div>
   <div class="icon">
     <h4>Attendance</h4>
-    <img [src]="'../../assets/check.png'" height="132px" width="102px">
-    <!--<img [src]="'../../assets/WarningSign.png'" height="102px" width="102px">-->
+    <img *ngIf="!student.attendance" [src]="'../../assets/check.png'" height="132px" width="102px">
+    <img *ngIf="student.attendance" matTooltip="Student has less than 90% attendance."
+         [src]="'../../assets/WarningSign.png'"
+         height="102px" width="102px">
   </div>
 </div>

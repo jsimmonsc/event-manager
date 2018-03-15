@@ -6,6 +6,8 @@ import {environment} from "../../../../environments/environment";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {User} from "../../models/user.model";
 import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/of';
 
 const API_URL = environment.apiUrl;
 
@@ -13,21 +15,31 @@ const API_URL = environment.apiUrl;
 export class AuthService {
 
   userProfile: User;
+  refreshSubscription: any;
 
   auth0 = new auth0.WebAuth({
     clientID: environment.auth0ClientID,
     domain: 'event-manager.auth0.com',
-    redirectUri: 'http://localhost:4200/login/callback',
+    redirectUri: environment.clientURI + '/login/callback',
     audience: 'http://capstone.psdr3.org:3000',
     responseType: 'token id_token',
     scope: 'openid email'
   });
 
   constructor(public router: Router, private http: HttpClient, private jwtHelper: JwtHelperService) {
+    if (this.isAuthenticated()) {
+      this.checkAuth().subscribe((val: User) => {
+        this.userProfile = val;
+      });
+    }
   }
 
   public login(): void {
     this.auth0.authorize();
+  }
+
+  public isAdmin(): boolean {
+    return this.userProfile.role === 'super' || this.userProfile.role === 'admin';
   }
 
   public handleAuthentication(): void {
@@ -45,7 +57,6 @@ export class AuthService {
           window.location.hash = '';
           this.setSession(authResult);
           this.userProfile = res;
-          console.log(res);
           this.router.navigate(['/events']);
         }, error => {
           this.router.navigate(['/']);
@@ -65,6 +76,8 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.userProfile = null;
+
+    this.unscheduleRenewal();
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -93,7 +106,7 @@ export class AuthService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post<User>(API_URL + '/users', user, {headers: headers});
+    return this.http.post<User>(API_URL + '/users/create', user, {headers: headers});
   }
 
   public findAllUsers(): Observable<User[]> {
@@ -114,8 +127,57 @@ export class AuthService {
     return this.http.post<User>(API_URL + '/users', user, {headers: headers});
   }
 
-  public retrieveProfile(): User {
-    return this.userProfile;
+  public renewToken() {
+    this.auth0.checkSession({}, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        this.http.post(environment.apiUrl + "/authorize",
+          {email: this.jwtHelper.decodeToken(result.idToken).email, token: result.accessToken},
+          {
+            headers: new HttpHeaders({
+              'Authorization': 'Bearer ' + result.accessToken
+            })
+          }).subscribe((value: User) => {
+          this.setSession(result);
+          this.userProfile = value;
+        });
+      }
+    });
+  }
+
+  public scheduleRenewal() {
+    if (!this.isAuthenticated()) {
+      return;
+    }
+    this.unscheduleRenewal();
+
+    const expiresAt = JSON.parse(window.localStorage.getItem('expires_at'));
+
+    const source = Observable.of(expiresAt).flatMap(
+      expires => {
+
+        const now = Date.now();
+
+        // Use the delay in a timer to
+        // run the refresh at the proper time
+        return Observable.timer(Math.max(1, expires - now));
+      });
+
+    // Once the delay time from above is
+    // reached, get a new JWT and schedule
+    // additional refreshes
+    this.refreshSubscription = source.subscribe(() => {
+      this.renewToken();
+      this.scheduleRenewal();
+    });
+  }
+
+  public unscheduleRenewal() {
+    if (!this.refreshSubscription) {
+      return;
+    }
+    this.refreshSubscription.unsubscribe();
   }
 
   private setSession(authResult): void {
@@ -124,5 +186,7 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+
+    this.scheduleRenewal();
   }
 }
