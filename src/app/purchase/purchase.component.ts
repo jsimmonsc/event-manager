@@ -27,11 +27,15 @@ export class PurchaseComponent {
   constructor(private route: ActivatedRoute,
               private eventService: EventService,
               private fb: FormBuilder,
-              private slidingDialog: SlidingDialogService,
-              this.route.params.subscribe(params => {
-                this.id = params['id'];
-              });
-    
+              private errorDialog: SlidingDialogService,
+              private dialog: MatDialog,
+              private authService: AuthService
+              ) {
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
     this.sellAttendeeForm = this.fb.group({
       idInput: '',
     });
@@ -52,19 +56,6 @@ export class PurchaseComponent {
         })
       })
     });
-
-  }
-
-  searchForStudent(studentNumber: string, type: string): void {
-    if (type === 'student') {
-      this.purchaseForm.reset();
-    } else if (type === 'guest') {
-      this.purchaseForm.get('guestForm.pattonvilleGuest').reset();
-    
-    if (+studentNumber === this.purchaseForm.get('student').value.student_number) {
-        // TODO: Display error about guest not being able to be the student
-        return;
-      }
   }
 
   submitAttendee(): void {

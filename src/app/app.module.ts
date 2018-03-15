@@ -8,7 +8,6 @@ import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
   MatButtonModule,
-  MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -24,9 +23,8 @@ import {
   MatSortModule,
   MatStepperModule,
   MatTableModule,
+  MatCardModule,
   MatTooltipModule,
-  MatCardModule
-  MatTooltipModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
 import {CheckInComponent} from './check-in/check-in.component';
