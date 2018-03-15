@@ -1,27 +1,23 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var dbConfig = require('./config/db.config');
-var RestClient = require('node-rest-client').Client;
-var app = express();
-var Student = require('./models/student.model');
-var cors = require('cors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const dbConfig = require('./config/db.config');
+const RestClient = require('node-rest-client').Client;
+const app = express();
+const Student = require('./models/student.model');
+const cors = require('cors');
 
-var restClient = new RestClient();
+const restClient = new RestClient();
 
 mongoose.connect(dbConfig.uri, () => {
   useMongoClient: true
 });
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 mongoose.connection.once('open', function() {
-  console.log("Connected to mongodb.");
-  if(dbConfig.restURL) {
-    console.log("PowerSchool api url must be supplied to update student collection.");
-    runPowerSchoolUpdate();
-  }
+  console.log("Connected to database: " + dbConfig.uri);
 });
 
 app.use(logger('dev'));
@@ -33,6 +29,7 @@ app.use(cors());
 
 require('./routes/student.routes')(app);
 require('./routes/event.routes')(app);
+require('./routes/auth.routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,29 +51,5 @@ app.use(function(err, req, res, next) {
     error: err
   })
 });
-
-
-
-function runPowerSchoolUpdate() {
-  restClient.get(dbConfig.restURL, function (data, response) {
-    console.log('Updating powerschool student info.');
-    data.items.forEach(function (element) {
-      var student = {
-        schoolid: element.schoolid,
-        first_name: element.first_name,
-        last_name: element.last_name,
-        student_number: element.student_number,
-        grade_level: element.grade_level,
-        fines: !!element.fines
-      };
-      Student.update({ student_number: element.student_number }, student, { upsert: true }, function (err) {
-        if (err) {
-          console.log(err);
-        }
-      });
-    });
-  });
-  setTimeout(runPowerSchoolUpdate, 60*1000*10)
-}
 
 module.exports = app;
