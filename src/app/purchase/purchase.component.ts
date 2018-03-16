@@ -18,9 +18,7 @@ import {WarningDialogComponent} from "./warning-dialog/warning-dialog.component"
 export class PurchaseComponent {
 
   private id: string;
-  sellAttendeeForm: FormGroup;
   purchaseForm: FormGroup;
-  student: Student;
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
@@ -28,17 +26,12 @@ export class PurchaseComponent {
               private eventService: EventService,
               private fb: FormBuilder,
               private errorDialog: SlidingDialogService,
-              private dialog: MatDialog,
-              private authService: AuthService
-              ) {
-
+              private authService: AuthService,
+              private dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
 
-    this.sellAttendeeForm = this.fb.group({
-      idInput: '',
-    });
     this.purchaseForm = this.fb.group({
       idInput: ['', Validators.maxLength(5)],
       student: [null, Validators.required],
@@ -56,11 +49,12 @@ export class PurchaseComponent {
         })
       })
     });
+
   }
 
   submitAttendee(): void {
     const studentModel: Student = this.purchaseForm.get('student').value;
-    this.student = studentModel;
+
     const saveAttendee: Attendee = {
       _id: null,
       first_name: studentModel.first_name,
