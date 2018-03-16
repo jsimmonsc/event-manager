@@ -7,7 +7,6 @@ import {Attendee} from "../shared/models/attendee.model";
 import {EditAttendeeDialogComponent} from "./edit-attendee-dialog/edit-attendee-dialog.component";
 import {FormGroup} from "@angular/forms";
 import {AddAttendeeDialogComponent} from "./add-attendee-dialog/add-attendee-dialog.component";
-import {Student} from "../shared/models/student.model";
 
 @Component({
   selector: 'app-event-info',
@@ -38,6 +37,7 @@ export class EventInfoComponent implements OnInit {
     });
     this.eventService.getEvent(this.id).subscribe(event => {
       this.event = event;
+      event.attendees = event.attendees ? event.attendees : [];
 
       this.dataSource = new MatTableDataSource<Attendee>(this.event.attendees);
       this.dataSource.paginator = this.paginator;
