@@ -46,6 +46,8 @@
         <mat-form-field>
           <input matInput type="text" placeholder="Guest Grade Level" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.grade_level : '' }}">
         </mat-form-field>
+
+        <app-requirements *ngIf="pattonvilleGuest" [(student)]="pattonvilleGuest"></app-requirements>
       </div>
     </div>
     <div class="end-fields" formGroupName="extraEdit">
@@ -57,7 +59,7 @@
         </button>
       </mat-form-field>
       <mat-form-field>
-        <textarea formControlName="comment" matInput placeholder="Comment"></textarea>
+        <textarea formControlName="comment" matTextareaAutosize matInput placeholder="Comment"></textarea>
       </mat-form-field>
     </div>
   </form>
