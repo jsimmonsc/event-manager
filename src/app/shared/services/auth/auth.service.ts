@@ -59,8 +59,7 @@ export class AuthService {
           this.userProfile = res;
           this.router.navigate(['/events']);
         }, error => {
-          this.router.navigate(['/']);
-          console.log(error);
+          this.router.navigate(['/login', {error: error.status}]);
         });
 
       } else if (err) {
