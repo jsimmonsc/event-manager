@@ -7,6 +7,7 @@ import {Attendee} from "../shared/models/attendee.model";
 import {EditAttendeeDialogComponent} from "./edit-attendee-dialog/edit-attendee-dialog.component";
 import {FormGroup} from "@angular/forms";
 import {AddAttendeeDialogComponent} from "./add-attendee-dialog/add-attendee-dialog.component";
+import {PapaParseService} from "ngx-papaparse";
 
 @Component({
   selector: 'app-event-info',
@@ -28,7 +29,8 @@ export class EventInfoComponent implements OnInit {
               private router: Router,
               private eventService: EventService,
               private dialog: MatDialog,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private changeDetectorRef: ChangeDetectorRef,
+              private csvExporter: PapaParseService) {
   }
 
   ngOnInit() {
@@ -81,7 +83,21 @@ export class EventInfoComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
     });
+  }
 
+  exportToCSV() {
+    const csvData = new Blob([this.csvExporter.unparse(this.event.attendees)], {type: 'text/csv;charset=utf-8;'});
+    if (navigator.msSaveBlob) {
+      navigator.msSaveBlob(csvData, this.event.name + ".csv");
+    } else {
+      // In FF link must be added to DOM to be clicked
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(csvData);
+      link.setAttribute('download', this.event.name + ".csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
   }
 }
