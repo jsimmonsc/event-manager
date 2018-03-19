@@ -8,6 +8,7 @@ import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
   MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -23,7 +24,6 @@ import {
   MatSortModule,
   MatStepperModule,
   MatTableModule,
-  MatCardModule,
   MatTooltipModule,
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
@@ -37,9 +37,9 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {EventService} from "./shared/services/event/event.service";
 import * as moment from 'moment-timezone';
 import {MomentModule} from "angular2-moment";
-import { EditAttendeeDialogComponent } from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
-import { DeleteWarningDialogComponent } from './event-info/delete-warning-dialog/delete-warning-dialog.component';
-import { AddAttendeeDialogComponent } from './event-info/add-attendee-dialog/add-attendee-dialog.component';
+import {EditAttendeeDialogComponent} from './event-info/edit-attendee-dialog/edit-attendee-dialog.component';
+import {DeleteWarningDialogComponent} from './event-info/delete-warning-dialog/delete-warning-dialog.component';
+import {AddAttendeeDialogComponent} from './event-info/add-attendee-dialog/add-attendee-dialog.component';
 import {LoginComponent} from './login/login.component';
 import {AuthCallbackComponent} from './login/auth-callback/auth-callback.component';
 import {JwtModule} from "@auth0/angular-jwt";
@@ -51,6 +51,7 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
+import {PapaParseService} from "ngx-papaparse";
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warnin
     FormBuilder,
     SlidingDialogService,
     EventService,
+    PapaParseService,
     {provide: 'moment', useFactory: (): any => moment},
   ],
   entryComponents: [
