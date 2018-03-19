@@ -17,12 +17,6 @@ export class CreateEventComponent implements OnInit {
   formGroup: FormGroup;
   eventID: string;
   savedEvent: Event;
-  savedEventName: string;
-  savedEventDescription: string;
-  savedEventDate: Date;
-  savedEventCost: string;
-  savedEventAttendaceRequirement: boolean;
-  savedEventFinesRequirement: boolean;
   isNewEvent: boolean;
   attendanceChecked: boolean;
   finesChecked: boolean;
@@ -41,13 +35,6 @@ export class CreateEventComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
-    this.savedEventName = " ";
-    this.savedEventDescription = " ";
-    this.savedEventDate = new Date();
-    this.savedEventCost = " ";
-    this.savedEventAttendaceRequirement = false;
-    this.savedEventFinesRequirement = false;
-
     this.createForm();
 
   }
@@ -60,12 +47,6 @@ export class CreateEventComponent implements OnInit {
         this.eventID = params['id'];
         this.eventService.getEvent(this.eventID).subscribe((event: Event) => {
           this.savedEvent = event;
-          this.savedEventName = this.savedEvent.name;
-          this.savedEventDescription = this.savedEvent.description;
-          this.savedEventDate = this.savedEvent.date;
-          this.savedEventCost = this.savedEvent.cost.toString();
-          this.savedEventAttendaceRequirement = this.savedEvent.requirements.attendance;
-          this.savedEventFinesRequirement = this.savedEvent.requirements.fines;
           this.isNewEvent = false;
           this.setFormValues();
 
@@ -100,7 +81,7 @@ export class CreateEventComponent implements OnInit {
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
-      console.log(err)
+      console.log(err);
     });
 
   }
@@ -150,15 +131,15 @@ export class CreateEventComponent implements OnInit {
   }
 
   setFormValues() {
-    this.attendanceChecked = this.savedEventAttendaceRequirement;
-    this.finesChecked = this.savedEventFinesRequirement;
+    this.attendanceChecked = this.savedEvent.requirements.attendance;
+    this.finesChecked = this.savedEvent.requirements.fines;
     this.formGroup.patchValue({
-      eventNameCtrl: this.savedEventName,
-      eventDescriptionCtrl: this.savedEventDescription,
-      dateCtrl: this.savedEventDate.getMonth() + "/" + this.savedEventDate.getDate() + "/" + this.savedEventDate.getFullYear(),
-      costCtrl: this.savedEventCost,
-      attendanceCtrl: this.savedEventAttendaceRequirement,
-      finesCtrl: this.savedEventFinesRequirement
+      eventNameCtrl: this.savedEvent.name,
+      eventDescriptionCtrl: this.savedEvent.description,
+      dateCtrl: this.savedEvent.date,
+      costCtrl: this.savedEvent.cost,
+      attendanceCtrl: this.savedEvent.requirements.attendance,
+      finesCtrl: this.savedEvent.requirements.fines
     });
   }
 
