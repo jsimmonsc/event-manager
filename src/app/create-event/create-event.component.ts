@@ -6,6 +6,7 @@ import {ErrorStateMatcher, MatDialog} from "@angular/material";
 import {EventService} from "../shared/services/event/event.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DeleteEventDialogComponent} from "./delete-event-dialog/event-delete-dialog.component";
+import {CancelConfirmationDialogComponent} from "./cancel-confirmation-dialog/cancel-confirmation-dialog.component";
 
 @Component({
   selector: 'app-create-event',
@@ -161,6 +162,10 @@ export class CreateEventComponent implements OnInit {
 
   onFinesChanged(event) {
     this.finesChecked = event.checked;
+  }
+
+  openCancelDialog() {
+    this.dialog.open(CancelConfirmationDialogComponent);
   }
 
 }

@@ -69,14 +69,25 @@
 
   </div>
 
-  <button
-    class="create-event-button"
-    matTooltip="You can always come back and make changes later."
-    matTooltipPosition="above"
-    mat-button
-    [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required')"
-    (click)="submitEvent()">
-    {{this.isNewEvent ? "Create" : "Update"}}
-  </button>
+  <div class="event-button-container">
+
+    <button
+      class="create-event-button"
+      matTooltip="You can always come back and make changes later."
+      matTooltipPosition="above"
+      mat-button
+      [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required')"
+      (click)="submitEvent()">
+      {{this.isNewEvent ? "Create" : "Update"}}
+    </button>
+
+    <button
+      class="cancel-button"
+      mat-button
+      (click)="openCancelDialog()">
+      Cancel
+    </button>
+
+  </div>
 
 </form>

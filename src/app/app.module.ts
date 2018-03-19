@@ -51,6 +51,7 @@ import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dia
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
 import { DeleteEventDialogComponent } from './create-event/delete-event-dialog/event-delete-dialog.component';
 import { DeleteConfirmationDialogComponent } from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { CancelConfirmationDialogComponent } from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { DeleteConfirmationDialogComponent } from './create-event/delete-confirm
     AddUserDialogComponent,
     DeleteUserWarningDialogComponent,
     DeleteEventDialogComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    CancelConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +133,8 @@ import { DeleteConfirmationDialogComponent } from './create-event/delete-confirm
     AddUserDialogComponent,
     WarningDialogComponent,
     DeleteEventDialogComponent,
-    DeleteConfirmationDialogComponent
+    DeleteConfirmationDialogComponent,
+    CancelConfirmationDialogComponent
   ],
   bootstrap: [AppComponent]
 })
