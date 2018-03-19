@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../shared/services/auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
@@ -14,8 +14,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy, OnInit {
               private router: Router,
               private elementRef: ElementRef,
               private route: ActivatedRoute,
-              private errDialog: SlidingDialogService,
-              private cdr: ChangeDetectorRef) {
+              private errDialog: SlidingDialogService) {
     if (authService.isAuthenticated()) {
       this.router.navigate(['/events']);
     }
