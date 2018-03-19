@@ -22,5 +22,6 @@ export class Event {
     this.sales = event.sales;
     this.attendees = event.attendees;
     this.cost = event.cost;
+    this.requirements = event.requirements;
   }
 }

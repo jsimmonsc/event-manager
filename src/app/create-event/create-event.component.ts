@@ -24,16 +24,16 @@ export class CreateEventComponent implements OnInit {
   savedEventAttendaceRequirement: boolean;
   savedEventFinesRequirement: boolean;
   isNewEvent: boolean;
-  attendanceChecked = false;
-  finesChecked = false;
+  attendanceChecked: boolean;
+  finesChecked: boolean;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
   dateCtrl = new FormControl('', [Validators.required]);
   costCtrl = new FormControl('', [Validators.required]);
+  attendanceCtrl = new FormControl('');
+  finesCtrl = new FormControl('');
 
   matcher = new CustomErrorStateMatcher();
-
-
 
   constructor(private formBuilder: FormBuilder,
               private slidingDialog: SlidingDialogService,
@@ -58,7 +58,7 @@ export class CreateEventComponent implements OnInit {
 
       if (params['id'] !== undefined) {
         this.eventID = params['id'];
-        this.eventService.getEvent(this.eventID).subscribe(event => {
+        this.eventService.getEvent(this.eventID).subscribe((event: Event) => {
           this.savedEvent = event;
           this.savedEventName = this.savedEvent.name;
           this.savedEventDescription = this.savedEvent.description;
@@ -66,14 +66,15 @@ export class CreateEventComponent implements OnInit {
           this.savedEventCost = this.savedEvent.cost.toString();
           this.savedEventAttendaceRequirement = this.savedEvent.requirements.attendance;
           this.savedEventFinesRequirement = this.savedEvent.requirements.fines;
+          this.isNewEvent = false;
+          this.setFormValues();
+
         });
-        this.isNewEvent = false;
       } else {
         this.isNewEvent = true;
       }
-    });
 
-    this.setFormValues();
+    });
 
   }
 
@@ -99,14 +100,13 @@ export class CreateEventComponent implements OnInit {
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
+      console.log(err)
     });
 
   }
 
   deleteEvent() {
-
     this.dialog.open(DeleteEventDialogComponent, { data: { eventID: this.eventID } });
-
   }
 
 
@@ -150,62 +150,43 @@ export class CreateEventComponent implements OnInit {
   }
 
   setFormValues() {
-    this.formGroup.setValue({
+    this.attendanceChecked = this.savedEventAttendaceRequirement;
+    this.finesChecked = this.savedEventFinesRequirement;
+    this.formGroup.patchValue({
       eventNameCtrl: this.savedEventName,
       eventDescriptionCtrl: this.savedEventDescription,
-      dateCtrl: this.savedEventDate.toDateString(),
-      costCtrl: this.savedEventCost
+      dateCtrl: this.savedEventDate.getMonth() + "/" + this.savedEventDate.getDate() + "/" + this.savedEventDate.getFullYear(),
+      costCtrl: this.savedEventCost,
+      attendanceCtrl: this.savedEventAttendaceRequirement,
+      finesCtrl: this.savedEventFinesRequirement
     });
   }
 
-  inputIsInvalid(): boolean {
-
-    return this.getFormValue("eventNameCtrl") === "" ||
-      this.getFormValue("dateCtrl") === "" ||
-      this.getFormValue("costCtrl") === "";
-
-  }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
         eventNameCtrl: this.eventNameCtrl,
         eventDescriptionCtrl: this.eventDescriptionCtrl,
         dateCtrl: this.dateCtrl,
-        costCtrl: this.costCtrl
+        costCtrl: this.costCtrl,
+        attendanceCtrl: this.attendanceCtrl,
+        finesCtrl: this.finesCtrl
     });
   }
 
-  getPropertyValue(property: string) {
+  onAttendanceChanged(event) {
+    this.attendanceChecked = event.checked;
+  }
 
-    if (this.isNewEvent) {
-      return "";
-    } else {
-
-      switch (property) {
-        case "name":
-          return this.savedEventName;
-        case "description":
-          return this.savedEventDescription;
-        case "date":
-          return this.savedEventDate;
-        case "cost":
-          return this.savedEventCost;
-        case "attendance":
-          return this.savedEventAttendaceRequirement;
-        case "fines":
-          return this.savedEventFinesRequirement;
-      }
-
-    }
-
-
+  onFinesChanged(event) {
+    this.finesChecked = event.checked;
   }
 
 }
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
 
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  public isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
