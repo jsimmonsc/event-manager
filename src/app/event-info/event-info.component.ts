@@ -98,7 +98,10 @@ export class EventInfoComponent implements OnInit {
       link.click();
       document.body.removeChild(link);
     }
+  }
 
+  getRoundedEstimatedRevenue(): string {
+    return parseFloat("" + Math.round(this.event.attendees.length * this.event.cost * 100) / 100).toFixed(2);
   }
 }
 
