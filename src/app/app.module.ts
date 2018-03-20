@@ -24,7 +24,7 @@ import {
   MatSortModule,
   MatStepperModule,
   MatTableModule,
-  MatTooltipModule,
+  MatTooltipModule
 } from "@angular/material";
 import {HttpClientModule} from '@angular/common/http';
 import {CheckInComponent} from './check-in/check-in.component';
@@ -51,6 +51,9 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
+import { DeleteEventDialogComponent } from './create-event/delete-event-dialog/event-delete-dialog.component';
+import { DeleteConfirmationDialogComponent } from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { CancelConfirmationDialogComponent } from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
 import {PapaParseService} from "ngx-papaparse";
 
 @NgModule({
@@ -78,7 +81,10 @@ import {PapaParseService} from "ngx-papaparse";
     RestrictInputDirective,
     EditUserDialogComponent,
     AddUserDialogComponent,
-    DeleteUserWarningDialogComponent
+    DeleteUserWarningDialogComponent,
+    DeleteEventDialogComponent,
+    DeleteConfirmationDialogComponent,
+    CancelConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -132,7 +138,11 @@ import {PapaParseService} from "ngx-papaparse";
     AddUserDialogComponent,
     WarningDialogComponent,
     SuccessfullySavedDialogComponent,
-    AddAttendeeDialogComponent
+    AddAttendeeDialogComponent,
+    WarningDialogComponent,
+    DeleteEventDialogComponent,
+    DeleteConfirmationDialogComponent,
+    CancelConfirmationDialogComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -33,9 +33,10 @@ header {
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      color: rgb(19, 116, 0);
-      width: 8%;
+      color: $green;
       height: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
 
 
       &:hover {
@@ -48,13 +49,25 @@ header {
       display: flex;
       align-items: center;
       text-decoration: none;
-      color: rgb(19, 116, 0);
-      width: 170px;
-      margin: 0 15px 0 15px;
-      font-size: 15px;
+      color: $green;
+      margin: 0 0 0 16px;
+      font-size: 16px;
+      font-family: 'Lato', sans-serif;
+      padding-right: 16px;
+
       img {
+        width: 32px;
+        height: 32px;
         vertical-align: top;
+        margin-right: 4px;
       }
+    }
+
+    .left-align {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: flex-start;
     }
 
     .right-align {
@@ -63,6 +76,7 @@ header {
       display: flex;
       flex-direction: row;
     }
+
   }
 }
 

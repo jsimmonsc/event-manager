@@ -17,20 +17,21 @@ export class RestrictInputDirective {
   private restrictInput(type: string, event: KeyboardEvent) {
 
     const inputChar = String.fromCharCode(event.charCode);
-    let pattern = /[0-9\.]/;
+    let pattern = /[0-9.\0\b]/;
 
     switch (type) {
       case "integer":
-        pattern = /[0-9]/;
+        pattern = /[0-9\0\b]/;
         break;
       case "decimal":
-        pattern = /[0-9\.]/;
+        pattern = /[0-9.\0\b]/;
         break;
     }
 
     if (!pattern.test(inputChar)) {
       event.preventDefault();
     }
+
   }
 
 

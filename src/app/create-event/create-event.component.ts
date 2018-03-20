@@ -2,9 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 import {Event} from "../shared/models/event.model";
-import {ErrorStateMatcher} from "@angular/material";
+import {ErrorStateMatcher, MatDialog} from "@angular/material";
 import {EventService} from "../shared/services/event/event.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {DeleteEventDialogComponent} from "./delete-event-dialog/event-delete-dialog.component";
+import {CancelConfirmationDialogComponent} from "./cancel-confirmation-dialog/cancel-confirmation-dialog.component";
 
 @Component({
   selector: 'app-create-event',
@@ -14,38 +16,28 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CreateEventComponent implements OnInit {
 
   formGroup: FormGroup;
-  private eventID: string;
-  private savedEvent: Event;
-  private savedEventName: string;
-  private savedEventDescription: string;
-  private savedEventDate: Date;
-  private savedEventCost: string;
-  private savedEventAttendaceRequirement: boolean;
-  private savedEventFinesRequirement: boolean;
+  eventID: string;
+  savedEvent: Event;
   isNewEvent: boolean;
-  attendanceChecked = false;
-  finesChecked = false;
+  attendanceChecked: boolean;
+  finesChecked: boolean;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
   dateCtrl = new FormControl('', [Validators.required]);
   costCtrl = new FormControl('', [Validators.required]);
+  attendanceCtrl = new FormControl('');
+  finesCtrl = new FormControl('');
 
   matcher = new CustomErrorStateMatcher();
-
-
 
   constructor(private formBuilder: FormBuilder,
               private slidingDialog: SlidingDialogService,
               private eventService: EventService,
               private route: ActivatedRoute,
-              private router: Router) {
-    this.savedEventName = " ";
-    this.savedEventDescription = " ";
-    this.savedEventDate = new Date();
-    this.savedEventCost = " ";
-    this.savedEventAttendaceRequirement = false;
-    this.savedEventFinesRequirement = false;
+              private router: Router,
+              private dialog: MatDialog) {
     this.createForm();
+
   }
 
   ngOnInit() {
@@ -54,19 +46,16 @@ export class CreateEventComponent implements OnInit {
 
       if (params['id'] !== undefined) {
         this.eventID = params['id'];
-        this.eventService.getEvent(this.eventID).subscribe(event => {
+        this.eventService.getEvent(this.eventID).subscribe((event: Event) => {
           this.savedEvent = event;
-          this.savedEventName = this.savedEvent.name;
-          this.savedEventDescription = this.savedEvent.description;
-          this.savedEventDate = this.savedEvent.date;
-          this.savedEventCost = this.savedEvent.cost.toString();
-          this.savedEventAttendaceRequirement = this.savedEvent.requirements.attendance;
-          this.savedEventFinesRequirement = this.savedEvent.requirements.fines;
+          this.isNewEvent = false;
+          this.setFormValues();
+
         });
-        this.isNewEvent = false;
       } else {
         this.isNewEvent = true;
       }
+
     });
 
   }
@@ -74,7 +63,9 @@ export class CreateEventComponent implements OnInit {
   createEvent() {
 
     this.eventService.createEvent(this.getEventFromInputs()).subscribe((event: Event) => {
-      this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
+      this.router.navigateByUrl('/events').then(() => {
+        this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
+      });
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
@@ -85,30 +76,24 @@ export class CreateEventComponent implements OnInit {
   updateEvent() {
 
     this.eventService.updateEvent(this.getEventFromInputs()).subscribe((event: Event) => {
-      this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
+      this.router.navigateByUrl('/events').then(() => {
+        this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
+      });
       console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
+      console.log(err);
     });
 
   }
 
   deleteEvent() {
-
-    // TODO: Add double confirmation dialog
-
-    this.eventService.deleteEvent(this.eventID).subscribe((event: Event) => {
-      this.router.navigateByUrl("/events").then(() => {
-        this.slidingDialog.displayNotification("Deleted event", SlidingDialogType.SUCCESS);
-      });
-    }, (err) => {
-      this.slidingDialog.displayNotification("Could not delete event", SlidingDialogType.ERROR);
-    });
-
+    this.dialog.open(DeleteEventDialogComponent, { data: { eventID: this.eventID } });
   }
 
+
   submitEvent() {
-    if(this.isNewEvent) {
+    if (this.isNewEvent) {
       this.createEvent();
     } else {
       this.updateEvent();
@@ -119,7 +104,7 @@ export class CreateEventComponent implements OnInit {
 
     let newID = null;
     let newSales = 0;
-    let newAttendees = null;
+    let newAttendees = [];
 
     if (!this.isNewEvent) {
       newID = this.eventID;
@@ -146,54 +131,48 @@ export class CreateEventComponent implements OnInit {
     return this.formGroup.get(formControl).value;
   }
 
-  inputIsInvalid(): boolean {
-
-    return this.getFormValue("eventNameCtrl") === "" ||
-      this.getFormValue("dateCtrl") === "" ||
-      this.getFormValue("costCtrl") === "";
-
+  setFormValues() {
+    this.attendanceChecked = this.savedEvent.requirements.attendance;
+    this.finesChecked = this.savedEvent.requirements.fines;
+    this.formGroup.patchValue({
+      eventNameCtrl: this.savedEvent.name,
+      eventDescriptionCtrl: this.savedEvent.description,
+      dateCtrl: this.savedEvent.date,
+      costCtrl: this.savedEvent.cost,
+      attendanceCtrl: this.savedEvent.requirements.attendance,
+      finesCtrl: this.savedEvent.requirements.fines
+    });
   }
+
 
   createForm() {
     this.formGroup = this.formBuilder.group({
         eventNameCtrl: this.eventNameCtrl,
         eventDescriptionCtrl: this.eventDescriptionCtrl,
         dateCtrl: this.dateCtrl,
-        costCtrl: this.costCtrl
+        costCtrl: this.costCtrl,
+        attendanceCtrl: this.attendanceCtrl,
+        finesCtrl: this.finesCtrl
     });
   }
 
-  getPropertyValue(property: string) {
+  onAttendanceChanged(event) {
+    this.attendanceChecked = event.checked;
+  }
 
-    if (this.isNewEvent) {
-      return "";
-    } else {
+  onFinesChanged(event) {
+    this.finesChecked = event.checked;
+  }
 
-      switch (property) {
-        case "name":
-          return this.savedEventName;
-        case "description":
-          return this.savedEventDescription;
-        case "date":
-          return this.savedEventDate;
-        case "cost":
-          return this.savedEventCost;
-        case "attendance":
-          return this.savedEventAttendaceRequirement;
-        case "fines":
-          return this.savedEventFinesRequirement;
-      }
-
-    }
-
-
+  openCancelDialog() {
+    this.dialog.open(CancelConfirmationDialogComponent);
   }
 
 }
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
 
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  public isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }

@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Confirm Cancellation</h2>
+<mat-dialog-content>
+  <p>Do you really want to cancel? Any unsaved changes will be lost.</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="dialog-confirm-button" mat-button (click)="cancelChanges()" color="warn">Disregard Changes</button>
+  <button class="dialog-cancel-button" mat-button mat-dialog-close>Keep Editing</button>
+</mat-dialog-actions>

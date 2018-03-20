@@ -56,7 +56,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   editEvent() {
-    this.router.navigateByUrl('/create/' + this.id);
+    this.router.navigateByUrl('/edit/' + this.id);
   }
 
   editAttendee(attendee: Attendee): void {
