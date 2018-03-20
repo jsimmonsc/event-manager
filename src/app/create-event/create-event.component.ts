@@ -104,7 +104,7 @@ export class CreateEventComponent implements OnInit {
 
     let newID = null;
     let newSales = 0;
-    let newAttendees = null;
+    let newAttendees = [];
 
     if (!this.isNewEvent) {
       newID = this.eventID;

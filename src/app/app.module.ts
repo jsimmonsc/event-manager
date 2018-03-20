@@ -138,7 +138,7 @@ import {PapaParseService} from "ngx-papaparse";
     AddUserDialogComponent,
     WarningDialogComponent,
     SuccessfullySavedDialogComponent,
-    AddAttendeeDialogComponent
+    AddAttendeeDialogComponent,
     WarningDialogComponent,
     DeleteEventDialogComponent,
     DeleteConfirmationDialogComponent,
