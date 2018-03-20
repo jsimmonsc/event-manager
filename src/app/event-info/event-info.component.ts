@@ -100,8 +100,8 @@ export class EventInfoComponent implements OnInit {
     }
   }
 
-  getRoundedEstimatedRevenue(): string {
-    return parseFloat("" + Math.round(this.event.attendees.length * this.event.cost * 100) / 100).toFixed(2);
+  roundMoney(num: number): string {
+    return parseFloat("" + Math.round(num * 100) / 100).toFixed(2);
   }
 }
 
