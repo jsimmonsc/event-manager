@@ -8,7 +8,8 @@
   <div class="icon">
     <h4>Attendance</h4>
     <img *ngIf="!student.attendance" [src]="'../../assets/check.png'" height="132px" width="102px">
-    <img *ngIf="student.attendance" matTooltip="Student has issue with fines." [src]="'../../assets/WarningSign.png'"
+    <img *ngIf="student.attendance" matTooltip="Student has less than 90% attendance."
+         [src]="'../../assets/WarningSign.png'"
          height="102px" width="102px">
   </div>
 </div>

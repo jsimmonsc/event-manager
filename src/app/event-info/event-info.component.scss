@@ -29,19 +29,18 @@ h2 {
 
 .table-head {
   background-color: #cccccc;
+  display: flex;
+  flex-direction: row;
 
   mat-form-field {
+    margin-left: auto;
+    margin-right: auto;
     width: 25%;
   }
-}
 
-.container button {
-
-  &:hover {
-    color: $green !important;
+  .csv-export-container {
+    margin: 7px 2.5rem 5px 0;
   }
-
-
 }
 
 

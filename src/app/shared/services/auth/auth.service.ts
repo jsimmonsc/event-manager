@@ -20,7 +20,7 @@ export class AuthService {
   auth0 = new auth0.WebAuth({
     clientID: environment.auth0ClientID,
     domain: 'event-manager.auth0.com',
-    redirectUri: 'http://localhost:4200/login/callback',
+    redirectUri: environment.clientURI + '/login/callback',
     audience: 'http://capstone.psdr3.org:3000',
     responseType: 'token id_token',
     scope: 'openid email'
@@ -59,8 +59,7 @@ export class AuthService {
           this.userProfile = res;
           this.router.navigate(['/events']);
         }, error => {
-          this.router.navigate(['/']);
-          console.log(error);
+          this.router.navigate(['/login', {error: error.status}]);
         });
 
       } else if (err) {

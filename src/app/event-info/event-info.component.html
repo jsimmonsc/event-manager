@@ -13,13 +13,16 @@
   </div>
 
   <div class="attendee-container">
-
     <div class="table-head">
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
       </mat-form-field>
+      <div class="csv-export-container">
+        <button id="csv-export-button" mat-raised-button color="primary" mat-button (click)="exportToCSV()">Export to
+          CSV
+        </button>
+      </div>
     </div>
-
     <mat-table #table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="ticket">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Ticket # </mat-header-cell>
@@ -57,12 +60,13 @@
       </ng-container>
 
       <ng-container matColumnDef="edit">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef="let element">
+          <a (click)="addAttendee(element)"><mat-icon matTooltip="Add Attendee" matTooltipPosition="above">add</mat-icon></a>
+        </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="editAttendee(element)"><mat-icon>edit</mat-icon></button>
         </mat-cell>
       </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

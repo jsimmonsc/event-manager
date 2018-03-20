@@ -24,6 +24,10 @@ header {
     list-style-type: none;
     display: inline-flex;
 
+    #logout {
+      cursor: pointer;
+    }
+
     a {
       display: flex;
       align-items: center;
@@ -74,4 +78,8 @@ header {
     }
 
   }
+}
+
+.active-link {
+  background-color: rgb(216, 216, 216);
 }

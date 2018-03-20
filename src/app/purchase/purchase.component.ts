@@ -154,7 +154,7 @@ export class PurchaseComponent {
     }
   }
 
-  private searchForStudent(studentNumber: string, type: string): void {
+  public searchForStudent(studentNumber: string, type: string): void {
     if (type === 'student') {
       this.purchaseForm.reset();
     } else if (type === 'guest') {
