@@ -2,12 +2,14 @@
 
 <header>
   <nav>
-    <p><img src="../assets/logo.png" style="width:25px;height:25px;">Event Manager</p>
-    <a *ngIf="authService.isAuthenticated()" routerLink="/events">Events</a>
-    <a
-      *ngIf="authService.isAuthenticated() && ((user?.role === 'admin' || user?.role === 'super') || (authService.userProfile?.role === 'admin' || authService.userProfile?.role === 'super'))"
-      routerLink="/create">Create
-      Event</a>
+    <div class="left-align">
+      <p><img src="../assets/logo.png">Event Manager</p>
+      <a *ngIf="authService.isAuthenticated()" routerLink="/events">Events</a>
+      <a
+        *ngIf="authService.isAuthenticated() && ((user?.role === 'admin' || user?.role === 'super') || (authService.userProfile?.role === 'admin' || authService.userProfile?.role === 'super'))"
+        routerLink="/create">Create
+        Event</a>
+    </div>
 
     <div class="right-align">
       <a *ngIf="authService.isAuthenticated() && (user?.role === 'super' || authService.userProfile?.role === 'super')"
