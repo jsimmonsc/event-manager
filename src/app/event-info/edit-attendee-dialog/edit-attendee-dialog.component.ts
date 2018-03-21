@@ -51,11 +51,19 @@ export class EditAttendeeDialogComponent {
 
   searchForGuest(studentNumber: string): void {
     if (+studentNumber === this.changedAttendee.student_number) {
-      this.errorDialog.displayNotification("ERROR: Attendee can be the guest of themself", SlidingDialogType.ERROR);
+      this.errorDialog.displayNotification("ERROR: Attendee can be the guest of themself.", SlidingDialogType.ERROR);
     } else if (+studentNumber) {
 
-      this.eventService.getStudent(+studentNumber).subscribe(value => {
-        this.pattonvilleGuest = value;
+      this.eventService.getAttendeeFromEvent(this.data.eventID, +studentNumber).subscribe(val => {
+        if (val) {
+          this.errorDialog.displayNotification("ERROR: This student is already registered in this event!", SlidingDialogType.ERROR);
+        } else {
+          this.eventService.getStudent(+studentNumber).subscribe(value => {
+            this.pattonvilleGuest = value;
+          }, err => {
+            this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
+          });
+        }
       }, err => {
         this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
       });
