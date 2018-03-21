@@ -86,7 +86,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   exportToCSV() {
-    const csvData = new Blob([this.csvExporter.unparse(this.event.attendees)], {type: 'text/csv;charset=utf-8;'});
+    const csvData = new Blob([this.csvExporter.unparse(this.convertAttendeesToNiceList())], {type: 'text/csv;charset=utf-8;'});
     if (navigator.msSaveBlob) {
       navigator.msSaveBlob(csvData, this.event.name + ".csv");
     } else {
@@ -102,6 +102,23 @@ export class EventInfoComponent implements OnInit {
 
   roundMoney(num: number): string {
     return parseFloat("" + Math.round(num * 100) / 100).toFixed(2);
+  }
+
+  convertAttendeesToNiceList(): Object[] {
+    const newList = [];
+
+    this.event.attendees.forEach((val, i, arr) => {
+      newList.push({
+        "Ticket Number": val._id,
+        "Name": val.first_name + " " + val.last_name,
+        "Student Number": val.student_number,
+        "Grade Level": val.grade_level,
+        "Guest": val.guest ? val.guest.name : "",
+        "Timestamp": val.timestamp ? val.timestamp : ""
+      });
+    });
+
+    return newList;
   }
 }
 
