@@ -28,7 +28,9 @@ export class EditAttendeeDialogComponent {
     this.eventEmitter = new EventEmitter<Event>();
     this.changedAttendee = Object.assign({}, data.attendee);
     if (this.changedAttendee.guestId > 0) {
-      this.searchForGuest(this.changedAttendee.guestId + '');
+      this.eventService.getStudent(this.changedAttendee.guestId).subscribe(value => {
+        this.pattonvilleGuest = value;
+      });
     }
 
     this.editGroup = this.fb.group({
