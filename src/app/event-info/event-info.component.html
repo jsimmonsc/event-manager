@@ -5,7 +5,6 @@
     <p><b>Description:</b> {{event.description}}</p>
     <p><b>Date:</b> {{ event.date.toDateString() }}</p>
     <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
-    <p><b>Estimated Revenue:</b> ${{ roundMoney(event.cost * event.attendees.length) }}</p>
   </div>
 
   <div class="button-container">
