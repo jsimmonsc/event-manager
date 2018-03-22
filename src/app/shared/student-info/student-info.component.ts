@@ -1,5 +1,4 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {Attendee} from "../models/attendee.model";
+import {Component, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {Student} from "../models/student.model";
 
@@ -17,6 +16,7 @@ import {Student} from "../models/student.model";
 })
 export class StudentInfoComponent implements ControlValueAccessor {
   @Input() student: Student;
+  @Input() showRequirements = true;
   onChange = (_: any) => {};
 
   writeValue(value: Student) {
