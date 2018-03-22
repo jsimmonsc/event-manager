@@ -3,6 +3,7 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit} from '@angular/
 import {Event} from './../shared/models/event.model';
 import {EventService} from "../shared/services/event/event.service";
 import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
+import {AuthService} from "../shared/services/auth/auth.service";
 
 
 @Component({
@@ -17,7 +18,8 @@ export class EventListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private router: Router,
               private eventService: EventService,
               private elementRef: ElementRef,
-              private errDialog: SlidingDialogService) {
+              private errDialog: SlidingDialogService,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -35,6 +37,12 @@ export class EventListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openEventInfo(event: Event) {
-    this.router.navigateByUrl('/event/' + event._id);
+    if (this.authService.isAdmin()) {
+      this.router.navigateByUrl('/event/' + event._id);
+    } else if (this.authService.isChecker()) {
+      this.router.navigateByUrl('/checkin/' + event._id);
+    } else if (this.authService.isSeller()) {
+      this.router.navigateByUrl('/sell/' + event._id);
+    }
   }
 }

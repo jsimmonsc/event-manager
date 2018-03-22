@@ -42,6 +42,14 @@ export class AuthService {
     return this.userProfile.role === 'super' || this.userProfile.role === 'admin';
   }
 
+  public isChecker(): boolean {
+    return this.userProfile.role === "checker";
+  }
+
+  public isSeller(): boolean {
+    return this.userProfile.role === "seller";
+  }
+
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
