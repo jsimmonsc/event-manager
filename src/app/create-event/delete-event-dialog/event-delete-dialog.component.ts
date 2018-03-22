@@ -1,9 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Event} from "../../shared/models/event.model";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
-import {EventService} from "../../shared/services/event/event.service";
-import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
-import {Router} from "@angular/router";
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material";
 import {DeleteConfirmationDialogComponent} from "../delete-confirmation-dialog/delete-confirmation-dialog.component";
 
 @Component({
@@ -13,11 +9,7 @@ import {DeleteConfirmationDialogComponent} from "../delete-confirmation-dialog/d
 })
 export class DeleteEventDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<DeleteEventDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private eventService: EventService,
-              private slidingDialog: SlidingDialogService,
-              private router: Router,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialog: MatDialog
   ) {}
 

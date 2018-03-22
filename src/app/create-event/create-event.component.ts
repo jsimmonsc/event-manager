@@ -165,7 +165,7 @@ export class CreateEventComponent implements OnInit {
   }
 
   openCancelDialog() {
-    this.dialog.open(CancelConfirmationDialogComponent);
+    this.dialog.open(CancelConfirmationDialogComponent, { data: { isNewEvent: this.isNewEvent, eventID: this.eventID }} );
   }
 
 }
