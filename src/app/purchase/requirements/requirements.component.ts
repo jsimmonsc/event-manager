@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Student} from "../../shared/models/student.model";
 
 @Component({
@@ -8,6 +8,7 @@ import {Student} from "../../shared/models/student.model";
 })
 export class RequirementsComponent {
 
+  @Input() iconScale = 1;
   @Input() student: Student;
 
   constructor() {
