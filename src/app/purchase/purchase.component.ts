@@ -178,6 +178,8 @@ export class PurchaseComponent {
             } else if (type === 'guest') {
               this.purchaseForm.patchValue({guestForm: {pattonvilleGuest: {guest: student}}});
             }
+          }, error => {
+            this.errorDialog.displayNotification("ERROR: " + error.error, SlidingDialogType.ERROR);
           });
         } else {
           this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);

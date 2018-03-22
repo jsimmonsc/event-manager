@@ -28,7 +28,9 @@ export class EditAttendeeDialogComponent {
     this.eventEmitter = new EventEmitter<Event>();
     this.changedAttendee = Object.assign({}, data.attendee);
     if (this.changedAttendee.guestId > 0) {
-      this.searchForGuest(this.changedAttendee.guestId + '');
+      this.eventService.getStudent(this.changedAttendee.guestId).subscribe(value => {
+        this.pattonvilleGuest = value;
+      });
     }
 
     this.editGroup = this.fb.group({
@@ -55,17 +57,17 @@ export class EditAttendeeDialogComponent {
     } else if (+studentNumber) {
 
       this.eventService.getAttendeeFromEvent(this.data.eventID, +studentNumber).subscribe(val => {
-        if (val) {
-          this.errorDialog.displayNotification("ERROR: This student is already registered in this event!", SlidingDialogType.ERROR);
-        } else {
+        this.errorDialog.displayNotification("ERROR: This student is already registered in this event!", SlidingDialogType.ERROR);
+      }, err => {
+        if (err.status === 404) {
           this.eventService.getStudent(+studentNumber).subscribe(value => {
             this.pattonvilleGuest = value;
-          }, err => {
-            this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
+          }, error => {
+            this.errorDialog.displayNotification(error.message, SlidingDialogType.ERROR);
           });
+        } else {
+          this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
         }
-      }, err => {
-        this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
       });
     }
   }
