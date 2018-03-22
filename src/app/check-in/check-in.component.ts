@@ -2,6 +2,7 @@ import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {Attendee} from "../shared/models/attendee.model";
 import {EventService} from "../shared/services/event/event.service";
 import {ActivatedRoute} from "@angular/router";
+import {SlidingDialogService, SlidingDialogType} from "../shared/services/sliding-dialog.service";
 
 @Component({
   selector: 'app-check-in',
@@ -15,7 +16,10 @@ export class CheckInComponent {
   checkedIn: boolean;
   @ViewChild('idInput') inputRef: ElementRef;
 
-  constructor(private route: ActivatedRoute, private eventService: EventService, @Inject('moment') private moment) {
+  constructor(private route: ActivatedRoute,
+              private eventService: EventService,
+              @Inject('moment') private moment,
+              private errorDialog: SlidingDialogService) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -32,16 +36,20 @@ export class CheckInComponent {
 
         if (!this.attendee.timestamp) {
           this.attendee.timestamp = this.moment(new Date()).tz("America/Chicago").format();
-          console.log(this.attendee.timestamp);
           this.eventService.updateAttendee(this.id, this.attendee).subscribe(newAtt => {
-            console.log("Checked in: " + JSON.stringify(newAtt));
             this.checkedIn = true;
+          }, err => {
+            this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
           });
         } else {
-          console.log("Attendee already checked in!");
+          this.errorDialog.displayNotification("This attendee is already checked in!", SlidingDialogType.INFO, 2000);
         }
       }, err => {
-        console.log("There was an error: " + JSON.stringify(err));
+        if (err.status === 404) {
+          this.errorDialog.displayNotification("ERROR: Attendee doesn't exist!", SlidingDialogType.ERROR);
+        } else {
+          this.errorDialog.displayNotification(err.message, SlidingDialogType.ERROR);
+        }
       });
     }
   }
