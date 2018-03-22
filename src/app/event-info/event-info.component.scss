@@ -3,6 +3,10 @@
 .button-container {
   button {
     margin: 3rem;
+
+    &:hover {
+      background-color: $light-green;
+    }
   }
 }
 
@@ -40,7 +44,47 @@ h2 {
 
   .csv-export-container {
     margin: 7px 2.5rem 5px 0;
+
+    button {
+      &:hover {
+        background-color: $light-green;
+      }
+    }
+
   }
+}
+
+.mat-icon-button {
+
+  &:hover {
+    color: $green;
+  }
+
+}
+
+.mat-fab {
+  border: none;
+  background-color: $green;
+
+  &:hover {
+    background-color: $light-green;
+  }
+
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 30px;
+
+  h2 {
+    padding-top: 14px;
+    margin-top: 0;
+    padding-left: 45%;
+  }
+
 }
 
 
