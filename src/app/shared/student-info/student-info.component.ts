@@ -1,6 +1,5 @@
 import {Component, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Student} from "../models/student.model";
 
 @Component({
   selector: 'app-student-info',
@@ -15,11 +14,11 @@ import {Student} from "../models/student.model";
   ]
 })
 export class StudentInfoComponent implements ControlValueAccessor {
-  @Input() student: Student;
+  @Input() student: Object;
   @Input() showRequirements = true;
   onChange = (_: any) => {};
 
-  writeValue(value: Student) {
+  writeValue(value: Object) {
     this.student = value;
     this.onChange(value);
   }
