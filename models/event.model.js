@@ -7,7 +7,7 @@ var eventSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now},
   sales: { type: Number, default: 0 },
   attendees: [Attendee],
-  parameters: {
+  requirements: {
     fines: Boolean,
     attendance: Boolean
   },
