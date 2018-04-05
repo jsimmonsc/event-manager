@@ -23,7 +23,7 @@
       <div class="checkbox">
         <mat-checkbox (change)="checkboxChanged()" #hasGuest formControlName="hasGuest">Has Guest</mat-checkbox>
         <br>
-        <mat-checkbox (change)="checkboxChanged()" #hasPattonvilleGuest [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
+        <mat-checkbox (change)="checkboxChanged()" #hasPattonvilleGuest [checked]="true" [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
       </div>
       <br>
       <div *ngIf="hasGuest.checked">
