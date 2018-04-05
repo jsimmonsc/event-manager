@@ -42,7 +42,7 @@ export class CreateEventComponent implements OnInit {
 
     this.formGroup.patchValue({
       attendanceCtrl: false,
-      finesCtrl: false
+      finesCtrl: false,
     });
 
     this.route.params.subscribe(params => {
@@ -96,8 +96,6 @@ export class CreateEventComponent implements OnInit {
 
 
   submitEvent() {
-    console.log(this.getFormValue("attendanceCtrl"));
-    console.log(this.getFormValue("finesCtrl"));
     if (this.isNewEvent) {
       this.createEvent();
     } else {
@@ -128,7 +126,7 @@ export class CreateEventComponent implements OnInit {
       requirements: {
         attendance: this.getFormValue("attendanceCtrl"),
         fines: this.getFormValue("finesCtrl")
-      }
+      },
     };
   }
 

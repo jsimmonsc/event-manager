@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Student} from "../../shared/models/student.model";
+import {Event} from "../../shared/models/event.model";
 
 @Component({
   selector: 'app-requirements',
@@ -10,6 +11,7 @@ export class RequirementsComponent {
 
   @Input() iconScale = 1;
   @Input() student: Student;
+  @Input() event: Event;
 
   constructor() {
   }

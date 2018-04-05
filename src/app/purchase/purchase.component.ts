@@ -19,6 +19,7 @@ export class PurchaseComponent {
 
   private id: string;
   purchaseForm: FormGroup;
+  event: Event;
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
@@ -30,6 +31,11 @@ export class PurchaseComponent {
               private dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+
+      this.eventService.getEvent(this.id).subscribe(event => {
+        this.event = event;
+      });
+
     });
 
     this.purchaseForm = this.fb.group({
@@ -122,7 +128,15 @@ export class PurchaseComponent {
   }
 
   public hasFailedRequirement(student: Student): boolean {
-    return student.fines || student.attendance;
+
+    if (this.event.requirements.fines && this.event.requirements.attendance) {
+      return student.fines || student.attendance;
+    } else if (this.event.requirements.fines) {
+      return student.fines;
+    } else {
+      return student.attendance;
+    }
+
   }
 
   attendeeFailsRequirements(): boolean {
