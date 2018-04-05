@@ -14,11 +14,11 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
   ]
 })
 export class StudentInfoComponent implements ControlValueAccessor {
-  @Input() student: Object;
+  @Input() student: any;
   @Input() showRequirements = true;
   onChange = (_: any) => {};
 
-  writeValue(value: Object) {
+  writeValue(value: any) {
     this.student = value;
     this.onChange(value);
   }
