@@ -15,11 +15,11 @@
       <td class="keyColumn">Grade Level:</td>
       <td class="valueColumn">{{ student ? student.grade_level : '' }}</td>
     </tr>
-    <tr *ngIf="student.guest">
+    <tr *ngIf="student && student.guest">
       <td class="keyColumn">Guest:</td>
       <td class="valueColumn">{{ student ? student.guest.name : '' }}</td>
     </tr>
-    <tr *ngIf="student.guest && student.guest.name.slice(0, 2) !== 'of'">
+    <tr *ngIf="student && student.guest && student.guest.name.slice(0, 2) !== 'of'">
       <td class="keyColumn">Guest Attends Pattonville:</td>
       <td class="valueColumn">{{ student.guestId > 0 ? 'Yes' : 'No' }}</td>
     </tr>
