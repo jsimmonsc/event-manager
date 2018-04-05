@@ -19,6 +19,7 @@ export class PurchaseComponent {
 
   private id: string;
   purchaseForm: FormGroup;
+  event: Event;
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 
@@ -30,6 +31,10 @@ export class PurchaseComponent {
               private dialog: MatDialog) {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+
+      this.eventService.getEvent(this.id).subscribe(val => {
+        this.event = val;
+      });
     });
 
     this.purchaseForm = this.fb.group({
@@ -64,7 +69,8 @@ export class PurchaseComponent {
       guest: null,
       guestId: -1,
       timestamp: null,
-      comment: null
+      comment: null,
+      amountPaid: this.event.cost
     };
 
     if (this.purchaseForm.get('guestForm.hasGuest').value) {
@@ -73,12 +79,14 @@ export class PurchaseComponent {
 
         saveAttendee.guestId = guest.student_number;
         saveAttendee.guest = { name: guest.first_name + ' ' + guest.last_name, age: null, phone: null, school: null };
+        saveAttendee.amountPaid = saveAttendee.amountPaid * 2;
       } else if (this.checkGuestValidity(this.purchaseForm.get('guestForm.outsideGuest').value)) {
         const outsideGuest = this.purchaseForm.get('guestForm.outsideGuest').value;
         saveAttendee.guest = { name: outsideGuest.guestName,
                                school: outsideGuest.guestSchoolName,
                                age: +outsideGuest.guestAge,
                                phone: +outsideGuest.guestHomePhone};
+        saveAttendee.amountPaid = saveAttendee.amountPaid * 2;
       } else {
         this.errorDialog.displayNotification("ERROR: Invalid guest form!", SlidingDialogType.ERROR);
         return;
@@ -100,7 +108,8 @@ export class PurchaseComponent {
             school: "Pattonville HS"},
           guestId: -1,
           timestamp: null,
-          comment: null
+          comment: null,
+          amountPaid: 0
         };
 
         this.eventService.createAttendee(this.id, guestAttendee).subscribe((e: Event) => {

@@ -10,4 +10,5 @@ export interface Attendee {
   guestId: number;
   timestamp: string;
   comment: string;
+  amountPaid: number;
 }

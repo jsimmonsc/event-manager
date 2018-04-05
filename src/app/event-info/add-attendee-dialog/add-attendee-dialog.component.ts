@@ -1,11 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {Attendee} from "../../shared/models/attendee.model";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatCard} from "@angular/material";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 import {EventService} from "../../shared/services/event/event.service";
 import {Student} from "../../shared/models/student.model";
 import {SuccessfullySavedDialogComponent} from "../successfully-saved-dialog/successfully-saved-dialog.component";
 import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
+import {Event} from "../../shared/models/event.model";
 
 @Component({
   selector: 'app-add-attendee-dialog',
@@ -17,6 +18,7 @@ export class AddAttendeeDialogComponent {
 
   addAttendeeForm: FormGroup;
   student: Student;
+  event: Event;
   attendee: Attendee;
 
   constructor(private dialogRef: MatDialogRef<AddAttendeeDialogComponent>,
@@ -29,6 +31,10 @@ export class AddAttendeeDialogComponent {
 
     this.addAttendeeForm = this.fb.group({
       idInput: '',
+    });
+
+    this.eventService.getEvent(this.data.eventID).subscribe(val => {
+      this.event = val;
     });
   }
 
@@ -74,7 +80,8 @@ export class AddAttendeeDialogComponent {
       guestId: -1,
       guest: null,
       timestamp: null,
-      comment: null
+      comment: null,
+      amountPaid: this.event.cost
     };
 
     console.log("Attendee Submitted");
