@@ -94,13 +94,9 @@ h3 {
 }
 
 .checkbox-container {
+  @include non-selectable;
   text-align: left !important;
   padding-left: 40%;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .mat-form-field-suffix.mat-icon-button {
@@ -136,7 +132,6 @@ h3 {
     background-color: #ff4757 !important;
   }
 }
-
 
 
 
