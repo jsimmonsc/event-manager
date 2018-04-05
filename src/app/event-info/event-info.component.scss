@@ -3,6 +3,8 @@
 .button-container {
   button {
     margin: 3rem;
+    width: 120px;
+    height: 60px;
 
     &:hover {
       background-color: $light-green;
@@ -23,8 +25,8 @@ h2 {
 }
 
 /deep/ .mat-sort-header-container {
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -80,9 +82,10 @@ h2 {
   margin-right: 30px;
 
   h2 {
+    width: 100%;
     padding-top: 14px;
+    padding-left: 56px;
     margin-top: 0;
-    padding-left: 45%;
   }
 
 }

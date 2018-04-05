@@ -133,8 +133,10 @@ export class PurchaseComponent {
       return student.fines || student.attendance;
     } else if (this.event.requirements.fines) {
       return student.fines;
-    } else {
+    } else if (this.event.requirements.attendance) {
       return student.attendance;
+    } else {
+      return false;
     }
 
   }

@@ -52,6 +52,7 @@ h1 {
 }
 
 img {
+  @include non-selectable;
   width: 30% !important;
 }
 
