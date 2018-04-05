@@ -18,7 +18,7 @@ import {ActivatedRoute} from "@angular/router";
   ]
 })
 export class StudentInfoComponent implements ControlValueAccessor, OnInit {
-  @Input() student: Student;
+  @Input() student: any;
   @Input() showRequirements = true;
   @Input() event: Event;
   onChange = (_: any) => {};
@@ -36,7 +36,7 @@ export class StudentInfoComponent implements ControlValueAccessor, OnInit {
     });
   }
 
-  writeValue(value: Student) {
+  writeValue(value: any) {
     this.student = value;
     this.onChange(value);
   }

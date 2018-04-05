@@ -18,6 +18,7 @@ export class EditAttendeeDialogComponent {
   public pattonvilleGuest: any;
   public editGroup: FormGroup;
   public eventEmitter: EventEmitter<Event>;
+  event: Event;
 
   constructor(private dialogRef: MatDialogRef<EditAttendeeDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,6 +28,11 @@ export class EditAttendeeDialogComponent {
               private errorDialog: SlidingDialogService) {
     this.eventEmitter = new EventEmitter<Event>();
     this.changedAttendee = Object.assign({}, data.attendee);
+
+    this.eventService.getEvent(this.data.eventID).subscribe(val => {
+      this.event = val;
+    });
+
     if (this.changedAttendee.guestId > 0) {
       this.eventService.getStudent(this.changedAttendee.guestId).subscribe(value => {
         this.pattonvilleGuest = value;
@@ -96,7 +102,8 @@ export class EditAttendeeDialogComponent {
       guestId: -1,
       guest: null,
       timestamp: this.changedAttendee.timestamp,
-      comment: this.editGroup.get('extraEdit.comment').value
+      comment: this.editGroup.get('extraEdit.comment').value,
+      amountPaid: this.event.cost
     };
 
     if (this.pattonvilleGuest) {
@@ -107,8 +114,10 @@ export class EditAttendeeDialogComponent {
         age: null,
         phone: null
       };
+      savedAttendee.amountPaid = this.event.cost * 2;
     } else if (this.outsideGuestIsValid()) {
       savedAttendee.guest = this.editGroup.get('guestEdit.outsideGuest').value;
+      savedAttendee.amountPaid = this.event.cost * 2;
     }
 
     this.eventService.updateAttendee(this.data.eventID, savedAttendee).subscribe((value: Event) => {
@@ -135,7 +144,8 @@ export class EditAttendeeDialogComponent {
                 school: "Pattonville HS"},
               guestId: -1,
               timestamp: null,
-              comment: null
+              comment: null,
+              amountPaid: 0
             };
 
             this.eventService.createAttendee(this.data.eventID, guest).subscribe(event => {
@@ -161,6 +171,10 @@ export class EditAttendeeDialogComponent {
 
   outsideGuestIsValid(): boolean {
     const guest = this.editGroup.get('guestEdit.outsideGuest').value;
-    return guest.name && guest.school && guest.age && guest.phone;
+    return (guest.name && guest.school && guest.age && guest.phone) || (guest.name && guest.name.slice(0, 2) === 'of');
+  }
+
+  roundMoney(num: number): string {
+    return parseFloat("" + Math.round(num * 100) / 100).toFixed(2);
   }
 }

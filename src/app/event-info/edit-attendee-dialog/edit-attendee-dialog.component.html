@@ -59,6 +59,9 @@
         </button>
       </mat-form-field>
       <mat-form-field>
+        <input matInput placeholder="Amount Paid" disabled value="${{roundMoney(changedAttendee.amountPaid)}}">
+      </mat-form-field>
+      <mat-form-field>
         <textarea formControlName="comment" matTextareaAutosize matInput placeholder="Comment"></textarea>
       </mat-form-field>
     </div>
