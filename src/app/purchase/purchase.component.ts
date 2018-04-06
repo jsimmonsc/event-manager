@@ -32,9 +32,10 @@ export class PurchaseComponent {
     this.route.params.subscribe(params => {
       this.id = params['id'];
 
-      this.eventService.getEvent(this.id).subscribe(val => {
-        this.event = val;
+      this.eventService.getEvent(this.id).subscribe(event => {
+        this.event = event;
       });
+
     });
 
     this.purchaseForm = this.fb.group({
@@ -131,7 +132,17 @@ export class PurchaseComponent {
   }
 
   public hasFailedRequirement(student: Student): boolean {
-    return student.fines || student.attendance;
+
+    if (this.event.requirements.fines && this.event.requirements.attendance) {
+      return student.fines || student.attendance;
+    } else if (this.event.requirements.fines) {
+      return student.fines;
+    } else if (this.event.requirements.attendance) {
+      return student.attendance;
+    } else {
+      return false;
+    }
+
   }
 
   attendeeFailsRequirements(): boolean {

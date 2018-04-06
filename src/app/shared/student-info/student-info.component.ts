@@ -1,5 +1,9 @@
-import {Component, forwardRef, Input} from '@angular/core';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Student} from "../models/student.model";
+import {Event} from "../models/event.model";
+import {EventService} from "../services/event/event.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-student-info',
@@ -13,10 +17,24 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
     }
   ]
 })
-export class StudentInfoComponent implements ControlValueAccessor {
+export class StudentInfoComponent implements ControlValueAccessor, OnInit {
   @Input() student: any;
   @Input() showRequirements = true;
+  @Input() event: Event;
   onChange = (_: any) => {};
+
+  constructor(private eventService: EventService,
+              private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id'] !== undefined) {
+        this.eventService.getEvent(params['id']).subscribe((event: Event) => {
+          this.event = event;
+        });
+      }
+    });
+  }
 
   writeValue(value: any) {
     this.student = value;

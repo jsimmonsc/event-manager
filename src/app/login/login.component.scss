@@ -52,6 +52,7 @@ h1 {
 }
 
 img {
+  @include non-selectable;
   width: 30% !important;
 }
 
@@ -64,3 +65,4 @@ h2 {
   font-size: 24px;
   margin-bottom: 0;
 }
+

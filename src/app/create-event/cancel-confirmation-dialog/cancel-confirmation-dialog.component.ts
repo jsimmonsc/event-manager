@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {Router} from "@angular/router";
 import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
-import {MatDialog} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-cancel-confirmation-dialog',
@@ -10,12 +10,15 @@ import {MatDialog} from "@angular/material";
 })
 export class CancelConfirmationDialogComponent {
 
-  constructor(private router: Router, private slidingDialog: SlidingDialogService, private dialog: MatDialog) { }
+  constructor(private router: Router,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private slidingDialog: SlidingDialogService,
+              private dialog: MatDialog) { }
 
   cancelChanges() {
 
     this.dialog.closeAll();
-    this.router.navigateByUrl('/events').then(() => {
+    this.router.navigateByUrl(this.data.isNewEvent ? '/events' : '/event/' + this.data.eventID).then(() => {
       this.slidingDialog.displayNotification("Cancelled changes", SlidingDialogType.INFO);
     });
 

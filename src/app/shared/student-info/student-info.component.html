@@ -27,4 +27,4 @@
   </table>
 </div>
 
-<app-requirements *ngIf="showRequirements && student" [(student)]="student"></app-requirements>
+<app-requirements *ngIf="showRequirements && student && event" [(student)]="student" [(event)]="event"></app-requirements>

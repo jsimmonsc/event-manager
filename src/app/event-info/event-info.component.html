@@ -1,7 +1,10 @@
 <div class="container">
 
   <div *ngIf="event">
-    <h2>{{event.name}} <button mat-icon-button (click)="editEvent()" matTooltip="Edit event"><mat-icon>edit</mat-icon></button></h2>
+    <div class="header-container">
+      <h2>{{event.name}}</h2>
+      <button mat-fab (click)="editEvent()" matTooltip="Edit event"><mat-icon>edit</mat-icon></button>
+    </div>
     <p><b>Description:</b> {{event.description}}</p>
     <p><b>Date:</b> {{ event.date.toDateString() }}</p>
     <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
@@ -16,6 +19,7 @@
     <div class="table-head">
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <div class="csv-export-container">
         <button id="csv-export-button" mat-raised-button color="primary" mat-button (click)="exportToCSV()">Export to
@@ -61,7 +65,7 @@
 
       <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef="let element">
-          <a (click)="addAttendee(element)"><mat-icon matTooltip="Add Attendee" matTooltipPosition="above">add</mat-icon></a>
+          <button mat-icon-button (click)="addAttendee(element)"><mat-icon matTooltip="Add Attendee" matTooltipPosition="above">add</mat-icon></button>
         </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="editAttendee(element)"><mat-icon>edit</mat-icon></button>

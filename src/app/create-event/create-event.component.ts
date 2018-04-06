@@ -19,8 +19,6 @@ export class CreateEventComponent implements OnInit {
   eventID: string;
   savedEvent: Event;
   isNewEvent: boolean;
-  attendanceChecked: boolean;
-  finesChecked: boolean;
   eventNameCtrl = new FormControl('', [Validators.required]);
   eventDescriptionCtrl = new FormControl('');
   dateCtrl = new FormControl('', [Validators.required]);
@@ -41,6 +39,11 @@ export class CreateEventComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.formGroup.patchValue({
+      attendanceCtrl: false,
+      finesCtrl: false,
+    });
 
     this.route.params.subscribe(params => {
 
@@ -121,9 +124,9 @@ export class CreateEventComponent implements OnInit {
       attendees: newAttendees,
       cost: +this.getFormValue("costCtrl"),
       requirements: {
-        attendance: this.attendanceChecked,
-        fines: this.finesChecked
-      }
+        attendance: this.getFormValue("attendanceCtrl"),
+        fines: this.getFormValue("finesCtrl")
+      },
     };
   }
 
@@ -132,8 +135,6 @@ export class CreateEventComponent implements OnInit {
   }
 
   setFormValues() {
-    this.attendanceChecked = this.savedEvent.requirements.attendance;
-    this.finesChecked = this.savedEvent.requirements.fines;
     this.formGroup.patchValue({
       eventNameCtrl: this.savedEvent.name,
       eventDescriptionCtrl: this.savedEvent.description,
@@ -146,6 +147,7 @@ export class CreateEventComponent implements OnInit {
 
 
   createForm() {
+
     this.formGroup = this.formBuilder.group({
         eventNameCtrl: this.eventNameCtrl,
         eventDescriptionCtrl: this.eventDescriptionCtrl,
@@ -154,18 +156,11 @@ export class CreateEventComponent implements OnInit {
         attendanceCtrl: this.attendanceCtrl,
         finesCtrl: this.finesCtrl
     });
-  }
 
-  onAttendanceChanged(event) {
-    this.attendanceChecked = event.checked;
-  }
-
-  onFinesChanged(event) {
-    this.finesChecked = event.checked;
   }
 
   openCancelDialog() {
-    this.dialog.open(CancelConfirmationDialogComponent);
+    this.dialog.open(CancelConfirmationDialogComponent, { data: { isNewEvent: this.isNewEvent, eventID: this.eventID }} );
   }
 
 }

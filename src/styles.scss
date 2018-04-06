@@ -7,6 +7,14 @@ $light-green: #00b353;
 $dark-green: #1b491d;
 $background-gray: #d9d9d9;
 
+@mixin non-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 html {
   height: 100%;
 }
@@ -57,3 +65,4 @@ snack-bar-container.snackbar-custom-class.success-type {
 /deep/ .snackbar-custom-class .mat-simple-snackbar-action {
   color: white !important;
 }
+
