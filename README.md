@@ -1,4 +1,5 @@
 # EventManager
+[![Build Status](https://travis-ci.org/Pattonville-App-Development-Team/event-manager.svg?branch=develop)](https://travis-ci.org/Pattonville-App-Development-Team/event-manager)
 
 Front-end of the school event management system using Google and Auth0 for authentication. The goal is to improve the experience of people attending school events, such as Prom or Homecoming, by speeding up the ticket sales/check in process. Additionally, this system removes the need for a million spreadsheets in order to run the event and provides a simpler platform for volunteers/event coordinators to use.
 
