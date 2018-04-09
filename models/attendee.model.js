@@ -10,7 +10,8 @@ var attendeeSchema = new mongoose.Schema({
   guest: {type: Guest, required: true},
   guestId: {type: Number, required: true},
   timestamp: {type: String, required: true},
-  comment: {type: String}
+  comment: { type: String },
+  amountPaid: { type: Number }
 });
 
 module.exports = attendeeSchema;
