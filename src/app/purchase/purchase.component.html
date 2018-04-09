@@ -21,7 +21,7 @@
 
       <h2 id="guest-header">Guest</h2>
       <div class="checkbox">
-        <mat-checkbox (change)="checkboxChanged()" #hasGuest formControlName="hasGuest">Has Guest</mat-checkbox>
+        <mat-checkbox (change)="checkboxChanged()" #hasGuest formControlName="hasGuest">Student Has a Guest</mat-checkbox>
         <br>
         <mat-checkbox (change)="checkboxChanged()" #hasPattonvilleGuest [checked]="true" [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
       </div>

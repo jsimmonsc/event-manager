@@ -170,7 +170,10 @@ export class PurchaseComponent {
         }
       });
     } else {
-      this.errorDialog.displayNotification("ERROR: Student has problems with fines or attendance!", SlidingDialogType.ERROR);
+      this.errorDialog.displayNotification(
+        "ERROR: Student has problems with fines or attendance! Only administrators can override this.",
+        SlidingDialogType.ERROR
+      );
     }
   }
 
