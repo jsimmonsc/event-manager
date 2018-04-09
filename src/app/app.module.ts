@@ -144,7 +144,8 @@ import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delet
     WarningDialogComponent,
     DeleteEventDialogComponent,
     DeleteConfirmationDialogComponent,
-    CancelConfirmationDialogComponent
+    CancelConfirmationDialogComponent,
+    DeleteGuestDialogComponent
   ],
   bootstrap: [AppComponent]
 })
