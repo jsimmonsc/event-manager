@@ -1,0 +1,82 @@
+<div class="container">
+
+  <div *ngIf="event">
+    <div class="header-container">
+      <h2>{{event.name}}</h2>
+      <button mat-fab (click)="editEvent()" matTooltip="Edit event"><mat-icon>edit</mat-icon></button>
+    </div>
+    <p><b>Description:</b> {{event.description}}</p>
+    <p><b>Date:</b> {{ event.date.toDateString() }}</p>
+    <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
+  </div>
+
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="goToSellTickets()">Sell</button>
+    <button mat-raised-button color="primary" (click)="goToCheckIn()">Check In</button>
+  </div>
+
+  <div class="attendee-container">
+    <div class="table-head">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div class="csv-export-container">
+        <button id="csv-export-button" mat-raised-button color="primary" mat-button (click)="exportToCSV()">Export to
+          CSV
+        </button>
+      </div>
+    </div>
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="ticket">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ticket # </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.first_name + " " + element.last_name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="student_number">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> SID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.student_number}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="grade_level">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Grade Level </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.grade_level}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="guest">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Guest </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.guest ? element.guest.name : ''}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="timestamp">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Timestamp </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.timestamp | amDateFormat:'LTS l' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Comment </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.comment }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef="let element">
+          <button mat-icon-button (click)="addAttendee(element)"><mat-icon matTooltip="Add Attendee" matTooltipPosition="above">add</mat-icon></button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="editAttendee(element)"><mat-icon>edit</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20, 50, 100]">
+    </mat-paginator>
+  </div>
+</div>

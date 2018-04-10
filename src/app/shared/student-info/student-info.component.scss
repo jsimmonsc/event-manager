@@ -1,0 +1,30 @@
+.student-info {
+
+  width: 100%;
+  font-size: 1vw;
+
+  h2 {
+    font-size: 1.5vw;
+  }
+
+  table {
+    margin: 1vw auto 2vw auto;
+    width: 30%;
+    border-collapse: collapse;
+    border-radius: 25px;
+  }
+
+  td {
+    border: 1px solid black;
+    padding: 1rem;
+  }
+
+  .keyColumn {
+    width: 50%;
+  }
+
+  .valueColumn {
+    width: 50%;
+  }
+
+}

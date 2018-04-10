@@ -1,3 +1,16 @@
-<p>
-  event-list works!
-</p>
+<div class="body-container">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <h1>Events</h1>
+
+  <div class="event-container" *ngFor="let event of this.events">
+    <div class="event-title">
+      <h2>{{ event.name }}</h2>
+    </div>
+    <div class="event-date">
+      <h3>{{ event.date.toDateString() }}</h3>
+    </div>
+    <div class="event-button">
+      <button mat-button (click)="openEventInfo(event)"><i class="fa fa-angle-right" style="font-size: 50px"></i></button>
+    </div>
+  </div>
+</div>

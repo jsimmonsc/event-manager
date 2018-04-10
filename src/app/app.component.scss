@@ -1,0 +1,80 @@
+@import '../styles';
+
+body {
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  text-align: center;
+  background-color: white;
+  font-size: 15px;
+  height: 55px;
+  box-shadow: 1px 1px 20px rgb(53, 52, 53);
+
+    #logout {
+      cursor: pointer;
+    }
+
+    a {
+      @include non-selectable;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: $green;
+      height: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+
+
+      &:hover {
+        background-color: rgb(216, 216, 216);
+      }
+
+    }
+    p {
+      @include non-selectable;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $green;
+      margin: 0 0 0 16px;
+      font-size: 16px;
+      font-family: 'Lato', sans-serif;
+      padding-right: 16px;
+
+      img {
+        width: 32px;
+        height: 32px;
+        vertical-align: top;
+        margin-right: 4px;
+      }
+    }
+
+    .left-align {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .right-align {
+      width: 100%;
+      justify-content: flex-end;
+      display: flex;
+      flex-direction: row;
+    }
+
+  }
+
+.active-link {
+  background-color: rgb(216, 216, 216);
+}

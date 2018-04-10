@@ -1,0 +1,68 @@
+@import "../../styles";
+
+h1 {
+  color: white;
+}
+
+button {
+  background-color: #01a3a4 !important;
+  color: white !important;
+  font-size: 20px !important;
+  margin-top: 20px;
+  width: 15%;
+  padding: 16px !important;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #00d2d3 !important;
+  }
+
+}
+
+button, div, h1 {
+  text-align: center;
+}
+
+h1 {
+  margin-top: 60px;
+  font-size: 50px;
+  color: white;
+  padding-bottom: 10px;
+}
+
+.info-panels {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+.info-panels div {
+  background-color: white;
+  width: 30%;
+  margin: 30px;
+  padding: 20px;
+  box-shadow: 4px 4px 8px 1px rgb(53, 52, 53);
+}
+
+.body-container {
+  text-align: center !important;
+}
+
+img {
+  @include non-selectable;
+  width: 30% !important;
+}
+
+p {
+  font-size: 16px;
+  margin-top: 6px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+

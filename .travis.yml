@@ -1,17 +1,9 @@
-dist: trusty
-sudo: false
-
-language: node_js
-node_js:
-  - "8.8.1"
-
-cache:
-  directories:
-     - ./node_modules
-
-install:
-  - npm install
+sudo: required
+services:
+  - docker
 
 script:
-  - export CHROME_BIN=chromium-browser
-  - xvfb-run -a npm run test -- --single-run --no-progress --browser=ChromeNoSandbox
+  - docker build -t test .
+
+after_script:
+  - docker images

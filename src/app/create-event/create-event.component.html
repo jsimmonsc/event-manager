@@ -1,0 +1,93 @@
+<div class="header-container">
+  <h1>{{this.isNewEvent ? "Create" : "Edit"}} Event</h1>
+  <button class="delete-button" *ngIf="!this.isNewEvent" mat-fab (click)="deleteEvent()" matTooltip="Delete event">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+
+<form [formGroup]="formGroup">
+
+  <div class="row">
+
+    <div class="column">
+      <div class="top-row">
+        <mat-form-field>
+          <input matInput placeholder="Event Name" formControlName="eventNameCtrl" maxlength="100">
+          <mat-error *ngIf="eventNameCtrl.hasError('required')">
+            Event name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="bottom-row">
+        <mat-form-field>
+          <textarea matInput placeholder="Event Description" matTextareaAutosize formControlName="eventDescriptionCtrl" maxlength="1000"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="top-row">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Event Date" formControlName="dateCtrl">
+
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <mat-hint align="start">Click the datepicker button to choose a date</mat-hint>
+          <mat-error *ngIf="dateCtrl.hasError('required')">
+            Event date is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="bottom-row">
+        <mat-form-field>
+          <input matInput placeholder="Ticket Cost" appRestrictInput="decimal" formControlName="costCtrl">
+          <span matPrefix>$&nbsp;</span>
+          <mat-error *ngIf="costCtrl.hasError('required')">
+            Ticket cost is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div class="column requirements">
+
+      <h3>Requirements</h3>
+      <div class="checkbox-container">
+        <div>
+          <mat-checkbox formControlName="attendanceCtrl">Attendance</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="finesCtrl">Fines</mat-checkbox>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="event-button-container">
+
+    <button
+      class="create-event-button"
+      matTooltip="You can always come back and make changes later."
+      matTooltipPosition="above"
+      mat-button
+      [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required')"
+      (click)="submitEvent()">
+      {{this.isNewEvent ? "Create" : "Update"}}
+    </button>
+
+    <button
+      class="cancel-button"
+      mat-button
+      (click)="openCancelDialog()">
+      Cancel
+    </button>
+
+  </div>
+
+</form>

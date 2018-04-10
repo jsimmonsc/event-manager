@@ -1,0 +1,57 @@
+@import '../../styles';
+
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button-wrapper {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+#enter-button {
+  width: 10%;
+  height: 50px;
+  color: white;
+  background: $green;
+  border: none;
+  font-size: 1.8vw;
+
+  &:hover {
+    background: $light-green;
+  }
+}
+
+input {
+  text-align: center;
+  background: white;
+}
+
+.id-form-field {
+  height: 100%;
+  font-size: 1.5rem;
+  border: none;
+  text-align: center;
+
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+mat-progress-spinner {
+  margin: 1rem auto 1rem auto;
+}
+
+.component-wrapper {
+  margin-top: 100px;
+}

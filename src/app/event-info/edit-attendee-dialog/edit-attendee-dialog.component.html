@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>Edit</h2>
+<mat-dialog-content>
+  <form [formGroup]="editGroup" novalidate>
+    <div class="preset-info">
+      <mat-form-field>
+        <input matInput placeholder="Name" disabled value="{{changedAttendee.first_name + ' ' + changedAttendee.last_name}}">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="SID" disabled value="{{changedAttendee.student_number}}">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Grade" disabled value="{{changedAttendee.grade_level}}">
+      </mat-form-field>
+
+      <mat-checkbox #hasGuest (change)="hasGuestCheckboxChanged()" [checked]="changedAttendee.guest">Has Guest</mat-checkbox>
+    </div>
+
+    <div class="guest-edit" formGroupName="guestEdit" *ngIf="hasGuest.checked">
+      <h4>Guest</h4>
+      <mat-checkbox #pattonvilleGuestCheckbox (change)="hasPattonvilleGuestCheckboxChanged(pattonvilleGuestCheckbox)" [checked]="changedAttendee.guestId != -1">Guest Attends Pattonville</mat-checkbox>
+      <div *ngIf="!pattonvilleGuestCheckbox.checked" formGroupName="outsideGuest" class="non-pattonville-guest">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="School" formControlName="school">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Age" formControlName="age">
+        </mat-form-field>
+        <mat-form-field>
+          <span matPrefix>+1 &nbsp;</span>
+          <input type="tel" appRestrictInput="integer" maxlength="10" matInput placeholder="Phone Number"
+                 formControlName="phone">
+        </mat-form-field>
+      </div>
+      <div *ngIf="pattonvilleGuestCheckbox.checked" formGroupName="pattonvilleGuest" class="pattonville-guest">
+        <div class="guest-id-field">
+          <mat-form-field>
+            <input matInput type="text" formControlName="guestSID" maxlength="5" placeholder="Guest SID" (keyup.enter)="searchForGuest(guestIDInput.value)" #guestIDInput>
+          </mat-form-field>
+          <button (click)="searchForGuest(guestIDInput.value)" mat-button>Enter</button>
+        </div>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Guest Name" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.first_name + ' ' + pattonvilleGuest.last_name : ''}}">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Guest Grade Level" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.grade_level : '' }}">
+        </mat-form-field>
+
+        <app-requirements *ngIf="pattonvilleGuest" [iconScale]=".5" [(student)]="pattonvilleGuest"></app-requirements>
+      </div>
+    </div>
+    <div class="end-fields" formGroupName="extraEdit">
+      <h4>Additional</h4>
+      <mat-form-field>
+        <input matInput #timestampInput placeholder="Timestamp" disabled value="{{ changedAttendee.timestamp ? (changedAttendee.timestamp | amDateFormat:'LTS l') : 'None' }}">
+        <button mat-button *ngIf="changedAttendee.timestamp" matSuffix mat-icon-button aria-label="Clear" (click)="changedAttendee.timestamp = null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Amount Paid" disabled value="${{roundMoney(changedAttendee.amountPaid)}}">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea formControlName="comment" matTextareaAutosize matInput placeholder="Comment"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button (click)="saveEditedAttendee()">Save</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="warn" (click)="openDeleteWarningDialog()">Delete</button>
+</mat-dialog-actions>
