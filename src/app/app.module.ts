@@ -51,10 +51,11 @@ import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
-import { DeleteEventDialogComponent } from './create-event/delete-event-dialog/event-delete-dialog.component';
-import { DeleteConfirmationDialogComponent } from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
-import { CancelConfirmationDialogComponent } from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
+import {DeleteEventDialogComponent} from './create-event/delete-event-dialog/event-delete-dialog.component';
+import {DeleteConfirmationDialogComponent} from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {CancelConfirmationDialogComponent} from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
 import {PapaParseService} from "ngx-papaparse";
+import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delete-guest-dialog.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {PapaParseService} from "ngx-papaparse";
     DeleteUserWarningDialogComponent,
     DeleteEventDialogComponent,
     DeleteConfirmationDialogComponent,
-    CancelConfirmationDialogComponent
+    CancelConfirmationDialogComponent,
+    DeleteGuestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +144,8 @@ import {PapaParseService} from "ngx-papaparse";
     WarningDialogComponent,
     DeleteEventDialogComponent,
     DeleteConfirmationDialogComponent,
-    CancelConfirmationDialogComponent
+    CancelConfirmationDialogComponent,
+    DeleteGuestDialogComponent
   ],
   bootstrap: [AppComponent]
 })
