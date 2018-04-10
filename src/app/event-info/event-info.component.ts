@@ -65,7 +65,7 @@ export class EventInfoComponent implements OnInit {
     editDialogRef.afterClosed().subscribe((value: Event) => {
       if (value) {
         this.eventService.getEvent(this.id).subscribe(val => {
-          this.dataSource = new MatTableDataSource<Attendee>(val.attendees);
+          this.dataSource.data = val.attendees;
           this.changeDetectorRef.detectChanges();
         });
       }
