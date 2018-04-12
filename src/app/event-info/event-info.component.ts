@@ -116,7 +116,8 @@ export class EventInfoComponent implements OnInit {
         "Student Number": val.student_number,
         "Grade Level": val.grade_level,
         "Guest": val.guest ? val.guest.name : "",
-        "Timestamp": val.timestamp ? val.timestamp : ""
+        "Timestamp": val.timestamp ? val.timestamp : "",
+        "Amount Paid": val.amountPaid
       });
     });
 
