@@ -4,7 +4,6 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 import {EventService} from "../../shared/services/event/event.service";
 import {Student} from "../../shared/models/student.model";
-import {SuccessfullySavedDialogComponent} from "../successfully-saved-dialog/successfully-saved-dialog.component";
 import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
 import {Event} from "../../shared/models/event.model";
 
@@ -39,13 +38,9 @@ export class AddAttendeeDialogComponent {
   }
 
   searchForStudent(studentNumber: string, type: string) {
-    // this.eventService.getStudent(+studentNumber).subscribe(student => {
-    //   if (type === 'student') {
 
         if (+studentNumber) {
           this.eventService.getAttendeeFromEvent(this.data.eventID, +studentNumber).subscribe((att: Attendee) => {
-            console.log("ERROR: Student already registered.");
-
             this.slidingDialog.displayNotification("ERROR: Student already registered!", SlidingDialogType.ERROR);
           }, (err) => {
             if (err.status === 404) {
@@ -57,17 +52,10 @@ export class AddAttendeeDialogComponent {
                 }
               });
             } else {
-              console.log(err);
-              // TODO: Connection error dialog
+              this.slidingDialog.displayNotification(err.message, SlidingDialogType.ERROR);
             }
           });
         }
-    //
-    //     this.addAttendeeForm.patchValue({student: student});
-    //     this.student = student;
-    //     console.log(student);
-    //   }
-    // });
   }
 
   submitAttendee(): void {
@@ -84,15 +72,11 @@ export class AddAttendeeDialogComponent {
       amountPaid: this.event.cost
     };
 
-    console.log("Attendee Submitted");
     this.eventService.createAttendee(this.data.eventID, attendee).subscribe(value => {
       this.dialogRef.close(value);
-      const addDialogRef = this.dialog.open(SuccessfullySavedDialogComponent,
-            {data: {eventID: this.data.eventID, }, width: '30%', height: '30%'});
-
+      this.slidingDialog.displayNotification("Attendee successfully added!", SlidingDialogType.INFO, 2000);
     }, err => {
-      console.log(err);
-      // TODO: Error dialog
+      this.slidingDialog.displayNotification(err.message, SlidingDialogType.ERROR);
     });
   }
 

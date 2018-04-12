@@ -47,7 +47,6 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {AuthModule} from "./shared/services/auth/auth.module";
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 import {RestrictInputDirective} from "./restrict-input.directive";
-import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-dialog/successfully-saved-dialog.component";
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
@@ -72,7 +71,6 @@ import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delet
     EventInfoComponent,
     EditAttendeeDialogComponent,
     AddAttendeeDialogComponent,
-    SuccessfullySavedDialogComponent,
     DeleteWarningDialogComponent,
     LoginComponent,
     AuthCallbackComponent,
@@ -139,7 +137,6 @@ import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delet
     DeleteUserWarningDialogComponent,
     AddUserDialogComponent,
     WarningDialogComponent,
-    SuccessfullySavedDialogComponent,
     AddAttendeeDialogComponent,
     WarningDialogComponent,
     DeleteEventDialogComponent,
