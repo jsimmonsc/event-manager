@@ -33,7 +33,7 @@ export class AdminPanelComponent {
     editDialogRef.afterClosed().subscribe((value: User) => {
       if (value) {
         this.authService.findAllUsers().subscribe(val => {
-          this.dataSource = new MatTableDataSource<User>(val);
+          this.dataSource.data = val;
           this.changeDetectorRef.detectChanges();
         });
       }

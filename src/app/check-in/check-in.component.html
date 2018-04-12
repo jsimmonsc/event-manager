@@ -2,7 +2,8 @@
   <h2>Check In</h2>
 
   <div class="input-wrapper">
-    <input class="fancy-input" #idInput (keyup.enter)="searchForAttendee(idInput.value)" placeholder="Enter ID Number"
+    <input class="fancy-input" appRestrictInput="integer" #idInput (keyup.enter)="searchForAttendee(idInput.value)"
+           placeholder="Enter ID Number"
            maxlength="5"/>
     <button mat-button (click)="searchForAttendee(idInput.value)" id="enter-button">Enter</button>
   </div>
