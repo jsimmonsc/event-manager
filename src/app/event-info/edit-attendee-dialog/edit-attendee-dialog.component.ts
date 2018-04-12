@@ -180,7 +180,7 @@ export class EditAttendeeDialogComponent {
 
   outsideGuestIsValid(): boolean {
     const guest = this.editGroup.get('guestEdit.outsideGuest').value;
-    return (guest.name && guest.school && guest.age && guest.phone) || (guest.name && guest.name.slice(0, 2) === 'of');
+    return guest.name || guest.school || guest.age || guest.phone;
   }
 
   roundMoney(num: number): string {
