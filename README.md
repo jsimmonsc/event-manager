@@ -23,3 +23,7 @@ If you just want to run a production build, do `npm run build -- --prod`.
 ### Configuration
 
 The API URL and the Auth0 ClientID must be correctly set in the environment files or the webapp will not work.
+
+## How to Use
+
+[Visit our user guide here.](./USERGUIDE.md)
