@@ -81,7 +81,7 @@ export class EventInfoComponent implements OnInit {
     const addDialogRef = this.dialog.open(AddAttendeeDialogComponent, {data: {eventID: this.id, }, width: '35%', height: '55%'});
     addDialogRef.afterClosed().subscribe((value: Event) => {
       if (value) {
-        this.dataSource = new MatTableDataSource<Attendee>(value.attendees);
+        this.dataSource.data = value.attendees;
         this.changeDetectorRef.detectChanges();
       }
     });
