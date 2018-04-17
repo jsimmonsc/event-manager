@@ -7,6 +7,7 @@ var studentSchema = new mongoose.Schema({
   grade_level: Number,
   student_number: Number,
   fines: Boolean,
+  lunch_fines: Boolean,
   attendance: Boolean
 });
 

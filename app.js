@@ -32,7 +32,7 @@ function runPowerSchoolUpdate() {
       let fines = res.body.split('\n').map(Number).filter(Boolean);
       for (let i = 0; i < students.length; i++) {
         if (fines.includes(students[i].student_number)) {
-          students[i].fines = 1;
+          students[i].lunch_fines = 1;
         }
       }
 
@@ -54,6 +54,7 @@ function runPowerSchoolUpdate() {
             student_number: element.student_number,
             grade_level: element.grade_level,
             fines: !!element.fines,
+ 	    lunch_fines: !!element.lunch_fines,
             attendance: element.attendance
           };
           Student.update({ student_number: element.student_number }, student, { upsert: true }, function (err) {
