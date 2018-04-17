@@ -69,10 +69,8 @@ export class CreateEventComponent implements OnInit {
       this.router.navigateByUrl('/events').then(() => {
         this.slidingDialog.displayNotification("Successfully created event", SlidingDialogType.SUCCESS);
       });
-      console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error creating event", SlidingDialogType.ERROR);
-      console.log(err);
     });
   }
 
@@ -82,10 +80,8 @@ export class CreateEventComponent implements OnInit {
       this.router.navigateByUrl('/events').then(() => {
         this.slidingDialog.displayNotification("Successfully updated event", SlidingDialogType.SUCCESS);
       });
-      console.log(JSON.stringify(event));
     }, (err) => {
       this.slidingDialog.displayNotification("Error updating event", SlidingDialogType.ERROR);
-      console.log(err);
     });
 
   }
