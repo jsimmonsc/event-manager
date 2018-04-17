@@ -6,7 +6,8 @@ var studentSchema = new mongoose.Schema({
   last_name: String,
   grade_level: Number,
   student_number: Number,
-  fines: Boolean
+  fines: Boolean,
+  lunch_fines: Boolean
 });
 
 module.exports = mongoose.model('Student', studentSchema);
