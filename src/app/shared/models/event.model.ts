@@ -13,6 +13,7 @@ export class Event {
     attendance: boolean,
     fines: boolean
   };
+  eligible_grades: number[];
 
   constructor(event: any) {
     this._id = event._id;
@@ -23,5 +24,6 @@ export class Event {
     this.attendees = event.attendees;
     this.cost = event.cost;
     this.requirements = event.requirements;
+    this.eligible_grades = event.eligible_grades;
   }
 }
