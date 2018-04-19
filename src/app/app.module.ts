@@ -47,14 +47,14 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 import {AuthModule} from "./shared/services/auth/auth.module";
 import {SlidingDialogService} from "./shared/services/sliding-dialog.service";
 import {RestrictInputDirective} from "./restrict-input.directive";
-import {SuccessfullySavedDialogComponent} from "./event-info/successfully-saved-dialog/successfully-saved-dialog.component";
 import {EditUserDialogComponent} from './admin-panel/edit-user-dialog/edit-user-dialog.component';
 import {AddUserDialogComponent} from './admin-panel/add-user-dialog/add-user-dialog.component';
 import {DeleteUserWarningDialogComponent} from './admin-panel/delete-user-warning-dialog/delete-user-warning-dialog.component';
-import { DeleteEventDialogComponent } from './create-event/delete-event-dialog/event-delete-dialog.component';
-import { DeleteConfirmationDialogComponent } from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
-import { CancelConfirmationDialogComponent } from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
+import {DeleteEventDialogComponent} from './create-event/delete-event-dialog/event-delete-dialog.component';
+import {DeleteConfirmationDialogComponent} from './create-event/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {CancelConfirmationDialogComponent} from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
 import {PapaParseService} from "ngx-papaparse";
+import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delete-guest-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,6 @@ import {PapaParseService} from "ngx-papaparse";
     EventInfoComponent,
     EditAttendeeDialogComponent,
     AddAttendeeDialogComponent,
-    SuccessfullySavedDialogComponent,
     DeleteWarningDialogComponent,
     LoginComponent,
     AuthCallbackComponent,
@@ -84,7 +83,8 @@ import {PapaParseService} from "ngx-papaparse";
     DeleteUserWarningDialogComponent,
     DeleteEventDialogComponent,
     DeleteConfirmationDialogComponent,
-    CancelConfirmationDialogComponent
+    CancelConfirmationDialogComponent,
+    DeleteGuestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -137,12 +137,12 @@ import {PapaParseService} from "ngx-papaparse";
     DeleteUserWarningDialogComponent,
     AddUserDialogComponent,
     WarningDialogComponent,
-    SuccessfullySavedDialogComponent,
     AddAttendeeDialogComponent,
     WarningDialogComponent,
     DeleteEventDialogComponent,
     DeleteConfirmationDialogComponent,
-    CancelConfirmationDialogComponent
+    CancelConfirmationDialogComponent,
+    DeleteGuestDialogComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import {DeleteWarningDialogComponent} from "../delete-warning-dialog/delete-warn
 import {Event} from "../../shared/models/event.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SlidingDialogService, SlidingDialogType} from "../../shared/services/sliding-dialog.service";
+import {DeleteGuestDialogComponent} from "../delete-guest-dialog/delete-guest-dialog.component";
 
 @Component({
   selector: 'app-edit-attendee-dialog',
@@ -164,14 +165,22 @@ export class EditAttendeeDialogComponent {
     const warningRef = this.matDialog.open(DeleteWarningDialogComponent, { data: this.data });
     warningRef.afterClosed().subscribe(value => {
       if (value) {
-        this.dialogRef.close(value);
+        if (this.changedAttendee.guestId > 0) {
+          const guestWarningRef = this.matDialog.open(DeleteGuestDialogComponent, {data: this.data});
+
+          guestWarningRef.afterClosed().subscribe(guest => {
+            this.dialogRef.close(guest);
+          });
+        } else {
+          this.dialogRef.close(value);
+        }
       }
     });
   }
 
   outsideGuestIsValid(): boolean {
     const guest = this.editGroup.get('guestEdit.outsideGuest').value;
-    return (guest.name && guest.school && guest.age && guest.phone) || (guest.name && guest.name.slice(0, 2) === 'of');
+    return guest.name || guest.school || guest.age || guest.phone;
   }
 
   roundMoney(num: number): string {

@@ -1,17 +1,17 @@
 <div class="icons">
-  <div *ngIf="event.requirements.fines" class="icon">
+  <div *ngIf="event && event.requirements.fines" class="icon">
     <h4>Fines</h4>
     <img *ngIf="!student.fines" [src]="'../../assets/check.png'" height="{{100 * iconScale}}"
          width="{{100 * iconScale}}">
     <img *ngIf="student.fines" matTooltip="Student has issue with fines." [src]="'../../assets/warning-icon.png'"
          height="{{100 * iconScale}}" width="{{100 * iconScale}}">
   </div>
-  <div *ngIf="event.requirements.attendance" class="icon">
+  <div *ngIf="event && event.requirements.attendance" class="icon">
     <h4>Attendance</h4>
     <img *ngIf="!student.attendance" [src]="'../../assets/check.png'" height="{{100 * iconScale}}"
          width="{{100 * iconScale}}">
     <img *ngIf="student.attendance" matTooltip="Student has less than 90% attendance."
-         [src]="'../../assets/WarningSign.png'"
+         [src]="'../../assets/warning-icon.png'"
          height="{{100 * iconScale}}" width="{{100 * iconScale}}">
   </div>
 </div>
