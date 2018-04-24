@@ -123,5 +123,11 @@ export class EventInfoComponent implements OnInit {
 
     return newList;
   }
+
+  getTotalAttending(): number {
+    return this.event.attendees.length + this.event.attendees.reduce((amt, obj) => {
+      return amt + (obj.guest && obj.guestId === -1 && obj.guest.name.slice(0, 3) !== 'of ' ? 1 : 0);
+    }, 0);
+  }
 }
 

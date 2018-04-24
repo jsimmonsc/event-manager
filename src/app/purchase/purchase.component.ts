@@ -134,9 +134,9 @@ export class PurchaseComponent {
   public hasFailedRequirement(student: Student): boolean {
 
     if (this.event.requirements.fines && this.event.requirements.attendance) {
-      return student.fines || student.attendance;
+      return student.fines || student.lunch_fines || student.attendance;
     } else if (this.event.requirements.fines) {
-      return student.fines;
+      return student.fines || student.lunch_fines;
     } else if (this.event.requirements.attendance) {
       return student.attendance;
     } else {
