@@ -72,10 +72,11 @@
     <div class="button-wrapper" *ngIf="purchaseForm.value.student">
       <button type="button"
               mat-button
-              (click)="attendeeFailsRequirements() ? openWarningDialog() : submitAttendee()"
+              (click)="attendeeFailsRequirements() ? openWarningDialog() : submitAttendee(); idInput.focus()"
               id="submit-button">Submit
       </button>
-      <button type="button" mat-button (click)="purchaseForm.reset()" id="cancel-button">Cancel</button>
+      <button type="button" mat-button (click)="purchaseForm.reset(); idInput.focus()" id="cancel-button">Cancel
+      </button>
     </div>
 
   </form>

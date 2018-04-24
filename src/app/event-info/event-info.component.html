@@ -8,6 +8,7 @@
     <p><b>Description:</b> {{event.description}}</p>
     <p><b>Date:</b> {{ event.date.toDateString() }}</p>
     <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
+    <p><b>Total Attending:</b> {{ getTotalAttending() }}</p>
   </div>
 
   <div class="button-container">
