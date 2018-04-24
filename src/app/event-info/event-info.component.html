@@ -8,6 +8,7 @@
     <p><b>Description:</b> {{event.description}}</p>
     <p><b>Date:</b> {{ event.date.toDateString() }}</p>
     <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
+    <p><b>Total Attending:</b> {{ getTotalAttending() }}</p>
   </div>
 
   <div class="button-container">
@@ -50,7 +51,11 @@
 
       <ng-container matColumnDef="guest">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Guest </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.guest ? element.guest.name : ''}} </mat-cell>
+        <mat-cell *matCellDef="let element">
+          <div id="guest-name-field"><img matTooltip="This guest is from Pattonville." *ngIf="element.guestId > 0"
+                                          src="../../favicon.ico">
+            <p>{{element.guest ? element.guest.name : ''}}</p></div>
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="timestamp">

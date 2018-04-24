@@ -48,7 +48,8 @@
           <input matInput type="text" placeholder="Guest Grade Level" disabled value="{{ pattonvilleGuest ? pattonvilleGuest.grade_level : '' }}">
         </mat-form-field>
 
-        <app-requirements *ngIf="pattonvilleGuest" [iconScale]=".5" [(student)]="pattonvilleGuest"></app-requirements>
+        <app-requirements *ngIf="pattonvilleGuest" [iconScale]=".5" [(event)]="event"
+                          [(student)]="pattonvilleGuest"></app-requirements>
       </div>
     </div>
     <div class="end-fields" formGroupName="extraEdit">
