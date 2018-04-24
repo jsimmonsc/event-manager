@@ -53,7 +53,8 @@ export class EditAttendeeDialogComponent {
         })
       }),
       extraEdit: this.fb.group({
-        comment: this.changedAttendee.comment
+        comment: this.changedAttendee.comment,
+        amountPaid: this.changedAttendee.amountPaid
       })
     });
   }
@@ -104,7 +105,7 @@ export class EditAttendeeDialogComponent {
       guest: null,
       timestamp: this.changedAttendee.timestamp,
       comment: this.editGroup.get('extraEdit.comment').value,
-      amountPaid: this.event.cost
+      amountPaid: this.editGroup.get('extraEdit.amountPaid').value
     };
 
     if (this.pattonvilleGuest) {
@@ -115,10 +116,8 @@ export class EditAttendeeDialogComponent {
         age: null,
         phone: null
       };
-      savedAttendee.amountPaid = this.event.cost * 2;
     } else if (this.outsideGuestIsValid()) {
       savedAttendee.guest = this.editGroup.get('guestEdit.outsideGuest').value;
-      savedAttendee.amountPaid = this.event.cost * 2;
     }
 
     this.eventService.updateAttendee(this.data.eventID, savedAttendee).subscribe((value: Event) => {
