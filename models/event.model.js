@@ -11,6 +11,7 @@ var eventSchema = new mongoose.Schema({
     fines: Boolean,
     attendance: Boolean
   },
+  eligible_grades: [Number],
   cost: Number
 });
 
