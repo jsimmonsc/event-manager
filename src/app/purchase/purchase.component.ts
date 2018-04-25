@@ -134,11 +134,11 @@ export class PurchaseComponent {
   public hasFailedRequirement(student: Student, isGuest = false): boolean {
     const attendanceRequired = this.event.requirements.attendance;
     const finesRequired = this.event.requirements.fines;
-    const gradeLevelRequired = this.allGradesAreEligible();
+    const gradeLevelRequired = !this.allGradesAreEligible();
 
     return (student.fines && finesRequired)
       || (student.attendance && attendanceRequired)
-      || (!isGuest && this.studentIsInEligibleGrade(student) && gradeLevelRequired);
+      || (!isGuest && !this.studentIsInEligibleGrade(student) && gradeLevelRequired);
 
   }
 
