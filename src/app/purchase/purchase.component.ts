@@ -136,24 +136,6 @@ export class PurchaseComponent {
     const attendanceRequired = this.event.requirements.attendance;
     const finesRequired = this.event.requirements.fines;
     const gradeLevelRequired = this.allGradesAreEligible();
-    //
-    // if (attendanceRequired && finesRequired && gradeLevelRequired) {
-    //   return student.fines || student.attendance || this.studentIsInEligibleGrade(student);
-    // } else if (attendanceRequired && finesRequired) {
-    //   return student.attendance || student.fines;
-    // } else if (attendanceRequired && gradeLevelRequired) {
-    //   return student.attendance || this.studentIsInEligibleGrade(student);
-    // } else if (finesRequired && gradeLevelRequired) {
-    //   return student.fines || this.studentIsInEligibleGrade(student);
-    // } else if (attendanceRequired) {
-    //   return student.attendance;
-    // } else if (finesRequired) {
-    //   return student.fines;
-    // } else if (gradeLevelRequired) {
-    //   return this.studentIsInEligibleGrade(student);
-    // } else {
-    //   return false;
-    // }
 
     return (student.fines && finesRequired)
       || (student.attendance && attendanceRequired)

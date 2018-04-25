@@ -185,6 +185,13 @@ export class CreateEventComponent implements OnInit {
     this.dialog.open(CancelConfirmationDialogComponent, { data: { isNewEvent: this.isNewEvent, eventID: this.eventID }} );
   }
 
+  gradeLevelsSelected() {
+    return this.getFormValue("freshmanCtrl") ||
+      this.getFormValue("sophomoreCtrl") ||
+      this.getFormValue("juniorCtrl") ||
+      this.getFormValue("seniorCtrl");
+  }
+
 }
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
