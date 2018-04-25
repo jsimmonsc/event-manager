@@ -13,7 +13,6 @@ export class RequirementsComponent {
   @Input() isGuest = false;
   @Input() student: Student;
   @Input() event: Event;
-  @Input() isGuest = false;
 
   constructor() {
   }
