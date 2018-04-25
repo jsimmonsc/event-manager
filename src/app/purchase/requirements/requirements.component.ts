@@ -12,6 +12,7 @@ export class RequirementsComponent {
   @Input() iconScale = 1;
   @Input() student: Student;
   @Input() event: Event;
+  @Input() isGuest = false;
 
   constructor() {
   }
