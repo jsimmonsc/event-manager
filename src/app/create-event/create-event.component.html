@@ -97,7 +97,7 @@
       matTooltip="You can always come back and make changes later."
       matTooltipPosition="above"
       mat-button
-      [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required')"
+      [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required') || !gradeLevelsSelected()"
       (click)="submitEvent()">
       {{this.isNewEvent ? "Create" : "Update"}}
     </button>
