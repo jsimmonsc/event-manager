@@ -131,24 +131,29 @@ export class PurchaseComponent {
     this.purchaseForm.get('guestForm.outsideGuest').reset();
   }
 
-  public hasFailedRequirement(student: Student): boolean {
+  public hasFailedRequirement(student: Student, isGuest = false): boolean {
+    const attendanceRequired = this.event.requirements.attendance;
+    const finesRequired = this.event.requirements.fines;
+    const gradeLevelRequired = !this.allGradesAreEligible();
 
-    if (this.event.requirements.fines && this.event.requirements.attendance) {
-      return student.fines || student.lunch_fines || student.attendance;
-    } else if (this.event.requirements.fines) {
-      return student.fines || student.lunch_fines;
-    } else if (this.event.requirements.attendance) {
-      return student.attendance;
-    } else {
-      return false;
-    }
+    return (student.fines && finesRequired)
+      || (student.attendance && attendanceRequired)
+      || (!isGuest && !this.studentIsInEligibleGrade(student) && gradeLevelRequired);
 
+  }
+
+  allGradesAreEligible(): boolean {
+    return [9, 10, 11, 12].every(val => this.event.eligible_grades.includes(val));
+  }
+
+  studentIsInEligibleGrade(student: Student): boolean {
+    return this.event.eligible_grades.includes(student.grade_level);
   }
 
   attendeeFailsRequirements(): boolean {
     return this.hasFailedRequirement(this.purchaseForm.get('student').value)
       || (this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value
-        && this.hasFailedRequirement(this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value));
+        && this.hasFailedRequirement(this.purchaseForm.get('guestForm.pattonvilleGuest.guest').value, true));
   }
 
   checkGuestValidity(obj: any): boolean {

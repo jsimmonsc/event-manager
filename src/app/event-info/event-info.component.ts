@@ -129,5 +129,10 @@ export class EventInfoComponent implements OnInit {
       return amt + (obj.guest && obj.guestId === -1 && obj.guest.name.slice(0, 3) !== 'of ' ? 1 : 0);
     }, 0);
   }
+
+  getEligibleGrades(): string {
+    return this.event.eligible_grades.join(", ");
+  }
+
 }
 

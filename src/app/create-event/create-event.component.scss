@@ -96,7 +96,7 @@ h3 {
 .checkbox-container {
   @include non-selectable;
   text-align: left !important;
-  padding-left: 40%;
+  padding-left: 24%;
 }
 
 .mat-form-field-suffix.mat-icon-button {
@@ -131,6 +131,10 @@ h3 {
   &:hover {
     background-color: #ff4757 !important;
   }
+}
+
+.eligible-grades, .requirements {
+  width: 50%;
 }
 
 
