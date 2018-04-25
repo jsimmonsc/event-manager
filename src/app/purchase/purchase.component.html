@@ -42,7 +42,7 @@
                     mat-button class="enter-button">Enter</button>
           </div>
 
-          <app-student-info formControlName="guest"></app-student-info>
+          <app-student-info [isGuest]="true" formControlName="guest"></app-student-info>
         </div>
 
         <div class="outside-guest-form" *ngIf="!hasPattonvilleGuest.checked" formGroupName="outsideGuest">
