@@ -10,6 +10,7 @@ import {Event} from "../../shared/models/event.model";
 export class RequirementsComponent {
 
   @Input() iconScale = 1;
+  @Input() isGuest = false;
   @Input() student: Student;
   @Input() event: Event;
   @Input() isGuest = false;
@@ -18,10 +19,7 @@ export class RequirementsComponent {
   }
 
   allGradesAreEligible() {
-    return this.event.eligible_grades.includes(9) &&
-      this.event.eligible_grades.includes(10) &&
-      this.event.eligible_grades.includes(11) &&
-      this.event.eligible_grades.includes(12);
+    return [9, 10, 11, 12].every(val => this.event.eligible_grades.includes(val));
   }
 
   studentIsInEligibleGrade() {
