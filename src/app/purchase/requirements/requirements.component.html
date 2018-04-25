@@ -21,4 +21,12 @@
          [src]="'../../assets/warning-icon.png'"
          height="{{100 * iconScale}}" width="{{100 * iconScale}}">
   </div>
+  <div *ngIf="!isGuest && event && !allGradesAreEligible()" class="icon">
+    <h4>Grade Level</h4>
+    <img *ngIf="studentIsInEligibleGrade()" [src]="'../../assets/check.png'" height="{{100 * iconScale}}"
+          width="{{100 * iconScale}}">
+    <img *ngIf="!studentIsInEligibleGrade()" matTooltip="Student is not in an eligible grade."
+         [src]="'../../assets/warning-icon.png'"
+         height="{{100 * iconScale}}" width="{{100 * iconScale}}">
+  </div>
 </div>

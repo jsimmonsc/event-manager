@@ -67,7 +67,28 @@
 
     </div>
 
+    <div class="column eligible-grades">
+
+      <h3>Eligible Grades</h3>
+      <div class="checkbox-container">
+        <div>
+          <mat-checkbox formControlName="freshmanCtrl">Freshmen</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="sophomoreCtrl">Sophomores</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="juniorCtrl">Juniors</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox formControlName="seniorCtrl">Seniors</mat-checkbox>
+        </div>
+      </div>
+
+    </div>
+
   </div>
+
 
   <div class="event-button-container">
 
@@ -76,7 +97,7 @@
       matTooltip="You can always come back and make changes later."
       matTooltipPosition="above"
       mat-button
-      [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required')"
+      [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required') || !gradeLevelsSelected()"
       (click)="submitEvent()">
       {{this.isNewEvent ? "Create" : "Update"}}
     </button>

@@ -25,6 +25,10 @@ export class CreateEventComponent implements OnInit {
   costCtrl = new FormControl('', [Validators.required]);
   attendanceCtrl = new FormControl('');
   finesCtrl = new FormControl('');
+  freshmanCtrl = new FormControl('');
+  sophomoreCtrl = new FormControl('');
+  juniorCtrl = new FormControl('');
+  seniorCtrl = new FormControl('');
 
   matcher = new CustomErrorStateMatcher();
 
@@ -43,6 +47,10 @@ export class CreateEventComponent implements OnInit {
     this.formGroup.patchValue({
       attendanceCtrl: false,
       finesCtrl: false,
+      freshmanCtrl: false,
+      sophomoreCtrl: false,
+      juniorCtrl: false,
+      seniorCtrl: false
     });
 
     this.route.params.subscribe(params => {
@@ -123,7 +131,17 @@ export class CreateEventComponent implements OnInit {
         attendance: this.getFormValue("attendanceCtrl"),
         fines: this.getFormValue("finesCtrl")
       },
+      eligible_grades: this.getEligibleGrades()
     };
+  }
+
+  getEligibleGrades(): number[] {
+    const grades = [];
+    if (this.getFormValue("freshmanCtrl")) grades.push(9);
+    if (this.getFormValue("sophomoreCtrl")) grades.push(10);
+    if (this.getFormValue("juniorCtrl")) grades.push(11);
+    if (this.getFormValue("seniorCtrl")) grades.push(12);
+    return grades;
   }
 
   getFormValue(formControl: string) {
@@ -137,7 +155,11 @@ export class CreateEventComponent implements OnInit {
       dateCtrl: this.savedEvent.date,
       costCtrl: this.savedEvent.cost,
       attendanceCtrl: this.savedEvent.requirements.attendance,
-      finesCtrl: this.savedEvent.requirements.fines
+      finesCtrl: this.savedEvent.requirements.fines,
+      freshmanCtrl: this.savedEvent.eligible_grades.includes(9),
+      sophomoreCtrl: this.savedEvent.eligible_grades.includes(10),
+      juniorCtrl: this.savedEvent.eligible_grades.includes(11),
+      seniorCtrl: this.savedEvent.eligible_grades.includes(12)
     });
   }
 
@@ -150,13 +172,24 @@ export class CreateEventComponent implements OnInit {
         dateCtrl: this.dateCtrl,
         costCtrl: this.costCtrl,
         attendanceCtrl: this.attendanceCtrl,
-        finesCtrl: this.finesCtrl
+        finesCtrl: this.finesCtrl,
+        freshmanCtrl: this.freshmanCtrl,
+        sophomoreCtrl: this.sophomoreCtrl,
+        juniorCtrl: this.juniorCtrl,
+        seniorCtrl: this.seniorCtrl
     });
 
   }
 
   openCancelDialog() {
     this.dialog.open(CancelConfirmationDialogComponent, { data: { isNewEvent: this.isNewEvent, eventID: this.eventID }} );
+  }
+
+  gradeLevelsSelected() {
+    return this.getFormValue("freshmanCtrl") ||
+      this.getFormValue("sophomoreCtrl") ||
+      this.getFormValue("juniorCtrl") ||
+      this.getFormValue("seniorCtrl");
   }
 
 }

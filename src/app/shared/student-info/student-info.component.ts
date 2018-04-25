@@ -1,6 +1,5 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Student} from "../models/student.model";
 import {Event} from "../models/event.model";
 import {EventService} from "../services/event/event.service";
 import {ActivatedRoute} from "@angular/router";
@@ -21,6 +20,7 @@ export class StudentInfoComponent implements ControlValueAccessor, OnInit {
   @Input() student: any;
   @Input() showRequirements = true;
   @Input() event: Event;
+  @Input() isGuest = false;
   onChange = (_: any) => {};
 
   constructor(private eventService: EventService,
