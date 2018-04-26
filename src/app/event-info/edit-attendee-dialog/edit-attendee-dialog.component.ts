@@ -19,6 +19,7 @@ export class EditAttendeeDialogComponent {
   public pattonvilleGuest: any;
   public editGroup: FormGroup;
   public eventEmitter: EventEmitter<Event>;
+  phoneInputMask: any[] = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   event: Event;
 
   constructor(private dialogRef: MatDialogRef<EditAttendeeDialogComponent>,

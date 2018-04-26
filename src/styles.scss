@@ -34,6 +34,10 @@ h1 {
   margin: 0;
 }
 
+.page-title {
+  text-shadow: 0 2px 0 rgba(0,0,0,.25);
+}
+
 .mat-raised-button.mat-primary, .mat-step-icon, .mat-step-icon-not-touched {
   color: white !important;
 }

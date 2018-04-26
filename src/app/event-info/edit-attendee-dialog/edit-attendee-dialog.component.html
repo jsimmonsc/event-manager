@@ -30,8 +30,8 @@
         </mat-form-field>
         <mat-form-field>
           <span matPrefix>+1 &nbsp;</span>
-          <input type="tel" appRestrictInput="integer" maxlength="10" matInput placeholder="Phone Number"
-                 formControlName="phone">
+          <input type="tel" appRestrictInput="integer" matInput placeholder="Phone Number"
+                 formControlName="phone" [textMask]="{mask: phoneInputMask}">
         </mat-form-field>
       </div>
       <div *ngIf="pattonvilleGuestCheckbox.checked" formGroupName="pattonvilleGuest" class="pattonville-guest">
