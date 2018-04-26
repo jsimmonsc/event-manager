@@ -116,4 +116,16 @@ h2 {
   }
 }
 
+.mat-table {
+  max-height: 400px;
+  overflow-y: scroll;
+
+  .mat-header-row {
+    z-index: 2;
+    position: sticky;
+    background: white;
+    top: 0;
+  }
+}
+
 
