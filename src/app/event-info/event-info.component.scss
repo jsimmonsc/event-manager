@@ -118,6 +118,7 @@ h2 {
 
 mat-paginator {
   border-top: 1px solid #CCCCCC;
+  box-shadow: 0 -5px 10px -7px #000;
 }
 
 .mat-table {
@@ -129,6 +130,7 @@ mat-paginator {
     position: sticky;
     background: white;
     top: 0;
+    box-shadow: 0 5px 10px -7px #000;
   }
 }
 
