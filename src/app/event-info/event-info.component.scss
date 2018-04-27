@@ -116,8 +116,12 @@ h2 {
   }
 }
 
+mat-paginator {
+  border-top: 1px solid #CCCCCC;
+}
+
 .mat-table {
-  max-height: 400px;
+  height: 400px;
   overflow-y: scroll;
 
   .mat-header-row {
