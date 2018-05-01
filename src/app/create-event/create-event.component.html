@@ -96,7 +96,7 @@
       class="create-event-button"
       matTooltip="You can always come back and make changes later."
       matTooltipPosition="above"
-      mat-button
+      mat-raised-button
       [disabled]="eventNameCtrl.hasError('required') || dateCtrl.hasError('required') || costCtrl.hasError('required') || !gradeLevelsSelected()"
       (click)="submitEvent()">
       {{this.isNewEvent ? "Create" : "Update"}}
@@ -104,7 +104,7 @@
 
     <button
       class="cancel-button"
-      mat-button
+      mat-raised-button
       (click)="openCancelDialog()">
       Cancel
     </button>

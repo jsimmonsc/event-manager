@@ -7,6 +7,7 @@ import {EventListComponent} from './event-list/event-list.component';
 import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
+  MAT_LABEL_GLOBAL_OPTIONS,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,

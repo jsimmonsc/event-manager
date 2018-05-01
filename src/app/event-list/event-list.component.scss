@@ -41,18 +41,14 @@ h3 {
       margin: 0;
     }
 
-    button {
+    .link-button {
+      @include button-style(20px, $light-green, $very-light-green);
+      box-shadow: none !important;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
       margin-left: 70%;
       height: 100%;
       width: 30%;
-      font-size: 20px;
-      color: white;
-      background-color: rgb(112, 219, 117);
-
-      &:hover {
-        background-color: rgb(109, 255, 116);
-      }
-
     }
 
   }

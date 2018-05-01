@@ -1,20 +1,37 @@
 @import "../../styles";
 
 .button-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+
   button {
-    margin: 3rem;
-    width: 120px;
+    width: 50%;
     height: 60px;
-    font-size: 16px;
+    border-radius: 0;
 
     &:hover {
-      background-color: $light-green;
+      transition: 0.2s ease-out;
     }
   }
+
+  .sell-button {
+    @include button-style(16px);
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+
+  .checkin-button {
+    @include button-style(16px, $blue, $light-blue);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+
 }
 
 p {
-  margin-left: 2rem;
+  margin-left: 6px;
   text-align: left;
   font-size: 1.25rem;
 }
@@ -35,7 +52,7 @@ h2 {
 }
 
 .table-head {
-  background-color: #cccccc;
+  background-color: $green;
   display: flex;
   flex-direction: row;
 
@@ -46,12 +63,11 @@ h2 {
   }
 
   .csv-export-container {
-    margin: 7px 2.5rem 5px 0;
+    margin: 7px 7px 5px 0;
 
     button {
-      &:hover {
-        background-color: $light-green;
-      }
+      transition-duration: 0.4s;
+      @include button-style(14px, $light-green, $very-light-green);
     }
 
   }
@@ -91,10 +107,34 @@ h2 {
 
 }
 
-.mat-form-field.mat-focused {
+.table-head {
+
+  /deep/ .mat-form-field-label {
+    color: white;
+  }
+
+  /deep/ .mat-form-field-underline {
+    background-color: white;
+  }
+
+  /deep/ .mat-form-field-ripple {
+    background-color: white;
+  }
+
+  /deep/ .mat-input-element {
+    color: white;
+  }
 
   .mat-icon {
-    color: $green;
+    color: white;
+  }
+
+  .mat-form-field.mat-focused {
+
+    .mat-form-field-ripple {
+      background-color: white;
+    }
+
   }
 
 }
@@ -116,6 +156,10 @@ h2 {
   }
 }
 
+mat-card {
+  margin: 30px 120px 60px 120px;
+}
+
 mat-paginator {
   border-top: 1px solid #CCCCCC;
   box-shadow: 0 -5px 10px -7px #000;
@@ -134,4 +178,7 @@ mat-paginator {
   }
 }
 
-
+.attendee-container {
+  margin-left: 120px;
+  margin-right: 120px;
+}
