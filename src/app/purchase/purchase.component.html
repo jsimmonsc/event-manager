@@ -58,7 +58,8 @@
                  type="text"
                  placeholder="Enter Guest Phone"
                  formControlName="guestHomePhone"
-                 class="fancy-input">
+                 class="fancy-input"
+                 [textMask]="{mask: phoneInputMask}">
           <input type="text"
                  placeholder="Enter Guest Age"
                  formControlName="guestAge"
@@ -71,11 +72,11 @@
 
     <div class="button-wrapper" *ngIf="purchaseForm.value.student">
       <button type="button"
-              mat-button
+              mat-raised-button
               (click)="attendeeFailsRequirements() ? openWarningDialog() : submitAttendee(); idInput.focus()"
               id="submit-button">Submit
       </button>
-      <button type="button" mat-button (click)="purchaseForm.reset(); idInput.focus()" id="cancel-button">Cancel
+      <button type="button" mat-raised-button (click)="purchaseForm.reset(); idInput.focus()" id="cancel-button">Cancel
       </button>
     </div>
 

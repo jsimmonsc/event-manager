@@ -5,30 +5,36 @@
       <h2>{{event.name}}</h2>
       <button mat-fab (click)="editEvent()" matTooltip="Edit event"><mat-icon>edit</mat-icon></button>
     </div>
-    <p><b>Description:</b> {{event.description}}</p>
-    <p><b>Date:</b> {{ event.date.toDateString() }}</p>
-    <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
-    <p><b>Eligible Grades:</b> {{ getEligibleGrades() }}</p>
-    <p><b>Total Attending:</b> {{ getTotalAttending() }}</p>
+
+    <mat-card class="mat-elevation-z8">
+
+      <p><b>Description:</b> {{event.description}}</p>
+      <p><b>Date:</b> {{ event.date.toDateString() }}</p>
+      <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
+      <p><b>Eligible Grades:</b> {{ getEligibleGrades() }}</p>
+      <p><b>Total Attending:</b> {{ getTotalAttending() }}</p>
+
+      <div class="button-container">
+        <button class="sell-button" mat-raised-button (click)="goToSellTickets()">Sell</button>
+        <button class="checkin-button" mat-raised-button (click)="goToCheckIn()">Check In</button>
+      </div>
+
+    </mat-card>
+
   </div>
 
-  <div class="button-container">
-    <button mat-raised-button color="primary" (click)="goToSellTickets()">Sell</button>
-    <button mat-raised-button color="primary" (click)="goToCheckIn()">Check In</button>
-  </div>
-
-  <div class="attendee-container">
+  <div class="attendee-container mat-elevation-z8">
     <div class="table-head">
-      <mat-form-field>
+      <mat-form-field [floatLabel]="false">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <div class="csv-export-container">
-        <button id="csv-export-button" mat-raised-button color="primary" mat-button (click)="exportToCSV()">Export to
-          CSV
+        <button id="csv-export-button" mat-raised-button color="primary" mat-button (click)="exportToCSV()">Export
         </button>
       </div>
     </div>
+
     <mat-table #table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="ticket">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Ticket # </mat-header-cell>

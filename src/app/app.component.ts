@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import {AuthService} from "./shared/services/auth/auth.service";
 import {User} from "./shared/models/user.model";
+import {MAT_LABEL_GLOBAL_OPTIONS} from "@angular/material";
 
 @Component({
   selector: 'app-root',

@@ -4,6 +4,11 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  .fancy-input:focus {
+    box-shadow: 0 0 5px $light-blue;
+  }
+
 }
 
 .button-wrapper {
@@ -15,16 +20,13 @@
 }
 
 #enter-button {
+  @include button-style(18px, $blue, $light-blue);
+  box-shadow: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   width: 10%;
   height: 50px;
-  color: white;
-  background: $green;
   border: none;
-  font-size: 1.8vw;
-
-  &:hover {
-    background: $light-green;
-  }
 }
 
 input {
