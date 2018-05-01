@@ -1,5 +1,5 @@
 # Stage 0, based on Node.js, to build and compile Angular
-FROM node:9.2 as node
+FROM node:9.11.1 as node
 
 WORKDIR /app
 

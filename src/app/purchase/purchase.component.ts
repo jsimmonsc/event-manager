@@ -20,6 +20,7 @@ export class PurchaseComponent {
   private id: string;
   purchaseForm: FormGroup;
   event: Event;
+  phoneInputMask: any[] = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   @ViewChild('idInput') private idInput: ElementRef;
   @ViewChild('guestIDInput') private guestIDInput: ElementRef;
 

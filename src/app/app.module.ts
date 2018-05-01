@@ -7,6 +7,7 @@ import {EventListComponent} from './event-list/event-list.component';
 import {AppRoutingModule} from "./routing/app-routing.module";
 import {CreateEventComponent} from './create-event/create-event.component';
 import {
+  MAT_LABEL_GLOBAL_OPTIONS,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -55,6 +56,7 @@ import {DeleteConfirmationDialogComponent} from './create-event/delete-confirmat
 import {CancelConfirmationDialogComponent} from './create-event/cancel-confirmation-dialog/cancel-confirmation-dialog.component';
 import {PapaParseService} from "ngx-papaparse";
 import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delete-guest-dialog.component';
+import {TextMaskModule} from "angular2-text-mask";
 
 @NgModule({
   declarations: [
@@ -121,7 +123,8 @@ import {DeleteGuestDialogComponent} from './event-info/delete-guest-dialog/delet
     MatFormFieldModule,
     MatSnackBarModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    TextMaskModule
   ],
   providers: [
     FormBuilder,

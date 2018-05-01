@@ -5,7 +5,7 @@
     <input class="fancy-input" appRestrictInput="integer" #idInput (keyup.enter)="searchForAttendee(idInput.value)"
            placeholder="Enter ID Number"
            maxlength="5"/>
-    <button mat-button (click)="searchForAttendee(idInput.value)" id="enter-button">Enter</button>
+    <button mat-raised-button (click)="searchForAttendee(idInput.value)" id="enter-button">Enter</button>
   </div>
 
   <app-student-info [showRequirements]="false" [(student)]="attendee" *ngIf="attendee"></app-student-info>

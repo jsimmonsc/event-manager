@@ -26,6 +26,10 @@ h2 {
   flex-direction: row;
   justify-content: center;
 
+  .fancy-input:focus {
+    box-shadow: 0 0 5px $light-green;
+  }
+
 }
 
 .outside-guest-form {
@@ -49,51 +53,31 @@ h2 {
 }
 
 .enter-button {
+  @include button-style(18px);
+  box-shadow: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   width: 10%;
   height: 50px;
-  color: white;
-  background: $green;
   border: none;
-  font-size: 1.8vw;
-
-  &:hover {
-    background: $light-green;
-  }
 }
 
 #submit-button {
+  @include button-style(16px);
   width: 15%;
   height: 50px;
-  color: white;
-  background: $green;
   border: none;
-  font-size: 1.8vw;
-
-  &:disabled {
-    background: #aaaaaa;
-  }
-
-  &:hover {
-    background: $light-green;
-
-    &:disabled {
-      background: #aaaaaa;
-      cursor: default;
-    }
-  }
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #cancel-button {
+  @include button-style(16px, #a9303c, #ff4757);
   width: 15%;
   height: 50px;
-  color: white;
-  background: #e74c3c;
   border: none;
-  font-size: 1.8vw;
-
-  &:hover {
-    background: #eb6e60;
-  }
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 #checkbox-container {

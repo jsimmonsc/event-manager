@@ -4,19 +4,11 @@ h1 {
   color: white;
 }
 
-button {
-  background-color: #01a3a4 !important;
-  color: white !important;
-  font-size: 20px !important;
+.login-button {
+  @include button-style(20px, $light-green, $very-light-green);
   margin-top: 20px;
   width: 15%;
-  padding: 16px !important;
-  text-transform: uppercase;
-
-  &:hover {
-    background-color: #00d2d3 !important;
-  }
-
+  padding: 16px;
 }
 
 button, div, h1 {
