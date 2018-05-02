@@ -118,7 +118,14 @@ export class EditAttendeeDialogComponent {
         phone: null
       };
     } else if (this.outsideGuestIsValid()) {
-      savedAttendee.guest = this.editGroup.get('guestEdit.outsideGuest').value;
+      const newGuest = this.editGroup.get('guestEdit.outsideGuest').value;
+
+      savedAttendee.guest = {
+        name: newGuest.name,
+        school: newGuest.school,
+        age: +newGuest.age,
+        phone: +newGuest.phone.replace(/\D/g, '')
+      };
     }
 
     this.eventService.updateAttendee(this.data.eventID, savedAttendee).subscribe((value: Event) => {
