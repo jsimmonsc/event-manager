@@ -87,7 +87,8 @@ export class PurchaseComponent {
         saveAttendee.guest = { name: outsideGuest.guestName,
                                school: outsideGuest.guestSchoolName,
                                age: +outsideGuest.guestAge,
-                               phone: +outsideGuest.guestHomePhone};
+          phone: +outsideGuest.guestHomePhone.replace(/\D/g, '')
+        };
         saveAttendee.amountPaid = saveAttendee.amountPaid * 2;
       } else {
         this.errorDialog.displayNotification("ERROR: Invalid guest form!", SlidingDialogType.ERROR);
