@@ -112,7 +112,8 @@ export class EventInfoComponent implements OnInit {
     this.event.attendees.forEach((val, i, arr) => {
       newList.push({
         "Ticket Number": val._id,
-        "Name": val.first_name + " " + val.last_name,
+        "First Name": val.first_name,
+        "Last Name": val.last_name,
         "Student Number": val.student_number,
         "Grade Level": val.grade_level,
         "Guest": val.guest ? val.guest.name : "",
