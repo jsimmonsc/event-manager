@@ -1,0 +1,56 @@
+@import "../../styles";
+
+h1 {
+  text-align: center;
+  color: white;
+  margin: 0;
+  padding-top: 100px;
+  font-size: 30px;
+}
+
+h3 {
+  color: #504f4f;
+  margin-top: 25px;
+}
+
+.body-container {
+  background-color: $green;
+  margin: 0;
+  height: 100%;
+}
+
+.event-container {
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-bottom: 30px;
+  box-shadow: 6px 8px 8px $dark-green;
+  border-radius: 4px;
+
+  div {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2, h3 {
+      margin: 0;
+    }
+
+    .link-button {
+      @include button-style(20px, $light-green, $very-light-green);
+      box-shadow: none !important;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: 70%;
+      height: 100%;
+      width: 30%;
+    }
+
+  }
+
+}

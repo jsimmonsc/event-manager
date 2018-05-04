@@ -1,0 +1,99 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./theme";
+@import url('https://fonts.googleapis.com/css?family=Anton|Lalezar|Oswald|Lato:300,900');
+
+$green: #2e7d32;
+$light-green: #00b353;
+$very-light-green: #00e263;
+$dark-green: #1b491d;
+$background-gray: #d9d9d9;
+$disabled-gray: #747d8c;
+$blue: #3867d6;
+$light-blue: #419df2;
+
+@mixin non-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin button-style($font-size: 16px, $background-color: $green, $hover-background-color: $light-green) {
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: $font-size;
+  background-color: $background-color;
+  color: white;
+
+  &:hover {
+    background-color: $hover-background-color;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: $disabled-gray !important;
+
+    &:hover {
+      background-color: $disabled-gray !important;
+      cursor: not-allowed;
+    }
+  }
+
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #d9d9d9;
+  text-align: center;
+  font-family: "Roboto", Avenir, sans-serif;
+  font-size: 12px;
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+  padding: 40px;
+  margin: 0;
+}
+
+.page-title {
+  text-shadow: 0 2px 0 rgba(0,0,0,.25);
+}
+
+.mat-raised-button.mat-primary, .mat-step-icon, .mat-step-icon-not-touched {
+  color: white !important;
+}
+
+.fancy-input {
+  height: 50px;
+  font-size: 1.5rem;
+  border: none;
+  text-align: center;
+  box-sizing: border-box;
+
+  &:focus {
+    border: none;
+  }
+}
+
+snack-bar-container.snackbar-custom-class.error-type {
+  background: #ff413f !important;
+}
+
+snack-bar-container.snackbar-custom-class.info-type {
+  background: #13488d !important;
+}
+
+snack-bar-container.snackbar-custom-class.success-type {
+  background: $green !important;
+}
+
+/deep/ .snackbar-custom-class .mat-simple-snackbar-action {
+  color: white !important;
+}
+

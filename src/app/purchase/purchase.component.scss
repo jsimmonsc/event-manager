@@ -1,0 +1,105 @@
+@import '../../styles';
+
+h2 {
+  font-size: 2rem;
+}
+
+#page-header {
+  margin-top: -1rem;
+  .icons {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+}
+
+#guest-header {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-wrapper {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .fancy-input:focus {
+    box-shadow: 0 0 5px $light-green;
+  }
+
+}
+
+.outside-guest-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin: auto;
+
+  input {
+    margin: .5rem;
+  }
+}
+
+.button-wrapper {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+.enter-button {
+  @include button-style(18px);
+  box-shadow: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  width: 10%;
+  height: 50px;
+  border: none;
+}
+
+#submit-button {
+  @include button-style(16px);
+  width: 15%;
+  height: 50px;
+  border: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#cancel-button {
+  @include button-style(16px, #a9303c, #ff4757);
+  width: 15%;
+  height: 50px;
+  border: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#checkbox-container {
+  margin-left: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+#guest-ticket-num-input {
+  margin-bottom: 1.5rem;
+}
+
+.guest-div {
+  margin: 0 2rem 2rem 2rem;
+}
+
+.checkbox {
+  width: 0;
+  margin-left: 45%;
+  margin-right: auto;
+  text-align: left;
+}
+
+.container {
+  margin: 100px 3rem 3rem 3rem;
+}

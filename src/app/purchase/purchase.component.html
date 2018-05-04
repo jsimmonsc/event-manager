@@ -1,0 +1,90 @@
+<div class="container">
+  <h2>Sell Tickets</h2>
+  <form [formGroup]="purchaseForm" novalidate>
+    <div class="input-wrapper">
+      <input type="text"
+             (keyup.enter)="searchForStudent(idInput.value, 'student')"
+             #idInput
+             formControlName="idInput"
+             placeholder="Enter ID Number"
+             maxlength="5"
+             class="fancy-input"/>
+
+      <button type="button"
+              (click)="searchForStudent(idInput.value, 'student')"
+              mat-button class="enter-button">Enter</button>
+    </div>
+
+    <app-student-info formControlName="student"></app-student-info>
+
+    <div class="guest-div" *ngIf="purchaseForm.value.student" formGroupName="guestForm">
+
+      <h2 id="guest-header">Guest</h2>
+      <div class="checkbox">
+        <mat-checkbox (change)="checkboxChanged()" #hasGuest formControlName="hasGuest">Student Has a Guest</mat-checkbox>
+        <br>
+        <mat-checkbox (change)="checkboxChanged()" #hasPattonvilleGuest [checked]="true" [disabled]="!hasGuest.checked">Guest Goes to Pattonville</mat-checkbox>
+      </div>
+      <br>
+      <div *ngIf="hasGuest.checked">
+        <div *ngIf="hasPattonvilleGuest.checked" formGroupName="pattonvilleGuest">
+          <div class="input-wrapper">
+            <input type="text"
+                   (keyup.enter)="searchForStudent(guestIDInput.value, 'guest')"
+                   #guestIDInput
+                   formControlName="guestIDInput"
+                   placeholder="Enter ID Number"
+                   maxlength="5"
+                   class="fancy-input"/>
+
+            <button type="button"
+                    (click)="searchForStudent(guestIDInput.value, 'guest')"
+                    mat-button class="enter-button">Enter</button>
+          </div>
+
+          <app-student-info [isGuest]="true" formControlName="guest"></app-student-info>
+        </div>
+
+        <div class="outside-guest-form" *ngIf="!hasPattonvilleGuest.checked" formGroupName="outsideGuest">
+          <input type="text"
+                 placeholder="Enter Guest Name"
+                 formControlName="guestName"
+                 class="fancy-input">
+          <input type="text"
+                 placeholder="Enter Guest School"
+                 formControlName="guestSchoolName"
+                 class="fancy-input">
+          <input appRestrictInput="integer"
+                 type="text"
+                 placeholder="Enter Guest Phone"
+                 formControlName="guestHomePhone"
+                 class="fancy-input"
+                 [textMask]="{mask: phoneInputMask}">
+          <input type="text"
+                 placeholder="Enter Guest Age"
+                 formControlName="guestAge"
+                 class="fancy-input">
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="button-wrapper" *ngIf="purchaseForm.value.student">
+      <button type="button"
+              mat-raised-button
+              (click)="attendeeFailsRequirements() ? openWarningDialog() : submitAttendee(); idInput.focus()"
+              id="submit-button">Submit
+      </button>
+      <button type="button" mat-raised-button (click)="purchaseForm.reset(); idInput.focus()" id="cancel-button">Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
+
+
+
+
+
+

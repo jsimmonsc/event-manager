@@ -1,0 +1,27 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  padding-left: 15%;
+}
+
+#enter-button {
+  width: 10%;
+}
+
+.student-information{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding-left:15%;
+
+  input{
+    margin-right: 10%;
+  }
+}
+
+input {
+  text-align: left;
+  background: white;
+  width: 100%;
+}
