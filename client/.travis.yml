@@ -3,7 +3,7 @@ services:
   - docker
 
 script:
-  - docker build -t test .
+  - docker build -t test ./client
 
 after_script:
   - docker images
