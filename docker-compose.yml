@@ -5,21 +5,21 @@ services:
     restart: always
     build: ./client
     ports:
-      - "80:80"
+      - 80:80
   mongo:
      container_name: mongo
      restart: always
      image: mongo
      volumes:
        - ./volumes/data:/data/db
-     expose:
-       - "27017"
+     ports:
+       - 27017:27017
   api:
      container_name: event-manager-api
      restart: always
      build: ./api
      ports:
-       - "3000:3000"
+       - 3000:3000
      links:
        - mongo
   updater:
