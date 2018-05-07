@@ -54,7 +54,8 @@ export class PurchaseComponent {
           guestHomePhone: ['', Validators.maxLength(10)],
           guestAge: ['', Validators.maxLength(2)]
         })
-      })
+      }),
+      commentInput: ['']
     });
 
   }
@@ -71,7 +72,7 @@ export class PurchaseComponent {
       guest: null,
       guestId: -1,
       timestamp: null,
-      comment: null,
+      comment: this.purchaseForm.get('commentInput').value,
       amountPaid: this.event.cost
     };
 
