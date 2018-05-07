@@ -70,6 +70,15 @@
 
     </div>
 
+    <div class="other-div" *ngIf="purchaseForm.value.student">
+      <h2 style="font-size: 1.5rem">Other</h2>
+
+      <input type="text"
+             placeholder="Enter Comment"
+             formControlName="commentInput"
+             class="fancy-input">
+    </div>
+
     <div class="button-wrapper" *ngIf="purchaseForm.value.student">
       <button type="button"
               mat-raised-button
