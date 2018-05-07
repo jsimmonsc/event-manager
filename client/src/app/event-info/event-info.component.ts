@@ -133,7 +133,7 @@ export class EventInfoComponent implements OnInit {
 
   getTotalCheckedIn(): number {
     return this.event.attendees.reduce((amt, obj) => {
-      return amt + (obj.timestamp ? 1 : 0);
+      return amt + (obj.timestamp ? 1 : 0) + (obj.guest && obj.guestId === -1 && obj.guest.name.slice(0, 3) !== 'of ' ? 1 : 0);
     }, 0);
   }
 
