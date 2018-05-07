@@ -131,6 +131,12 @@ export class EventInfoComponent implements OnInit {
     }, 0);
   }
 
+  getTotalCheckedIn(): number {
+    return this.event.attendees.reduce((amt, obj) => {
+      return amt + (obj.timestamp ? 1 : 0);
+    }, 0);
+  }
+
   getEligibleGrades(): string {
     return this.event.eligible_grades.join(", ");
   }

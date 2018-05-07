@@ -13,6 +13,7 @@
       <p><b>Ticket Cost:</b> ${{ roundMoney(event.cost) }}</p>
       <p><b>Eligible Grades:</b> {{ getEligibleGrades() }}</p>
       <p><b>Total Attending:</b> {{ getTotalAttending() }}</p>
+      <p *ngIf="getTotalCheckedIn()"><b>Total Checked In:</b> {{ getTotalCheckedIn() + " out of " + getTotalAttending() }}</p>
 
       <div class="button-container">
         <button class="sell-button" mat-raised-button (click)="goToSellTickets()">Sell</button>
