@@ -124,7 +124,7 @@ export class EditAttendeeDialogComponent {
         name: newGuest.name,
         school: newGuest.school,
         age: +newGuest.age,
-        phone: +newGuest.phone.replace(/\D/g, '')
+        phone: newGuest.phone ? +newGuest.phone.replace(/\D/g, '') : null
       };
     }
 
