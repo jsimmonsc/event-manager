@@ -5,7 +5,7 @@ services:
     restart: always
     build: ./client
     ports:
-      - 80:80
+      - 2222:80
   mongo:
      container_name: mongo
      restart: always

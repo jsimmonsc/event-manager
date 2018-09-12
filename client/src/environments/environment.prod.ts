@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: "http://capstone.psdr3.org:3000",
+  apiUrl: "/event-manager-api",
   auth0ClientID: 'R1JW1amXtFIG0witoNOlnTJqYVRQG602',
-  clientURI: "http://capstone.psdr3.org"
+  clientURI: "http://localhost:8080/event-manager"
 };
